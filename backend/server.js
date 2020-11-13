@@ -66,23 +66,40 @@ app.post('/api/registerUser', async (req, res) => {
 
 })
 
-app.get('/api/login', async (req, res) => {
-
+app.post('/api/login', async (req, res) => {
+    console.log(req.body)
     let currentUser = await User.findOne({ email: req.body.email }).exec();
     if (currentUser == undefined) {
+        res.status(400)
         res.json({
             message: "No user associated with email"
         })
+    } else if (req.body.password == undefined) {
+        res.status(400)
+        res.json({
+            message: "wrong password"
+        })
+        return
     }
+
+
+
     bcrypt.compare(req.body.password, currentUser.password, function (err, result) {
         if (!result || err) {
+            res.status(400)
             res.json({
                 message: "Their was an error with your password"
             })
         } else {
             let token = jwt.sign({ email: req.body.email }, 'daSecretToken', { expiresIn: '1h' });
 
-            res.send(token)
+            res.status(200)
+            res.json({
+                token: token,
+                email: req.body.email,
+                name: currentUser.name,
+                phone: currentUser.phone
+            })
         }
     });
 })
@@ -123,7 +140,7 @@ app.get('/api/sendNotification', async (req, res) => {
 
         let msg = await twilioInstance.messages.create({
             body: req.body.message,
-            to: req.body.userPhone,  // Text this number
+            to: req.body.phone,  // Text this number
             from: '+18285200670' // The number we bought
         })
         console.log(msg)

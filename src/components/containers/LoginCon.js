@@ -1,23 +1,45 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import '../../css/global_styles.css'
 import styles from '../../css/login_con.module.css'
 
-const LoginCon = () => {
+const LoginCon = (props) => {
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+
+
+    let handleSubmit = function (e) {
+        e.preventDefault()
+        console.log(email, password)
+        props.login(email, password)
+    }
+
+
+
+
+
+
+
     return (
         <div className={styles.container}>
             <div className={styles.block}>
                 <div className={styles.title}>
                     <h1 className="">Login | <span className={styles.sign}>Sign up</span></h1>
                 </div>
-                <form>
+                <form onSubmit={(e) => handleSubmit(e)}>
                     <div className={styles.question}>
                         <label htmlfor="email">E-mail</label>
-                        <input type="text" id="email" name="useremail" placeholder="Enter your e-mail" required />
+                        <input type="text" id="email" name="useremail" placeholder="Enter your e-mail" value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required />
                         <span className={styles.focus_border}></span>
                     </div>
                     <div className={styles.question}>
                         <label htmlfor="password">Password</label>
                         <input type="text" id="password" name="userpassword" placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             required />
                         <span className={styles.focus_border}></span>
                     </div>
