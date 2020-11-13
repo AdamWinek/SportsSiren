@@ -10,9 +10,14 @@ const User = require("./models/User")
 const bcrypt = require('bcrypt')
 const bodyParser = require('body-parser')
 let jwt = require('jsonwebtoken');
+const twilio = require('twilio');
 
 
 
+// twillio account sid followed by auth token
+// sid AC81ef9dce961ba8555521679166fad5a0
+// auth token 89205bb2d6dd6c9771a35c0143e7e7b0
+let twilioInstance = new twilio('AC81ef9dce961ba8555521679166fad5a0', '89205bb2d6dd6c9771a35c0143e7e7b0')
 
 db.once('open', function () {
     console.log('wereConnected')
@@ -107,6 +112,39 @@ app.get('/api/sampleProtectedRoute', async (req, res) => {
 })
 
 
+app.get('/api/sendNotification', async (req, res) => {
+
+    if (req.body.token == undefined) {
+        res.json({
+            message: "You need to login to use this route"
+        })
+    }
+    try {
+        let decoded = jwt.verify(req.body.token, 'daSecretToken');
+
+        let msg = await twilioInstance.messages.create({
+            body: req.body.message,
+            to: req.body.userPhone,  // Text this number
+            from: '+18285200670' // The number we bought
+        })
+        console.log(msg)
+        console.log(decoded)
+
+        res.json({
+            error: msg.error_message,
+            status: msg.status
+        })
+
+
+
+
+    } catch (err) {
+        res.json({
+            message: err.toString()
+        })
+    }
+})
+
 
 
 
@@ -123,7 +161,5 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
-
-
 
 
