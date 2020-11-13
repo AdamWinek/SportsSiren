@@ -1,4 +1,5 @@
 const express = require('express')
+require('dotenv').config()
 const path = require('path');
 const app = express()
 const port = process.env.PORT || 3000
@@ -10,9 +11,12 @@ const User = require("./models/User")
 const bcrypt = require('bcrypt')
 const bodyParser = require('body-parser')
 let jwt = require('jsonwebtoken');
+const twilio = require('twilio');
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 
-
+let twilioInstance = new twilio(accountSid, authToken)
 
 db.once('open', function () {
     console.log('wereConnected')
@@ -107,6 +111,39 @@ app.get('/api/sampleProtectedRoute', async (req, res) => {
 })
 
 
+app.get('/api/sendNotification', async (req, res) => {
+
+    if (req.body.token == undefined) {
+        res.json({
+            message: "You need to login to use this route"
+        })
+    }
+    try {
+        let decoded = jwt.verify(req.body.token, 'daSecretToken');
+
+        let msg = await twilioInstance.messages.create({
+            body: req.body.message,
+            to: req.body.userPhone,  // Text this number
+            from: '+18285200670' // The number we bought
+        })
+        console.log(msg)
+        console.log(decoded)
+
+        res.json({
+            error: msg.error_message,
+            status: msg.status
+        })
+
+
+
+
+    } catch (err) {
+        res.json({
+            message: err.toString()
+        })
+    }
+})
+
 
 
 
@@ -123,7 +160,5 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
-
-
 
 

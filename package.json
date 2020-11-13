@@ -9,6 +9,7 @@
 		"axios": "^0.20.0",
 		"bcrypt": "^5.0.0",
 		"body": "^5.1.0",
+		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
 		"jsonwebtoken": "^8.5.1",
 		"mongodb": "^3.6.3",
@@ -16,7 +17,8 @@
 		"parser": "^0.1.4",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
-		"react-scripts": "3.4.3"
+		"react-scripts": "3.4.3",
+		"twilio": "^3.51.0"
 	},
 	"scripts": {
 		"start": "node backend/server.js",
