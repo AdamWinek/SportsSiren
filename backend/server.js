@@ -1,4 +1,5 @@
 const express = require('express')
+require('dotenv').config()
 const path = require('path');
 const app = express()
 const port = process.env.PORT || 3000
@@ -11,13 +12,11 @@ const bcrypt = require('bcrypt')
 const bodyParser = require('body-parser')
 let jwt = require('jsonwebtoken');
 const twilio = require('twilio');
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 
-
-// twillio account sid followed by auth token
-// sid AC81ef9dce961ba8555521679166fad5a0
-// auth token 89205bb2d6dd6c9771a35c0143e7e7b0
-let twilioInstance = new twilio('AC81ef9dce961ba8555521679166fad5a0', '89205bb2d6dd6c9771a35c0143e7e7b0')
+let twilioInstance = new twilio(accountSid, authToken)
 
 db.once('open', function () {
     console.log('wereConnected')
