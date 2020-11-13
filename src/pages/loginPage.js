@@ -4,11 +4,14 @@ import LoginCon from '../components/containers/LoginCon';
 import styles from '../css/login_page.module.css'
 
 
-const loginPage = () => {
+
+const loginPage = (props) => {
+
+
   return (
     <div className={styles.container}>
-        <InfoCon></InfoCon>
-        <LoginCon></LoginCon>
+      <InfoCon></InfoCon>
+      <LoginCon login={(email, password) => props.login(email, password)}></LoginCon>
     </div>
   );
 }

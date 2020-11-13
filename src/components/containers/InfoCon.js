@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import '../../css/global_styles.css';
 import styles from '../../css/info_con.module.css'
 import logo from "../../logo.svg";
+import userContext from "../userContext"
 
 
 const InfoPage = () => {
+  const { user } = useContext(userContext)
+  console.log(user)
+
+
+
   return (
     <div className={styles.container}>
       <div className={styles.basic_info}>
