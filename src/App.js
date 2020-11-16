@@ -39,7 +39,8 @@ function App() {
         }
       })
       setUser({
-        name: response.data.name,
+        fname: response.data.fname,
+        lname: response.data.lname,
         email: response.data.email,
         phone: response.data.phone
       });

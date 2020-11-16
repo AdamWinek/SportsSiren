@@ -5,7 +5,8 @@ const userContext = createContext({
     loggedIn: false,
     user: {
         email: "",
-        name: "",
+        fname: "",
+        lname: "",
         phone: ""
     }
 })

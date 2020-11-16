@@ -39,7 +39,8 @@ app.post('/api/registerUser', async (req, res) => {
         bcrypt.hash(req.body.password, 10, async function (err, hash) {
 
             let user = new User({
-                name: req.body.name,
+                fname: req.body.fname,
+                lname: req.body.fname,
                 email: req.body.email,
                 phone: req.body.phone,
                 password: hash
@@ -97,7 +98,8 @@ app.post('/api/login', async (req, res) => {
             res.json({
                 token: token,
                 email: req.body.email,
-                name: currentUser.name,
+                fname: currentUser.fname,
+                lname: currentUser.lname,
                 phone: currentUser.phone
             })
         }
