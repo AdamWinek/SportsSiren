@@ -20,8 +20,6 @@ function App() {
   const [user, setUser] = useState({ name: "", email: "", phone: "" });
   const [loggedIn, setLoggedIn] = useState(false);
   const [authToken, setAuthToken] = useState("");
-  let history = useHistory();
-  console.log(process.env.REACT_APP_DEV_ENV)
   let login = async function (email, password) {
     if (email == undefined || password == undefined) {
       throw new Error("Missing email or password")

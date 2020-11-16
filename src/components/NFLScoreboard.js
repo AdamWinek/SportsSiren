@@ -1,5 +1,6 @@
 import React, { props, useEffect, useState } from "react"
 import axios from 'axios'
+import Countdown from "./Countdown"
 
 function NFLScoreboard(props) {
     const [games, setGames] = useState(null)
@@ -16,7 +17,7 @@ function NFLScoreboard(props) {
             }
 
             try {
-                let result = await axios.get(methodUrl + 'getWeeklyNFLGames/10', {
+                let result = await axios.get(methodUrl + 'getWeeklyNFLGames/11', {
                 })
                 console.log(result)
                 setGames(result.data.games)
@@ -38,14 +39,21 @@ function NFLScoreboard(props) {
             <div>
                 {
                     games.map((game) => {
+
+                        let countDown = null
+                        console.log(game.status)
+                        if (game.status == 'scheduled' || game.status == 'created') {
+                            countDown = (<Countdown scheduledTime={game.scheduled} />)
+                        }
                         return (
                             < div style={{ width: '800px', height: '400px', display: 'flex', justifyContent: 'space-between' }}>
-                                <div>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
                                     <h1>{game ? game.homeTeam : 'loading'}</h1>
                                     <h3>{game ? game.homePoints : 'loading'}</h3>
                                     <img style={{ width: 'auto', height: '100px' }} src={"/NFLLogos/" + game.homeTeam + ".gif"}></img>
                                 </div>
-                                <div>
+                                {countDown}
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
                                     <h1>{game ? game.awayTeam : 'loading'}</h1>
                                     <h3>{game ? game.awayPoints : 'loading'}</h3>
                                     <img style={{ width: 'auto', height: '100px' }} src={"/NFLLogos/" + game.awayTeam + ".gif"}></img>
