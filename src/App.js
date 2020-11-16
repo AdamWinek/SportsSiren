@@ -3,14 +3,15 @@ import LoginPage from './pages/loginPage'
 import userContext from "./components/userContext"
 import SampleContextPage from "./pages/SampleContextPage"
 import axios from "axios"
+import Scoreboard from './components/Scoreboard';
+import NFLScoreboard from './components/NFLScoreboard';
 
 
 function App() {
-
   const [user, setUser] = useState({ name: "", email: "", phone: "" });
   const [loggedIn, setLoggedIn] = useState(false);
   const [authToken, setAuthToken] = useState("");
-
+  console.log(process.env.REACT_APP_DEV_ENV)
   let login = async function (email, password) {
     if (email == undefined || password == undefined) {
       throw new Error("Missing email or password")
@@ -18,8 +19,7 @@ function App() {
     try {
 
       let methodUrl = "https://sports-siren.herokuapp.com/api/"
-
-      if (process.env.production != "true") {
+      if (process.env.REACT_APP_DEV_ENV == "development") {
         methodUrl = "http://localhost:3000/api/"
       }
       let response = await axios({
@@ -55,7 +55,9 @@ function App() {
       user: user
     }}>
       <LoginPage login={(email, password) => login(email, password)} />
+      <Scoreboard></Scoreboard>
       <SampleContextPage />
+      <NFLScoreboard />
     </userContext.Provider>
 
   );

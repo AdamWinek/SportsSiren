@@ -1,0 +1,153 @@
+{
+    "teams": [
+        {
+            "tid": 0, "cid": 0, "did": 2,
+            "region": "Atlanta", "name": "Hawks", "abbrev": "ATL", "pop": 5.4, "strategy": "rebuilding",
+            "imgURL": "http://i.imgur.com/w4iqpAJ.png"
+        },
+        {
+            "tid": 1, "cid": 0, "did": 0,
+            "region": "Boston", "name": "Celtics", "abbrev": "BOS", "pop": 5, "strategy": "contending",
+            "imgURL": "http://i.imgur.com/xKp3GGG.png"
+        },
+        {
+            "tid": 2, "cid": 0, "did": 0,
+            "region": "Brooklyn", "name": "Nets", "abbrev": "BKN", "pop": 19.1, "strategy": "being mediocre",
+            "imgURL": "http://i.imgur.com/FFpCgxk.png"
+        },
+        {
+            "tid": 3, "cid": 0, "did": 2,
+            "region": "Charlotte", "name": "Hornets", "abbrev": "CHA", "pop": 1.8, "strategy": "contending (only in their dreams)",
+            "imgURL": "http://i.imgur.com/hW7G08N.png"
+        },
+        {
+            "tid": 4, "cid": 0, "did": 1,
+            "region": "Chicago", "name": "Bulls", "abbrev": "CHI", "pop": 9.6, "strategy": "rebuilding",
+            "imgURL": "http://i.imgur.com/rZ3SS1g.png"
+        },
+        {
+            "tid": 5, "cid": 0, "did": 1,
+            "region": "Cleveland", "name": "Cavaliers", "abbrev": "CLE", "pop": 2.1, "strategy": "contending",
+            "imgURL": "http://i.imgur.com/poSVytp.png"
+        },
+        {
+            "tid": 6, "cid": 1, "did": 3,
+            "region": "Dallas", "name": "Mavericks", "abbrev": "DAL", "pop": 6.4, "strategy": "rebuilding",
+            "imgURL": "http://i.imgur.com/6OXc92q.png"
+        },
+        {
+            "tid": 7, "cid": 1, "did": 4,
+            "region": "Denver", "name": "Nuggets", "abbrev": "DEN", "pop": 2.6, "strategy": "rebuilding",
+            "imgURL": "http://i.imgur.com/nNlQZtS.png"
+        },
+        {
+            "tid": 8, "cid": 0, "did": 1,
+            "region": "Detroit", "name": "Pistons", "abbrev": "DET", "pop": 4.4, "strategy": "still undecided",
+            "imgURL": "http://i.imgur.com/27s66Rc.png"
+        },
+        {
+            "tid": 9, "cid": 1, "did": 5,
+            "region": "Golden State", "name": "Warriors", "abbrev": "GSW", "pop": 4.3, "strategy": "contending",
+            "imgURL": "http://i.imgur.com/0b33z89.png"
+        },
+        {
+            "tid": 10, "cid": 1, "did": 3,
+            "region": "Houston", "name": "Rockets", "abbrev": "HOU", "pop": 5.9, "strategy": "contending",
+            "imgURL": "http://i.imgur.com/bRhMnde.png"
+        },
+        {
+            "tid": 11, "cid": 0, "did": 1,
+            "region": "Indiana", "name": "Pacers", "abbrev": "IND", "pop": 1.7, "strategy": "being average",
+            "imgURL": "http://i.imgur.com/oMAnnYz.png"
+        },
+        {
+            "tid": 12, "cid": 1, "did": 5,
+            "region": "Los Angeles", "name": "Clippers", "abbrev": "LAC", "pop": 12.9, "strategy": "contending",
+            "imgURL": "http://i.imgur.com/PLcT06l.png"
+        },
+        {
+            "tid": 13, "cid": 1, "did": 5,
+            "region": "Los Angeles", "name": "Lakers", "abbrev": "LAL", "pop": 12.9, "strategy": "rebuilding",
+            "imgURL": "http://i.imgur.com/vDHR32y.png"
+        },
+        {
+            "tid": 14, "cid": 1, "did": 3,
+            "region": "Memphis", "name": "Grizzlies", "abbrev": "MEM", "pop": 1.3, "strategy": "contending",
+            "imgURL": "http://i.imgur.com/oNKkrY1.png"
+        },
+        {
+            "tid": 15, "cid": 0, "did": 2,
+            "region": "Miami", "name": "Heat", "abbrev": "MIA", "pop": 5.6, "strategy": "contending",
+            "imgURL": "http://i.imgur.com/bsyplzQ.png"
+        },
+        {
+            "tid": 16, "cid": 0, "did": 1,
+            "region": "Milwaukee", "name": "Bucks", "abbrev": "MIL", "pop": 1.6, "strategy": "being tall",
+            "imgURL": "http://i.imgur.com/DphT0BT.png"
+        },
+        {
+            "tid": 17, "cid": 1, "did": 4,
+            "region": "Minnesota", "name": "Timberwolves", "abbrev": "MIN", "pop": 3.3, "strategy": "rebuilding",
+            "imgURL": "http://i.imgur.com/Dk0eBGT.png"
+        },
+        {
+            "tid": 18, "cid": 1, "did": 3,
+            "region": "New Orleans", "name": "Pelicans", "abbrev": "NOP", "pop": 1.2, "strategy": "contbuilding",
+            "imgURL": "http://i.imgur.com/vB0C6GZ.png"
+        },
+        {
+            "tid": 19, "cid": 0, "did": 0,
+            "region": "New York", "name": "Knicks", "abbrev": "NYK", "pop": 19.1, "strategy": "rebuilding",
+            "imgURL": "http://i.imgur.com/5sMoAPA.png"
+        },
+        {
+            "tid": 20, "cid": 1, "did": 4,
+            "region": "Oklahoma City", "name": "Thunder", "abbrev": "OKC", "pop": 1.2, "strategy": "contending",
+            "imgURL": "http://i.imgur.com/jiigdGx.png"
+        },
+        {
+            "tid": 21, "cid": 0, "did": 2,
+            "region": "Orlando", "name": "Magic", "abbrev": "ORL", "pop": 2.1, "strategy": "rebuilding",
+            "imgURL": "http://i.imgur.com/yy0G5CW.png"
+        },
+        {
+            "tid": 22, "cid": 0, "did": 0,
+            "region": "Philadelphia", "name": "76ers", "abbrev": "PHI", "pop": 6, "strategy": "processing",
+            "imgURL": "http://i.imgur.com/ncwfno3.png"
+        },
+        {
+            "tid": 23, "cid": 1, "did": 5,
+            "region": "Phoenix", "name": "Suns", "abbrev": "PHX", "pop": 4.4, "strategy": "rebuilding",
+            "imgURL": "http://i.imgur.com/hyi60nj.png"
+        },
+        {
+            "tid": 24, "cid": 1, "did": 4,
+            "region": "Portland", "name": "Trailblazers", "abbrev": "POR", "pop": 2.2, "strategy": "rebuilding",
+            "imgURL": "http://i.imgur.com/KGz8AY8.png"
+        },
+        {
+            "tid": 25, "cid": 1, "did": 5,
+            "region": "Sacramento", "name": "Kings", "abbrev": "SAC", "pop": 2.1, "strategy": "no",
+            "imgURL": "http://i.imgur.com/WgHr0BH.png"
+        },
+        {
+            "tid": 26, "cid": 1, "did": 3,
+            "region": "San Antonio", "name": "Spurs", "abbrev": "SAS", "pop": 2.1, "strategy": "contending",
+            "imgURL": "http://i.imgur.com/L7gca3G.png"
+        },
+        {
+            "tid": 27, "cid": 0, "did": 0,
+            "region": "Toronto", "name": "Raptors", "abbrev": "TOR", "pop": 6, "strategy": "contending",
+            "imgURL": "http://i.imgur.com/prWiarY.png"
+        },
+        {
+            "tid": 28, "cid": 1, "did": 4,
+            "region": "Utah", "name": "Jazz", "abbrev": "UTA", "pop": 1, "strategy": "contending",
+            "imgURL": "http://i.imgur.com/qV27ZrJ.png"
+        },
+        {
+            "tid": 29, "cid": 0, "did": 2,
+            "region": "Washington", "name": "Wizards", "abbrev": "WAS", "pop": 5.7, "strategy": "contending",
+            "imgURL": "http://i.imgur.com/KAX48d0.png"
+        }] 
+}
