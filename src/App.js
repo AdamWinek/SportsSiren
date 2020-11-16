@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import LoginPage from './pages/loginPage'
+import LoginPage from './pages/LoginPage'
+import SignUpCon from './components/containers/SignUpCon'
 import userContext from "./components/userContext"
 import SampleContextPage from "./pages/SampleContextPage"
 import axios from "axios"
@@ -66,6 +67,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <LoginPage login={(email, password) => login(email, password)} loggedIn={loggedIn} />
+           
           </Route>
           <Route path="/home">
             {console.log(loggedIn)}
