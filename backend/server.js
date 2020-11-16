@@ -16,6 +16,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 
+
 let twilioInstance = new twilio(accountSid, authToken)
 
 db.once('open', function () {
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, '../build')))
 
 
 app.get('/api', (req, res) => {
+
     res.send('Dis da Server')
 })
 
@@ -161,6 +163,18 @@ app.get('/api/sendNotification', async (req, res) => {
     }
 })
 
+//get routes from GameController
+const { dailyGamesNBA } = require('./GameController.js')
+app.get('/api/dailyGamesNBA', (req, res) => dailyGames(req, res))
+
+const { gameInDBNBA } = require('./GameController.js')
+app.get('/api/gameInDBNBA/:gameId', (req, res) => gameInDBNBA(req, res))
+
+const { loadNFlSZN } = require('./GameController.js')
+app.get('/api/loadNFLSZN', (req, res) => loadNFLSZN(req, res))
+
+const { getWeeklyNFLGames } = require('./GameController.js')
+app.get('/api/getWeeklyNFLGames/:week', (req, res) => getWeeklyNFLGames(req, res))
 
 
 
@@ -179,3 +193,5 @@ app.listen(port, () => {
 })
 
 
+exports.app = app
+exports.db = db
