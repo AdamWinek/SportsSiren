@@ -28,6 +28,7 @@ app.use(express.static(path.join(__dirname, '../build')))
 
 
 app.get('/api', (req, res) => {
+
     res.send('Dis da Server')
 })
 
@@ -160,6 +161,18 @@ app.get('/api/sendNotification', async (req, res) => {
     }
 })
 
+//get routes from GameController
+const { dailyGamesNBA } = require('./GameController.js')
+app.get('/api/dailyGamesNBA', (req, res) => dailyGames(req, res))
+
+const { gameInDBNBA } = require('./GameController.js')
+app.get('/api/gameInDBNBA/:gameId', (req, res) => gameInDBNBA(req, res))
+
+const { loadNFlSZN } = require('./GameController.js')
+app.get('/api/loadNFLSZN', (req, res) => loadNFLSZN(req, res))
+
+const { getWeeklyNFLGames } = require('./GameController.js')
+app.get('/api/getWeeklyNFLGames/:week', (req, res) => getWeeklyNFLGames(req, res))
 
 
 
@@ -167,8 +180,9 @@ app.get('/api/sendNotification', async (req, res) => {
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '../build/index.html'));
+app.get(['/', '/*'], (req, res) => {
+    console.log(path.join(__dirname, '../build/index.html'))
+    res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
 
@@ -178,3 +192,5 @@ app.listen(port, () => {
 })
 
 
+exports.app = app
+exports.db = db
