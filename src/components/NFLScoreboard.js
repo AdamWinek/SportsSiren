@@ -43,10 +43,12 @@ function NFLScoreboard(props) {
                                 <div>
                                     <h1>{game ? game.homeTeam : 'loading'}</h1>
                                     <h3>{game ? game.homePoints : 'loading'}</h3>
+                                    <img style={{ width: 'auto', height: '100px' }} src={"/NFLLogos/" + game.homeTeam + ".gif"}></img>
                                 </div>
                                 <div>
                                     <h1>{game ? game.awayTeam : 'loading'}</h1>
                                     <h3>{game ? game.awayPoints : 'loading'}</h3>
+                                    <img style={{ width: 'auto', height: '100px' }} src={"/NFLLogos/" + game.awayTeam + ".gif"}></img>
                                 </div>
                             </div>
 
