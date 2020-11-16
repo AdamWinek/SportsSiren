@@ -5,12 +5,22 @@ import SampleContextPage from "./pages/SampleContextPage"
 import axios from "axios"
 import Scoreboard from './components/Scoreboard';
 import NFLScoreboard from './components/NFLScoreboard';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 
 
 function App() {
   const [user, setUser] = useState({ name: "", email: "", phone: "" });
   const [loggedIn, setLoggedIn] = useState(false);
   const [authToken, setAuthToken] = useState("");
+  let history = useHistory();
   console.log(process.env.REACT_APP_DEV_ENV)
   let login = async function (email, password) {
     if (email == undefined || password == undefined) {
@@ -30,15 +40,14 @@ function App() {
           password: password
         }
       })
-      console.log(response)
       setUser({
         name: response.data.name,
         email: response.data.email,
         phone: response.data.phone
       });
       setAuthToken(response.data.token)
-      setLoggedIn(true)
 
+      setLoggedIn(true)
 
     } catch (err) {
       return err.toString()
@@ -54,11 +63,18 @@ function App() {
       loggedIn: loggedIn,
       user: user
     }}>
-      <LoginPage login={(email, password) => login(email, password)} />
-      <Scoreboard></Scoreboard>
-      <SampleContextPage />
-      <NFLScoreboard />
-    </userContext.Provider>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <LoginPage login={(email, password) => login(email, password)} loggedIn={loggedIn} />
+          </Route>
+          <Route path="/home">
+            {console.log(loggedIn)}
+            {loggedIn ? <NFLScoreboard /> : <Redirect to="/" />}
+          </Route>
+        </Switch>
+      </Router>
+    </userContext.Provider >
 
   );
 } export default App;
