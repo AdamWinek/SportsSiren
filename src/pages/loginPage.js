@@ -11,7 +11,7 @@ const loginPage = (props) => {
   return (
     <div className={styles.container}>
       <InfoCon></InfoCon>
-      <LoginCon login={(email, password) => props.login(email, password)}></LoginCon>
+      <LoginCon login={(email, password) => props.login(email, password)} loggedIn={props.loggedIn}></LoginCon>
     </div>
   );
 }
