@@ -6,7 +6,6 @@ export const getSchedule = async function(week, key) {
         url: url,
       });
     return result.data;
-  
 }
 
 // NFL Live Scores
@@ -21,6 +20,19 @@ export const getLiveNFLScores = async function() {
     return result.data;
 
 }
+
+// Better NFL Live Scores
+export const getBetterLiveNFLScores = async function() { 
+    let url = 'http://static.nfl.com/liveupdate/scores/scores.json'
+    const result = await axios({
+        method: "get",
+        url: url,
+      });   
+    console.log(result.data); 
+    return result.data;
+
+}
+
 
 // iSports Api 
 export const getLiveSoccerScores = async function(key) { 
@@ -51,4 +63,9 @@ export const getNCAAFootballScores = async function(week) {
       });   
     return result.data; 
 
+}
+
+// Doesn't work
+export const getNBASimulation = async function() { 
+    let url = "http://api.sportradar.us/nba/simulation/trial/en/games/2017/SIM/schedule.json?api_key=3ay8mfgvvthzhdcdb6tc3y54"
 }
