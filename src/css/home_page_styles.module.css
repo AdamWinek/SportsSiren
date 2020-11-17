@@ -1,0 +1,23 @@
+.body {
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.sectionHeader {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 36px;
+	color: black;
+	letter-spacing: 0.05em;
+	height: 100px;
+	line-height: 100px;
+	margin-top: 50px;
+}
+
+.sectionBreak {
+	margin-bottom: 50px;
+	height: 4px;
+	width: 100%;
+	background-color: black;
+}

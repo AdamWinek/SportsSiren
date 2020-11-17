@@ -1,0 +1,29 @@
+.navContainer {
+	height: 175px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.navLogo {
+	height: 90px;
+	width: auto;
+}
+
+.navItems {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.navLinks {
+	margin-left: 40px;
+	margin-right: 40px;
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	text-align: center;
+	color: black;
+}

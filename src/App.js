@@ -14,6 +14,7 @@ import {
   Redirect
 } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import Homepage from './pages/homepage';
 
 
 
@@ -67,11 +68,11 @@ function App() {
         <Switch>
           <Route exact path="/">
             <LoginPage login={(email, password) => login(email, password)} loggedIn={loggedIn} />
-           
+
           </Route>
           <Route path="/home">
             {console.log(loggedIn)}
-            {loggedIn ? <NFLScoreboard /> : <Redirect to="/" />}
+            {loggedIn ? <Homepage /> : <Redirect to="/" />}
           </Route>
         </Switch>
       </Router>

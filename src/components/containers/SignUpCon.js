@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../../css/signup_con.module.css";
-import axiox from "axios";
+import axios from "axios";
 
 const SignUpCon = (props) => {
   let signUpRequest = async (fname, lname, email, password, telephone) => {
@@ -22,7 +22,7 @@ const SignUpCon = (props) => {
       });
 
 
-     
+
     } catch (err) {
       return err.toString();
     }
