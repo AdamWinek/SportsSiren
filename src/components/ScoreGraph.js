@@ -95,6 +95,7 @@ class ScoreGraph extends Component {
 		);
 	}
 }
+
 function getExcitementIndex(home_score, away_score, time_left) { 
   let score_diff = Math.abs(home_score - away_score); 
   let inital_excitement = ((100/score_diff) ** (1/1.85)) - 2.05;

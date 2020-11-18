@@ -12,13 +12,17 @@ function Homepage(props) {
                 <h1 className={styles.sectionHeader}>Pinned</h1>
                 <div className={styles.sectionBreak}></div>
                 <NFLScoreboard />
-                <ScoreGraph /> 
                 <h1 className={styles.sectionHeader}>Current</h1>
                 <div className={styles.sectionBreak}></div>
+                <div className={styles.sectionBreak}>
+                    <ScoreGraph /> 
+                </div>
 
 
             </div>
+
         </div>
+
     )
 
 } export default Homepage
