@@ -36,6 +36,7 @@ class ScoreGraph extends Component {
   Will want to calculate excitement index and graph that along with scores. 
   */
 	render() {
+    console.log("setting score_graph")
     let home_scores = [ 
       {y: 0, label: "0:00"},
       {y: 3, label:"5:53"},
@@ -83,14 +84,24 @@ class ScoreGraph extends Component {
 		}
 		
 		return (
-		<div>
-			<CanvasJSChart options = {options} 
-				/* onRef={ref => this.chart = ref} */
-			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-		</div>
+      <div className="scoreGraph">
+		    <div >
+			  <CanvasJSChart options = {options}  
+				  /* onRef={ref => this.chart = ref} */
+			  />
+			  {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+		  </div>
+    </div>
 		);
 	}
 }
- 
+
+function getExcitementIndex(home_score, away_score, time_left) { 
+  let score_diff = Math.abs(home_score - away_score); 
+  let inital_excitement = ((100/score_diff) ** (1/1.85)) - 2.05;
+  let time_remaining = (time_left / 60);
+  let excitement_index = inital_excitement + (1/(time_remaining+0.05));
+  return excitement_index; 
+}
+
 export default ScoreGraph; 

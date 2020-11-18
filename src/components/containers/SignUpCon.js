@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styles from "../../css/signup_con.module.css";
 import axios from "axios";
+
 import { Redirect } from "react-router-dom";
 
 const SignUpCon = (props) => {
@@ -18,6 +19,7 @@ const SignUpCon = (props) => {
        
     };
 
+
     if (props.loggedIn) {
         return (<Redirect to="/home" />)
     }
@@ -25,7 +27,9 @@ const SignUpCon = (props) => {
         e.preventDefault()
         await signUpRequest(data.fname, data.lname, data.email, data.password, data.telephone)
         await props.login(data.email, data.password)
-    }
+
+
+
     let signUpRequest = async (fname, lname, email, password, telephone) => {
         try {
             let methodUrl = "https://sports-siren.herokuapp.com/api/";

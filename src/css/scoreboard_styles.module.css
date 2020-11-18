@@ -1,0 +1,115 @@
+.sectionContainer {
+	width: 100%;
+}
+
+.scoreBoardContainer {
+	width: 100%;
+	display: flex;
+	overflow: hidden;
+}
+.scoreboard {
+	margin-left: 40px;
+	margin-right: 40px;
+	width: 750px;
+	height: 400px;
+	background-color: white;
+	border: 20px solid black;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	padding-top: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+	position: relative;
+}
+
+.timeRemaning {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: 900;
+	font-size: 24px;
+}
+
+.teams {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.eachTeam {
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.teamName {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 36px;
+	letter-spacing: 0.05em;
+	text-align: center;
+	color: black;
+	margin-bottom: 15px;
+	line-height: 40px;
+}
+.teamNameDiv {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80px;
+}
+.teamLogo {
+	width: 100px;
+	height: auto;
+}
+
+.scoreDiv {
+	width: 100%;
+	margin: auto;
+	text-align: center;
+}
+.scoreH1 {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 64px;
+	line-height: 64px;
+}
+
+.controls {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.centerControls {
+	display: flex;
+}
+.control {
+	height: 70px;
+	width: 70px;
+	text-align: center;
+	line-height: 70px;
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 100px;
+	color: black;
+}
+.arrow {
+	height: 70px;
+	width: 140px;
+	text-align: center;
+	line-height: 70px;
+	font-family: Roboto;
+	font-style: normal;
+	font-size: 64px;
+	color: #c4c4c4;
+}

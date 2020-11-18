@@ -196,3 +196,31 @@ app.listen(port, () => {
 
 exports.app = app
 exports.db = db
+
+function sendText(home_object, away_object, game_time) { 
+    /* 
+        home_object = { 
+            score: 15, 
+            team: "Patriots", 
+        }
+
+    */ 
+   // Grab user preferences 
+   let user_threshold_score = 1; 
+   let user_threshold_time = "15:00"; 
+   
+   let score_difference = Math.abs(home_object.score - away_object.score); 
+   let score_threshold_sent = True;
+   if(score_difference <= user_threshold_score) { 
+       // 
+       let message = `Sports Siren Alert!! ${home_object.team} vs. ${away_object.team} is within ${user_threshold_score} points! Current score: 
+       ${home_object.score} to ${away_object.score}. Tune into the game now!`;
+       // Fire twilio message
+        score_threshold_sent = False;
+   }
+   if(game_time < user_threshold_time && score_threshold_sent) { 
+       let message = `Sports Siren Alert!! ${home_object.team} vs. ${away_object.team} has ${game_time} left to go! Tune into the game now!`;
+       // Fire twilio message
+
+   }
+}
