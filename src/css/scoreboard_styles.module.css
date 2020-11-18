@@ -6,6 +6,7 @@
 	width: 100%;
 	display: flex;
 	overflow: hidden;
+	justify-content: center;
 }
 .scoreboard {
 	margin-left: 40px;
@@ -112,4 +113,8 @@
 	font-style: normal;
 	font-size: 64px;
 	color: #c4c4c4;
+}
+
+.smallScore {
+	transform: scale(0.8);
 }
