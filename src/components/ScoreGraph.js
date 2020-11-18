@@ -84,12 +84,14 @@ class ScoreGraph extends Component {
 		}
 		
 		return (
-		<div>
-			<CanvasJSChart options = {options} 
-				/* onRef={ref => this.chart = ref} */
-			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-		</div>
+      <div className="scoreGraph">
+		    <div >
+			  <CanvasJSChart options = {options}  
+				  /* onRef={ref => this.chart = ref} */
+			  />
+			  {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+		  </div>
+    </div>
 		);
 	}
 }
