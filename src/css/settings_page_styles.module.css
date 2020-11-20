@@ -1,0 +1,101 @@
+.body {
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.sectionHeader {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 36px;
+	color: black;
+	letter-spacing: 0.05em;
+	height: 100px;
+	line-height: 100px;
+	margin-top: 50px;
+}
+
+.sectionBreak {
+	margin-bottom: 50px;
+	height: 4px;
+	width: 100%;
+	background-color: black;
+}
+.deleteAccount {
+	border: none;
+	color: white;
+	background-color: #ff5555;
+	display: flex;
+	width: 400px;
+	justify-content: center;
+	padding: 15px 0;
+	border-radius: 7px;
+	font-size: 1.3em;
+	font-weight: 900;
+}
+.submit {
+	border: none;
+	color: white;
+	background-color: black;
+	display: flex;
+	width: 400px;
+	justify-content: center;
+	padding: 15px 0;
+	border-radius: 7px;
+	font-size: 1.3em;
+	font-weight: 900;
+}
+
+.form {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+}
+.subquestion {
+	display: flex;
+	flex-direction: column;
+}
+
+:focus {
+	outline: none;
+}
+.label {
+	display: inline-block;
+	font-size: 1.3em;
+	font-weight: 900;
+	margin-bottom: 10px;
+}
+.input[type='text'] {
+	font: 15px/24px Helvetica, Arial, sans-serif;
+	color: #333;
+	width: 400px;
+	box-sizing: border-box;
+	letter-spacing: 1px;
+	border: 0;
+	padding: 7px 0;
+	border-bottom: 1px solid #ccc;
+}
+
+.input ~ .focus_border {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 0;
+	height: 2px;
+	background-color: #3399ff;
+	transition: 0.3s;
+}
+.input:focus ~ .focus_border {
+	width: 100%;
+}
+.question {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	margin: 60px 0;
+}
+.question:last-of-type {
+	margin-bottom: 30px;
+}

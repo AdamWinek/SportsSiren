@@ -1,194 +1,192 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Helvetica;
-  }
-  
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    width: 100%;
-    padding: 10vh 20px;
-    flex-direction: column;
-    flex: 1;
-    flex-basis: 350px;
-  }
-  form {
-    position: relative;
-    width: 100%;
-  }
-  
-  :focus {
-    outline: none;
-  }
-  label {
-    display: inline-block;
-    font-size: 1.3em;
-    font-weight: 900;
-    margin-bottom: 10px;
-  }
-  
-  input[type="text"], input[type="tel"] {
-    font: 15px/24px Helvetica, Arial, sans-serif;
-    color: #333;
-    width: 100%;
-    box-sizing: border-box;
-    letter-spacing: 1px;
-    border: 0;
-    padding: 7px 0;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  input ~ .focus_border {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #3399ff;
-    transition: 0.3s;
-  }
-  
-  input:focus ~ .focus_border {
-    width: 100%;
-  }
-  
-  .question {
-    position: relative;
-    margin: 40px 0;
-  }
-  .question:last-of-type {
-    margin-bottom: 30px;
-  }
-  
-  button {
-    border: none;
-    color: white;
-    background-color: black;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    padding: 15px 0;
-    border-radius: 7px;
-    font-size: 1.3em;
-    font-weight: 900;
-  }
-  .block {
-    width: 100%;
-  
-    max-width: 600px;
-  }
-  
-  .title {
-    display: block;
-    padding-bottom: 20px;
-  }
-  .login {
-    color: #8e8e8e;
-  }
-  .login:hover {
-    color: black;
-    transition: 0.3s;
-  }
-  
-  .basic-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 800px;
-  }
-  .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 5vh;
-  }
-  .header h1 {
-    font-size: calc(25px + 5vw);
-    letter-spacing: 4px;
-    align-self: flex-end;
-  }
-  
-  .subtitle {
-    margin-top: 5vh;
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  .text {
-  }
-  p {
-    line-height: 160%;
-    letter-spacing: 1px;
-    font-size: 15px;
-  }
-  .large-container {
-    display: flex;
-    flex-wrap: wrap;
-    min-height: 100vh;
-  }
-  .diff {
-    background-color: #ffed47;
-  }
-  .infocards {
-    display: flex;
-  
-    flex-direction: column;
-    align-items: center;
-  }
-  .infocards p {
-    width: 100%;
-    border: 4px solid black;
-    margin: 5px;
-    text-align: center;
-    padding: 10px 15px;
-    border-radius: 7px;
-    background-color: white;
-    transition: 0.3s;
-  }
-  .infocards p:hover {
-    background-color: black;
-    color: white;
-    padding-bottom: 5vh;
-  }
-  img {
-    width: 100%;
-    min-width: 120px;
-    max-width: 25vw;
-  }
-  
-  .twoline {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: -40px;
-  }
-  .subquestion {
-    flex: 1;
-    width: 100%;
-    position: relative;
-    min-width: 200px;
-    margin-bottom: 40px;
-  
-  }
-  .subquestion:first-child {
-      padding-right: 25px;
-  }
-  .subquestion:last-child {
-      padding-left: 25px;
-  }
-  @media screen and (max-width: 900px) {
-      .subquestion:first-child {
-          padding-right: 0;
-      }
-      .subquestion:last-child {
-          padding-left: 0;
-      }
-      .twoline {
-          flex-direction: column;
-      }
-      
-  }
-  
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Helvetica;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: auto;
+	width: 100%;
+	padding: 10vh 20px;
+	flex-direction: column;
+	flex: 1;
+	flex-basis: 350px;
+}
+.form {
+	position: relative;
+	width: 100%;
+}
+
+:focus {
+	outline: none;
+}
+.label {
+	display: inline-block;
+	font-size: 1.3em;
+	font-weight: 900;
+	margin-bottom: 10px;
+}
+
+.input[type='text'],
+input[type='tel'] {
+	font: 15px/24px Helvetica, Arial, sans-serif;
+	color: #333;
+	width: 100%;
+	box-sizing: border-box;
+	letter-spacing: 1px;
+	border: 0;
+	padding: 7px 0;
+	border-bottom: 1px solid #ccc;
+}
+
+.input ~ .focus_border {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 0;
+	height: 2px;
+	background-color: #3399ff;
+	transition: 0.3s;
+}
+
+.input:focus ~ .focus_border {
+	width: 100%;
+}
+
+.question {
+	position: relative;
+	margin: 40px 0;
+}
+.question:last-of-type {
+	margin-bottom: 30px;
+}
+
+.submit {
+	border: none;
+	color: white;
+	background-color: black;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	padding: 15px 0;
+	border-radius: 7px;
+	font-size: 1.3em;
+	font-weight: 900;
+}
+.block {
+	width: 100%;
+
+	max-width: 600px;
+}
+
+.title {
+	display: block;
+	padding-bottom: 20px;
+}
+.login {
+	color: #8e8e8e;
+}
+.login:hover {
+	color: black;
+	transition: 0.3s;
+}
+
+.basic-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	max-width: 800px;
+}
+.header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 5vh;
+}
+.header h1 {
+	font-size: calc(25px + 5vw);
+	letter-spacing: 4px;
+	align-self: flex-end;
+}
+
+.subtitle {
+	margin-top: 5vh;
+	text-align: center;
+	margin-bottom: 15px;
+}
+.text {
+}
+p {
+	line-height: 160%;
+	letter-spacing: 1px;
+	font-size: 15px;
+}
+.large-container {
+	display: flex;
+	flex-wrap: wrap;
+	min-height: 100vh;
+}
+.diff {
+	background-color: #ffed47;
+}
+.infocards {
+	display: flex;
+
+	flex-direction: column;
+	align-items: center;
+}
+.infocards p {
+	width: 100%;
+	border: 4px solid black;
+	margin: 5px;
+	text-align: center;
+	padding: 10px 15px;
+	border-radius: 7px;
+	background-color: white;
+	transition: 0.3s;
+}
+.infocards p:hover {
+	background-color: black;
+	color: white;
+	padding-bottom: 5vh;
+}
+img {
+	width: 100%;
+	min-width: 120px;
+	max-width: 25vw;
+}
+
+.twoline {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: -40px;
+}
+.subquestion {
+	flex: 1;
+	width: 100%;
+	position: relative;
+	min-width: 200px;
+	margin-bottom: 40px;
+}
+.subquestion:first-child {
+	padding-right: 25px;
+}
+.subquestion:last-child {
+	padding-left: 25px;
+}
+@media screen and (max-width: 900px) {
+	.subquestion:first-child {
+		padding-right: 0;
+	}
+	.subquestion:last-child {
+		padding-left: 0;
+	}
+	.twoline {
+		flex-direction: column;
+	}
+}

@@ -130,6 +130,25 @@ app.get('/api/sampleProtectedRoute', async (req, res) => {
 })
 
 
+app.delete('/api/deleteAccount', async (req, res) => {
+    try {
+        await db.User.deleteOne({ email: req.email });
+        res.json({ message: "user deleted" });
+
+
+    } catch (err) {
+        res.json({ message: err.toString() })
+
+
+
+    }
+
+
+})
+
+
+
+
 app.get('/api/sendNotification', async (req, res) => {
 
     if (req.body.token == undefined) {

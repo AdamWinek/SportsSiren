@@ -15,6 +15,7 @@ import {
 } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Homepage from './pages/Homepage';
+import Settings from './pages/Settings';
 
 
 
@@ -73,6 +74,10 @@ function App() {
           <Route path="/home">
             {console.log(loggedIn)}
             {loggedIn ? <Homepage /> : <Redirect to="/" />}
+          </Route>
+          <Route path="/settings">
+            {console.log(loggedIn)}
+            {loggedIn ? <Settings /> : <Redirect to="/" />}
           </Route>
         </Switch>
       </Router>
