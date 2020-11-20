@@ -34,7 +34,8 @@ app.get('/api', (req, res) => {
 })
 
 
-
+// will change to: 
+// /api/create/registerUser
 app.post('/api/registerUser', async (req, res) => {
     try {
         bcrypt.hash(req.body.password, 10, async function (err, hash) {
@@ -107,6 +108,8 @@ app.post('/api/delete/user/following', async (req, res) => {
 
 })
 
+// will change to: 
+// /api/update/login
 app.post('/api/login', async (req, res) => {
     console.log(req.body)
     let currentUser = await User.findOne({ email: req.body.email }).exec();
@@ -167,7 +170,8 @@ app.get('/api/sampleProtectedRoute', async (req, res) => {
     }
 })
 
-
+// will change to: 
+// /api/create/sendNotification
 app.get('/api/sendNotification', async (req, res) => {
 
     if (req.body.token == undefined) {
@@ -203,15 +207,27 @@ app.get('/api/sendNotification', async (req, res) => {
 
 //get routes from GameController
 const { dailyGamesNBA } = require('./GameController.js')
+
+// will change to: 
+// /api/get/dailyGamesNBA
 app.get('/api/dailyGamesNBA', (req, res) => dailyGames(req, res))
 
 const { gameInDBNBA } = require('./GameController.js')
+
+// will change to: 
+// /api/get/gameInDBNBA/:gameId
 app.get('/api/gameInDBNBA/:gameId', (req, res) => gameInDBNBA(req, res))
 
 const { loadNFlSZN } = require('./GameController.js')
+
+// will change to: 
+// /api/get/loadNFLSZN
 app.get('/api/loadNFLSZN', (req, res) => loadNFLSZN(req, res))
 
 const { getWeeklyNFLGames } = require('./GameController.js')
+
+// will change to: 
+// /api/get/getWeeklyNFLGames/:week
 app.get('/api/getWeeklyNFLGames/:week', (req, res) => getWeeklyNFLGames(req, res))
 
 
