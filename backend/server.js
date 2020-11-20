@@ -6,6 +6,7 @@ const port = process.env.PORT || 3000
 const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://AdamLeonHoulton:AdamLeonHoulton@sportssiren.rrbya.mongodb.net/SportsSiren?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.set('useFindAndModify', true) 
 const db = mongoose.connection;
 const User = require("./models/User")
 const bcrypt = require('bcrypt')
@@ -67,6 +68,45 @@ app.post('/api/registerUser', async (req, res) => {
 
 })
 
+app.post('/api/update/user/following', async (req, res) => {
+    let currentUser = await User.findOne({ email: req.body.email }).exec();
+    let newFollowingArray = ["Gunners", "Tots", "Patriots", "Eagles"];
+    let updatedUser =  await User.findOneAndUpdate(
+        { "_id": currentUser._id },
+        {"$addToSet": {"following": {"$each": newFollowingArray}}},
+        {safe: true, upsert: true, new : true},
+        function(err, model) {
+            console.log(err);
+        }
+    );
+    console.log("trinyg to update user")
+
+
+    console.log( updatedUser); 
+
+    console.log("SETTING NEW FOLLOWING PREFERENCES");
+
+})
+
+app.post('/api/delete/user/following', async (req, res) => {
+    let currentUser = await User.findOne({ email: req.body.email }).exec();
+    let toRemove = ["Patriots", "Eagles"];
+    let updatedUser =  await User.findOneAndUpdate(
+        { "_id": currentUser._id },
+        {"$pullAll": {"following":  toRemove}},
+        {safe: true, upsert: true, new : true},
+        function(err, model) {
+            console.log(err);
+        }
+    );
+    console.log("removed from user")
+
+
+    console.log( updatedUser); 
+
+
+})
+
 app.post('/api/login', async (req, res) => {
     console.log(req.body)
     let currentUser = await User.findOne({ email: req.body.email }).exec();
@@ -82,7 +122,6 @@ app.post('/api/login', async (req, res) => {
         })
         return
     }
-
 
 
     bcrypt.compare(req.body.password, currentUser.password, function (err, result) {
@@ -105,7 +144,6 @@ app.post('/api/login', async (req, res) => {
         }
     });
 })
-
 
 // to use a protected route you must include token in the body of the request
 // inside a protected route you need to check if a token has been included and is correct
