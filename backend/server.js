@@ -33,8 +33,9 @@ const { deleteFollowingGames } = require("./internal_api.js");
 const { login } = require("./internal_api.js");
 const { sendNotification } = require("./internal_api.js");
 const { registerUser } = require("./internal_api.js");
+const { updateStandingsNFL } = require("./external_api.js")
 
-
+let agenda = require('./agenda');
 
 db.once("open", function () {
     console.log("wereConnected");
@@ -93,6 +94,14 @@ app.post("/api/delete/user/following_games", async (req, res) => deleteFollowing
 // will change to:
 // /api/update/login
 app.post("/api/login", async (req, res) => login(req, res))
+
+
+
+app.put('/api/update/NFLStandings', async (req, res) => updateStandingsNFL(req, res))
+
+
+
+
 
 // to use a protected route you must include token in the body of the request
 // inside a protected route you need to check if a token has been included and is correct
