@@ -6,8 +6,8 @@ const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 mongoose.set("useCreateIndex", true);
 mongoose.connect(
-  "mongodb+srv://AdamLeonHoulton:AdamLeonHoulton@sportssiren.rrbya.mongodb.net/SportsSiren?retryWrites=true&w=majority",
-  { useNewUrlParser: true }
+    "mongodb+srv://AdamLeonHoulton:AdamLeonHoulton@sportssiren.rrbya.mongodb.net/SportsSiren?retryWrites=true&w=majority",
+    { useNewUrlParser: true }
 );
 mongoose.set("useFindAndModify", true);
 const db = mongoose.connection;
@@ -24,20 +24,20 @@ const { dailyGamesNBA } = require("./external_api.js");
 const { gameInDBNBA } = require("./external_api.js");
 const { loadNFlSZN } = require("./external_api.js");
 const { getWeeklyNFLGames } = require("./external_api.js");
-const {setNotificationThresholds} = require("./internal_api.js");
-const {setNotificationPreferences} = require("./internal_api.js");
-const {setFollowingTeams} = require("./internal_api.js");
-const {deleteFollowingTeams} = require("./internal_api.js");
-const {updateFollowingGames} = require("./internal_api.js");
-const {deleteFollowingGames} = require("./internal_api.js");
-const {login} = require("./internal_api.js");
-const {sendNotification} = require("./internal_api.js");
-const {registerUser} = require("./internal_api.js");
+const { setNotificationThresholds } = require("./internal_api.js");
+const { setNotificationPreferences } = require("./internal_api.js");
+const { setFollowingTeams } = require("./internal_api.js");
+const { deleteFollowingTeams } = require("./internal_api.js");
+const { updateFollowingGames } = require("./internal_api.js");
+const { deleteFollowingGames } = require("./internal_api.js");
+const { login } = require("./internal_api.js");
+const { sendNotification } = require("./internal_api.js");
+const { registerUser } = require("./internal_api.js");
 
 
 
 db.once("open", function () {
-  console.log("wereConnected");
+    console.log("wereConnected");
 });
 
 // parse application/json
@@ -46,7 +46,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../build")));
 
 app.get("/api", (req, res) => {
-  res.send("Dis da Server");
+    res.send("Dis da Server");
 });
 
 // will change to:
@@ -84,7 +84,7 @@ app.post("/api/delete/user/following_teams", async (req, res) => deleteFollowing
 // Adds following games
 // Need to figure out how to actually pass in the games
 // Expects an array with names of games ids 
-app.post("/api/update/user/following_games", async (req, res) => updateFollowingGames(req, res)); 
+app.post("/api/update/user/following_games", async (req, res) => updateFollowingGames(req, res));
 
 // Deletes following games
 // Expects an array with the teams to unfollow 
@@ -96,27 +96,127 @@ app.post("/api/login", async (req, res) => login(req, res))
 
 // to use a protected route you must include token in the body of the request
 // inside a protected route you need to check if a token has been included and is correct
-app.get("/api/sampleProtectedRoute", async (req, res) => {
-  if (req.body.token == undefined) {
-    res.json({
-      message: "You need to login to use this route",
-    });
-  }
-  try {
-    let decoded = jwt.verify(req.body.token, "daSecretToken");
-    res.json({
-      message: "ya did it",
-    });
-  } catch (err) {
-    res.json({
-      message: "wrong token",
-    });
-  }
-});
+app.get('/api/sampleProtectedRoute', async (req, res) => {
 
-// will change to:
-// /api/create/sendNotification
-app.get("/api/sendNotification", async (req, res) => sendNotification(req, res));
+    if (req.body.token == undefined) {
+        res.json({
+            message: "You need to login to use this route"
+        })
+    }
+    try {
+        let decoded = jwt.verify(req.body.token, 'daSecretToken');
+        res.json({
+            message: "ya did it"
+        })
+
+    } catch (err) {
+        res.json({
+            message: "wrong token"
+        })
+    }
+})
+
+
+app.delete('/api/deleteAccount', async (req, res) => {
+    console.log(req.body, "here")
+    try {
+        await User.deleteOne({ email: req.body.email }, function (err) {
+            if (err) { console.log(err.toString()) };
+        });
+        res.json({ message: "user deleted" });
+
+
+    } catch (err) {
+        res.json({ message: err.toString() })
+
+
+
+    }
+
+
+})
+
+app.put('/api/updatePassword', async (req, res) => {
+
+    try {
+        bcrypt.hash(req.body.oldPassword, 10, async function (err, hash) {
+            try {
+                const newHash = bcrypt.hashSync(req.body.newPassword, 10);
+
+                await User.updateOne({ email: req.body.email }, { $set: { password: newHash } }, (err) => {
+                    if (err) {
+                        console.log(err)
+
+                    }
+                }
+                );
+                res.json({ message: "password changed" });
+
+            } catch (err) {
+                res.json({ message: err.toString() })
+
+            }
+        })
+    } catch (e) {
+        res.json({
+            message: e.toString()
+        })
+
+    }
+})
+
+
+
+app.put('/api/updatePhone', async (req, res) => {
+
+    try {
+        await User.updateOne({ email: req.body.email }, { $set: { phone: req.body.phone } });
+        res.json({ message: "phone changed" });
+
+    } catch (err) {
+        res.json({ message: "There was an error with your phone" })
+
+    }
+
+})
+
+
+
+
+
+
+app.get('/api/sendNotification', async (req, res) => {
+
+    if (req.body.token == undefined) {
+        res.json({
+            message: "You need to login to use this route"
+        })
+    }
+    try {
+        let decoded = jwt.verify(req.body.token, 'daSecretToken');
+
+        let msg = await twilioInstance.messages.create({
+            body: req.body.message,
+            to: req.body.phone,  // Text this number
+            from: '+18285200670' // The number we bought
+        })
+        console.log(msg)
+        console.log(decoded)
+
+        res.json({
+            error: msg.error_message,
+            status: msg.status
+        })
+
+
+
+
+    } catch (err) {
+        res.json({
+            message: err.toString()
+        })
+    }
+})
 
 
 // will change to:
@@ -137,18 +237,18 @@ app.get("/api/loadNFLSZN", (req, res) => loadNFLSZN(req, res));
 // will change to:
 // /api/get/getWeeklyNFLGames/:week
 app.get("/api/getWeeklyNFLGames/:week", (req, res) =>
-  getWeeklyNFLGames(req, res)
+    getWeeklyNFLGames(req, res)
 );
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get(["/", "/*"], (req, res) => {
-  console.log(path.join(__dirname, "../build/index.html"));
-  res.sendFile(path.join(__dirname, "../build/index.html"));
+    console.log(path.join(__dirname, "../build/index.html"));
+    res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Example app listening at http://localhost:${port}`);
 });
 
 exports.app = app;

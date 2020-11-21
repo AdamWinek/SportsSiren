@@ -64,29 +64,31 @@ const SignUpCon = (props) => {
             </span>
                     </h1>
                 </div>
-                <form onSubmit={(e) => handleSubmit(e)}>
+                <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
                     <div className={styles.question}>
                         <div className={styles.twoline}>
                             <div className={styles.subquestion}>
-                                <label htmlFor="fname">First Name</label>
+                                <label className={styles.label} htmlFor="fname">First Name</label>
                                 <input
                                     type="text"
                                     id="fname"
                                     name="fname"
                                     placeholder="Enter your first name"
                                     onChange={(e) => onChange(e)}
+                                    className={styles.input}
                                     required
                                 />
                                 <span className={styles.focus_border}></span>
                             </div>
                             <div className={styles.subquestion}>
-                                <label htmlFor="lname">Last Name</label>
+                                <label className={styles.label} htmlFor="lname">Last Name</label>
                                 <input
                                     type="text"
                                     id="lname"
                                     name="lname"
                                     placeholder="Enter your last name"
                                     onChange={(e) => onChange(e)}
+                                    className={styles.input}
                                     required
                                 />
                                 <span className={styles.focus_border}></span>
@@ -94,7 +96,7 @@ const SignUpCon = (props) => {
                         </div>
                     </div>
                     <div className={styles.question}>
-                        <label htmlFor="email">E-mail</label>
+                        <label className={styles.label} htmlFor="email">E-mail</label>
                         <input
                             type="text"
                             id="email"
@@ -102,11 +104,13 @@ const SignUpCon = (props) => {
                             placeholder="Enter your e-mail"
                             onChange={(e) => onChange(e)}
                             required
+                            className={styles.input}
+
                         />
                         <span className={styles.focus_border}></span>
                     </div>
                     <div className={styles.question}>
-                        <label htmlFor="password">Password</label>
+                        <label className={styles.label} htmlFor="password">Password</label>
                         <input
                             type="text"
                             id="password"
@@ -114,11 +118,13 @@ const SignUpCon = (props) => {
                             placeholder="Enter your password"
                             onChange={(e) => onChange(e)}
                             required
+                            className={styles.input}
+
                         />
                         <span className={styles.focus_border}></span>
                     </div>
                     <div className={styles.question}>
-                        <label htmlFor="telephone">Phone number</label>
+                        <label className={styles.label} htmlFor="telephone">Phone number</label>
                         <input
                             type="tel"
                             id="telephone"
@@ -126,6 +132,8 @@ const SignUpCon = (props) => {
                             placeholder="E.g 919-748-2139"
                             onChange={(e) => onChange(e)}
                             required
+                            className={styles.input}
+
                         />
                         <span className={styles.focus_border}></span>
                     </div>

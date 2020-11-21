@@ -7,12 +7,12 @@ function HomeNav(props) {
 
     return (
         <div className={styles.navContainer}>
-            <img src={logo} className={styles.navLogo} alt="logo" />
+            <Link to="/home"><img src={logo} className={styles.navLogo} alt="logo" /></Link>
             <div className={styles.navItems}>
-                <Link className={styles.navLinks}>Home</Link>
+                <Link to="/home" className={props.active == "Home" ? styles.activeLink : styles.navLinks}>Home</Link>
                 <Link className={styles.navLinks}>Explore</Link>
                 <Link className={styles.navLinks}>Games</Link>
-                <Link className={styles.navLinks}>Settings</Link>
+                <Link to="/settings" className={props.active == "Settings" ? styles.activeLink : styles.navLinks}>Settings</Link>
             </div>
         </div>
 

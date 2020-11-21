@@ -33,17 +33,21 @@ const LoginCon = (props) => {
                     <div className={styles.title}>
                         <h1 className="">Login | <span className={styles.sign} onClick={() => props.toggleLogin()}>Sign up</span></h1>
                     </div>
-                    <form onSubmit={(e) => handleSubmit(e)}>
+                    <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
                         <div className={styles.question}>
-                            <label htmlFor="email">E-mail</label>
+                            <label className={styles.label} htmlFor="email">E-mail</label>
                             <input type="text" id="email" name="useremail" placeholder="Enter your e-mail" value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                className={styles.input}
+
                                 required />
                             <span className={styles.focus_border}></span>
                         </div>
                         <div className={styles.question}>
-                            <label htmlFor="password">Password</label>
-                            <input type="password" id="password"  name="userpassword" placeholder="Enter your password"
+                            <label className={styles.label} htmlFor="password">Password</label>
+                            <input type="text" id="password" name="userpassword"
+                                className={styles.input}
+                                placeholder="Enter your password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required />
