@@ -43,7 +43,7 @@ const LoginCon = (props) => {
                         </div>
                         <div className={styles.question}>
                             <label htmlFor="password">Password</label>
-                            <input type="text" id="password" name="userpassword" placeholder="Enter your password"
+                            <input type="password" id="password"  name="userpassword" placeholder="Enter your password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required />
