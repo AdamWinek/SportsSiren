@@ -126,12 +126,13 @@ app.post("/api/update/user/notification_preferences", async (req, res) => {
 
 // Adds following teams
 // Need to figure out how to actually pass in the teams
-app.post("/api/update/user/following", async (req, res) => {
+// Expects an array with names of team names 
+app.post("/api/update/user/following_teams", async (req, res) => {
   let currentUser = await User.findOne({ email: req.body.email }).exec();
   let newFollowingArray = ["Gunners", "Tots", "Patriots", "Eagles"];
   let updatedUser = await User.findOneAndUpdate(
     { _id: currentUser._id },
-    { $addToSet: { following: { $each: newFollowingArray } } },
+    { $addToSet: { following_teams: { $each: newFollowingArray } } },
     { safe: true, upsert: true, new: true },
     function (err, model) {
       console.log(err);
@@ -144,12 +145,13 @@ app.post("/api/update/user/following", async (req, res) => {
   console.log("SETTING NEW FOLLOWING PREFERENCES");
 });
 
-app.post("/api/delete/user/following", async (req, res) => {
+// Expects an array with the teams to unfollow 
+app.post("/api/delete/user/following_teams", async (req, res) => {
   let currentUser = await User.findOne({ email: req.body.email }).exec();
   let toRemove = ["Patriots", "Eagles"];
   let updatedUser = await User.findOneAndUpdate(
     { _id: currentUser._id },
-    { $pullAll: { following: toRemove } },
+    { $pullAll: { following_teams: toRemove } },
     { safe: true, upsert: true, new: true },
     function (err, model) {
       console.log(err);
@@ -159,6 +161,47 @@ app.post("/api/delete/user/following", async (req, res) => {
 
   console.log(updatedUser);
 });
+
+
+// Adds following games
+// Need to figure out how to actually pass in the games
+// Expects an array with names of games ids 
+app.post("/api/update/user/following_games", async (req, res) => {
+    let currentUser = await User.findOne({ email: req.body.email }).exec();
+    let newFollowingArray = ["213b8eda-43d8-4e62-9951-ed4c605fca0d", "213b8eda-43d8-4e62-9951-ed4c605fca0d", "10339048-8c6b-43c7-ae7c-d68cf44417d3", "5a5b0a83-1765-4729-b914-73ff7d4c4c89"];
+    let updatedUser = await User.findOneAndUpdate(
+      { _id: currentUser._id },
+      { $addToSet: { following_games: { $each: newFollowingArray } } },
+      { safe: true, upsert: true, new: true },
+      function (err, model) {
+        console.log(err);
+      }
+    );
+    console.log("trinyg to update user");
+  
+    console.log(updatedUser);
+  
+    console.log("SETTING NEW FOLLOWING PREFERENCES");
+  });
+  
+  // Deletes following games
+  // Expects an array with the teams to unfollow 
+  app.post("/api/delete/user/following_teams", async (req, res) => {
+    let currentUser = await User.findOne({ email: req.body.email }).exec();
+    let toRemove = ["213b8eda-43d8-4e62-9951-ed4c605fca0d", "213b8eda-43d8-4e62-9951-ed4c605fca0d"];
+    let updatedUser = await User.findOneAndUpdate(
+      { _id: currentUser._id },
+      { $pullAll: { following_games: toRemove } },
+      { safe: true, upsert: true, new: true },
+      function (err, model) {
+        console.log(err);
+      }
+    );
+    console.log("removed from user");
+  
+    console.log(updatedUser);
+  });
+
 
 // will change to:
 // /api/update/login

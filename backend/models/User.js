@@ -17,7 +17,10 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String
     },
-    following: { 
+    following_teams: { 
+        type: Array
+    }, 
+    following_games: { 
         type: Array
     }, 
     text_preference: { 
