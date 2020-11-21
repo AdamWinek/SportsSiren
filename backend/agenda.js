@@ -22,10 +22,9 @@ if(jobTypes.length) {
     // if there are jobs in the jobsTypes array set up 
     console.log("started")
     agenda.on('ready', function() {
-          console.log("read");
-          //onsole.log(agenda);
           agenda.start(); 
-          //agenda.now('poll_external_live');
+          // uncomment the next line to let the game poller run once
+          // agenda.now('poll_external_live');
     })
 
 }
