@@ -10,7 +10,7 @@ const db = mongoose.connection;
 
 
 // Get NFL Schedule 
-export const getSchedule = async function(week, key) { 
+const getSchedule = async function(week, key) { 
     let url = 'https://api.sportradar.us/nfl/official/trial/v6/en/games/2020/REG/' + week + '/schedule.json?api_key='+key; 
     const result = await axios({
         method: "get",
@@ -20,7 +20,7 @@ export const getSchedule = async function(week, key) {
 }
 
 // NFL Live Scores
-export const getLiveNFLScores = async function() { 
+const getLiveNFLScores = async function() { 
     let url = 'https://static.nfl.com/liveupdate/scorestrip/ss.xml'
     const result = await axios({
         method: "get",
@@ -33,7 +33,7 @@ export const getLiveNFLScores = async function() {
 }
 
 // Better NFL Live Scores
-export const getBetterLiveNFLScores = async function() { 
+const getBetterLiveNFLScores = async function() { 
     let url = 'http://static.nfl.com/liveupdate/scores/scores.json'
     const result = await axios({
         method: "get",
@@ -46,7 +46,7 @@ export const getBetterLiveNFLScores = async function() {
 
 
 // iSports Api 
-export const getLiveSoccerScores = async function(key) { 
+const getLiveSoccerScores = async function(key) { 
     let url = 'http://api.isportsapi.com/sport/football/livescores?api_key=' + key
     const result = await axios({
         method: "get",
@@ -56,7 +56,7 @@ export const getLiveSoccerScores = async function(key) {
 }
 
 // iSports Api 
-export const getLiveBasketBallScores = async function(key) { 
+const getLiveBasketBallScores = async function(key) { 
     let url = 'http://api.isportsapi.com/sport/basketball/livescores?api_key=' + key
     const result = await axios({
         method: "get",
@@ -66,7 +66,7 @@ export const getLiveBasketBallScores = async function(key) {
 }
 
 // NCAA Football Scores
-export const getNCAAFootballScores = async function(week) { 
+const getNCAAFootballScores = async function(week) { 
     let url = "https://api.collegefootballdata.com/games?year=2020&week="+week+"&seasonType=regular"
     const result = await axios({
         method: "get",
@@ -77,7 +77,7 @@ export const getNCAAFootballScores = async function(week) {
 }
 
 // Doesn't work
-export const getNBASimulation = async function() { 
+const getNBASimulation = async function() { 
     let url = "http://api.sportradar.us/nba/simulation/trial/en/games/2017/SIM/schedule.json?api_key=3ay8mfgvvthzhdcdb6tc3y54"
 }
 
@@ -216,3 +216,11 @@ module.exports.dailyGamesNBA = dailyGamesNBA;
 module.exports.gameInDBNBA = gameInDBNBA
 module.exports.loadNFLSZN = loadNFLSZN;
 module.exports.getWeeklyNFLGames = getWeeklyNFLGames;
+module.exports.getSchedule = getSchedule;
+module.exports.getLiveNFLScores = getLiveNFLScores;
+module.exports.getBetterLiveNFLScores = getBetterLiveNFLScores;
+module.exports.getLiveSoccerScores = getLiveSoccerScores;
+module.exports.getLiveBasketBallScores = getLiveBasketBallScores;
+module.exports.getNCAAFootballScores = getNCAAFootballScores;
+module.exports.getNBASimulation = getNBASimulation;
+

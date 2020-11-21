@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react"
+import Circles from '../Circles.svg'
+import styles from '../css/front_countdown.module.css'
 
 function Countdown(props) {
     const [timeUntil, setTimeUntil] = useState(null)
@@ -32,13 +34,9 @@ function Countdown(props) {
         return null
     } else {
         return (
-
-            <div>
-                <h3>days: {timeUntil.days}</h3>
-                <h3>hours: {timeUntil.hours}</h3>
-                <h3>minutes: {timeUntil.minutes}</h3>
-                <h3>seconds: {timeUntil.seconds}</h3>
-
+            <div className={styles.container}>
+                <img src={Circles} alt="Background img for countdown" />
+                <h3 className={styles.countdown}>{timeUntil.days} : {timeUntil.hours} : {timeUntil.minutes} : {timeUntil.seconds}</h3>
             </div>)
 
     }
