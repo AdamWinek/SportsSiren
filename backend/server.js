@@ -20,10 +20,10 @@ const bodyParser = require("body-parser");
 let twilioInstance = new twilio(accountSid, authToken);
 
 //get routes from GameController
-const { dailyGamesNBA } = require("./GameController.js");
-const { gameInDBNBA } = require("./GameController.js");
-const { loadNFlSZN } = require("./GameController.js");
-const { getWeeklyNFLGames } = require("./GameController.js");
+const { dailyGamesNBA } = require("./external_api.js");
+const { gameInDBNBA } = require("./external_api.js");
+const { loadNFlSZN } = require("./external_api.js");
+const { getWeeklyNFLGames } = require("./external_api.js");
 const {setNotificationThresholds} = require("./internal_api.js");
 const {setNotificationPreferences} = require("./internal_api.js");
 const {setFollowingTeams} = require("./internal_api.js");
