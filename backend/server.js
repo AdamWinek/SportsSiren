@@ -155,8 +155,7 @@ app.put('/api/updatePassword', async (req, res) => {
         bcrypt.hash(req.body.oldPassword, 10, async function (err, hash) {
             try {
                 const newHash = bcrypt.hashSync(req.body.newPassword, 10);
-                console.log(newHash)
-                console.log(hash)
+
                 await User.updateOne({ email: req.body.email }, { $set: { password: newHash } }, (err) => {
                     if (err) {
                         console.log(err)

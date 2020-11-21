@@ -34,9 +34,7 @@ function Settings(props) {
                         email: userCon.user.email,
                     },
                 });
-                console.log(response)
                 userCon.loggedIn = false;
-                console.log(userCon)
                 setIsDeleted(true)
 
             } catch (err) {
@@ -74,7 +72,6 @@ function Settings(props) {
                         newPassword: passwords.new
                     },
                 });
-                console.log(response.data)
                 setSaveMessage(saveMessage + " " + response.data.message)
 
 
@@ -99,7 +96,6 @@ function Settings(props) {
                     },
                 });
 
-                console.log(response.data)
 
                 setSaveMessage(saveMessage + " " + response.data.message)
             } catch (err) {
