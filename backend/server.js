@@ -35,7 +35,7 @@ const { sendNotification } = require("./internal_api.js");
 const { registerUser } = require("./internal_api.js");
 const { updateStandingsNFL } = require("./external_api.js")
 
-
+let agenda = require('./agenda');
 
 db.once("open", function () {
     console.log("wereConnected");
