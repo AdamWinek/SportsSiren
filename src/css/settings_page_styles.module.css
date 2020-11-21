@@ -27,11 +27,34 @@
 	background-color: #ff5555;
 	display: flex;
 	width: 400px;
+	margin-bottom: 50px;
 	justify-content: center;
 	padding: 15px 0;
 	border-radius: 7px;
 	font-size: 1.3em;
 	font-weight: 900;
+}
+.deleteMsg {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 25px;
+	color: #ff5555;
+	letter-spacing: 0.05em;
+	height: 50px;
+	line-height: 50px;
+	margin-top: 50px;
+}
+.savedMsg {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 25px;
+	color: #ff5555;
+	letter-spacing: 0.05em;
+	height: 50px;
+	line-height: 50px;
+	margin-top: 50px;
 }
 .submit {
 	border: none;

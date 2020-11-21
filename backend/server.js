@@ -131,8 +131,11 @@ app.get('/api/sampleProtectedRoute', async (req, res) => {
 
 
 app.delete('/api/deleteAccount', async (req, res) => {
+    console.log(req.body, "here")
     try {
-        await db.User.deleteOne({ email: req.email });
+        await User.deleteOne({ email: req.body.email }, function (err) {
+            if (err) { console.log(err.toString()) };
+        });
         res.json({ message: "user deleted" });
 
 
@@ -145,6 +148,53 @@ app.delete('/api/deleteAccount', async (req, res) => {
 
 
 })
+
+app.put('/api/updatePassword', async (req, res) => {
+
+    try {
+        bcrypt.hash(req.body.oldPassword, 10, async function (err, hash) {
+            try {
+                const newHash = bcrypt.hashSync(req.body.newPassword, 10);
+                console.log(newHash)
+                console.log(hash)
+                await User.updateOne({ email: req.body.email }, { $set: { password: newHash } }, (err) => {
+                    if (err) {
+                        console.log(err)
+
+                    }
+                }
+                );
+                res.json({ message: "password changed" });
+
+            } catch (err) {
+                res.json({ message: err.toString() })
+
+            }
+        })
+    } catch (e) {
+        res.json({
+            message: e.toString()
+        })
+
+    }
+})
+
+
+
+app.put('/api/updatePhone', async (req, res) => {
+
+    try {
+        await User.updateOne({ email: req.body.email }, { $set: { phone: req.body.phone } });
+        res.json({ message: "phone changed" });
+
+    } catch (err) {
+        res.json({ message: "There was an error with your phone" })
+
+    }
+
+})
+
+
 
 
 

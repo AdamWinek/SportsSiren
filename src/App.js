@@ -69,7 +69,6 @@ function App() {
         <Switch>
           <Route exact path="/">
             <LoginPage login={(email, password) => login(email, password)} loggedIn={loggedIn} />
-
           </Route>
           <Route path="/home">
             {console.log(loggedIn)}
