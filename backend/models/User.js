@@ -17,6 +17,26 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String
     },
+    following_teams: { 
+        type: Array
+    }, 
+    following_games: { 
+        type: Array
+    }, 
+    text_preference: { 
+        type: Boolean,
+        default: false
+    },
+    email_preference: { 
+        type: Boolean,
+        default: false
+    },
+    score_threshold: { 
+        type: Number
+    },
+    time_threshold: { 
+        type: Number
+    },
 
 
 

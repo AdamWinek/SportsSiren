@@ -23,15 +23,15 @@ const InfoPage = () => {
         </div>
         <div className={styles.text}>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris
+            SportsSiren is a notification app that allows you to follow your favorite teams and games so you never 
+            miss a second of the action. Configure custom time and score thresholds to receive a notification 
+            so that you can tune in to the closest games you care about. Sign up today! 
           </p>
-          <h2 className={styles.subtitle}>Sports Siren lets you</h2>
+          <h2 className={styles.subtitle}>Sports Siren lets you:</h2>
           <div className={styles.infocards}>
-            <p>Lorem ipsum dolor sit amet, consectet and finish</p>
-            <p>Lorem ipsum dolor sit amet, consectet and finish</p>
-            <p>Lorem ipsum dolor sit amet, consectet and finish</p>
+            <p>Follow teams and games you're interested in.</p>
+            <p>Receive notifications on your phone or email.</p>
+            <p>View a overview of currently happening games along with a custom excitement-index score.</p>
           </div>
         </div>
       </div>
