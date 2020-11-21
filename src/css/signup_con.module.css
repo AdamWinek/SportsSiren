@@ -134,32 +134,8 @@ p {
 .diff {
 	background-color: #ffed47;
 }
-.infocards {
-	display: flex;
 
-	flex-direction: column;
-	align-items: center;
-}
-.infocards p {
-	width: 100%;
-	border: 4px solid black;
-	margin: 5px;
-	text-align: center;
-	padding: 10px 15px;
-	border-radius: 7px;
-	background-color: white;
-	transition: 0.3s;
-}
-.infocards p:hover {
-	background-color: black;
-	color: white;
-	padding-bottom: 5vh;
-}
-img {
-	width: 100%;
-	min-width: 120px;
-	max-width: 25vw;
-}
+
 
 .twoline {
 	display: flex;

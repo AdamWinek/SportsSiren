@@ -15,7 +15,7 @@ const InfoPage = () => {
     <div className={styles.container}>
       <div className={styles.basic_info}>
         <div className={styles.header}>
-          <img src={logo} alt="logo" />
+          <img className={styles.img} src={logo} alt="logo" />
           <h1>
             Sports <br />
             Siren
