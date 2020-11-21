@@ -30,7 +30,6 @@ function NFLScoreboard(props) {
     // })
 
 
-
     useEffect(() => {
         let getGame = async function () {
             console.log('here')
@@ -45,20 +44,27 @@ function NFLScoreboard(props) {
                     })
                     console.log(result)
                     let gamesArr = result.data.games.map((game) => {
+                        let gameDate = new Date(game.scheduled)
+
+
                         return (
                             < div className={styles.scoreboard}>
-                                <h5 className={styles.timeRemaining}>3:20</h5>
+                                <h5 className={styles.timeRemaining}>{formatDate(gameDate)}</h5>
                                 <div className={styles.teams}>
                                     <div className={styles.eachTeam}>
                                         <div className={styles.teamNameDiv}>
                                             <h1 className={styles.teamName}>{game ? game.homeTeam : 'loading'}</h1>
                                         </div>
+                                        <h3 className={styles.teamRecord}>{game ? `${game.homeWins}-${game.homeLosses}-${game.homeTies}` : 'loading'}</h3>
+
                                         <img className={styles.teamLogo} src={"/NFLLogos/" + game.homeTeam + ".gif"}></img>
                                     </div>
                                     <div className={styles.eachTeam}>
                                         <div className={styles.teamNameDiv}>
                                             <h1 className={styles.teamName}>{game ? game.awayTeam : 'loading'}</h1>
+
                                         </div>
+                                        <h3 className={styles.teamRecord}>{game ? `${game.awayWins}-${game.awayLosses}-${game.awayTies}` : 'loading'}</h3>
 
                                         <img className={styles.teamLogo} src={"/NFLLogos/" + game.awayTeam + ".gif"}></img>
                                     </div>
@@ -89,6 +95,12 @@ function NFLScoreboard(props) {
         }
         getGame()
     }, [index])
+
+    function formatDate(gameDate) {
+        return `${gameDate.getMonth() + 1}-${gameDate.getDate()}-${gameDate.getFullYear()} 
+        ${gameDate.getHours() > 12 ? gameDate.getHours() % 12 : gameDate.getHours()}:${gameDate.getMinutes() < 10 ? "0" : ""}${gameDate.getMinutes()}${gameDate.getHours() > 12 ? "PM" : "AM"}`
+
+    }
 
     function mod(n, m) {
         return ((n % m) + m) % m;

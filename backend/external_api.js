@@ -10,74 +10,74 @@ const db = mongoose.connection;
 
 
 // Get NFL Schedule 
-const getSchedule = async function(week, key) { 
-    let url = 'https://api.sportradar.us/nfl/official/trial/v6/en/games/2020/REG/' + week + '/schedule.json?api_key='+key; 
+const getSchedule = async function (week, key) {
+    let url = 'https://api.sportradar.us/nfl/official/trial/v6/en/games/2020/REG/' + week + '/schedule.json?api_key=' + key;
     const result = await axios({
         method: "get",
         url: url,
-      });
+    });
     return result.data;
 }
 
 // NFL Live Scores
-const getLiveNFLScores = async function() { 
+const getLiveNFLScores = async function () {
     let url = 'https://static.nfl.com/liveupdate/scorestrip/ss.xml'
     const result = await axios({
         method: "get",
         url: url,
-      });   
+    });
     // Gonna need to parse the XML 
-    console.log(result.data); 
+    console.log(result.data);
     return result.data;
 
 }
 
 // Better NFL Live Scores
-const getBetterLiveNFLScores = async function() { 
+const getBetterLiveNFLScores = async function () {
     let url = 'http://static.nfl.com/liveupdate/scores/scores.json'
     const result = await axios({
         method: "get",
         url: url,
-      });   
-    console.log(result.data); 
+    });
+    console.log(result.data);
     return result.data;
 
 }
 
 
 // iSports Api 
-const getLiveSoccerScores = async function(key) { 
+const getLiveSoccerScores = async function (key) {
     let url = 'http://api.isportsapi.com/sport/football/livescores?api_key=' + key
     const result = await axios({
         method: "get",
         url: url,
-      });   
-    return result.data; 
+    });
+    return result.data;
 }
 
 // iSports Api 
-const getLiveBasketBallScores = async function(key) { 
+const getLiveBasketBallScores = async function (key) {
     let url = 'http://api.isportsapi.com/sport/basketball/livescores?api_key=' + key
     const result = await axios({
         method: "get",
         url: url,
-      });   
-    return result.data; 
+    });
+    return result.data;
 }
 
 // NCAA Football Scores
-const getNCAAFootballScores = async function(week) { 
-    let url = "https://api.collegefootballdata.com/games?year=2020&week="+week+"&seasonType=regular"
+const getNCAAFootballScores = async function (week) {
+    let url = "https://api.collegefootballdata.com/games?year=2020&week=" + week + "&seasonType=regular"
     const result = await axios({
         method: "get",
         url: url,
-      });   
-    return result.data; 
+    });
+    return result.data;
 
 }
 
 // Doesn't work
-const getNBASimulation = async function() { 
+const getNBASimulation = async function () {
     let url = "http://api.sportradar.us/nba/simulation/trial/en/games/2017/SIM/schedule.json?api_key=3ay8mfgvvthzhdcdb6tc3y54"
 }
 
@@ -167,6 +167,7 @@ let addGameToDBNBA = async function (game) {
 async function loadNFLSZN(req, res) {
     let games = await axios.get('http://api.sportradar.us/nfl/official/trial/v6/en/games/2020/REG/schedule.json?api_key=7kks4khpf5zepeq5gzh7wgxv', {})
 
+
     let weeks = games.data.weeks
     weeks.forEach((week) => {
         let weeklyGames = week.games
@@ -184,7 +185,7 @@ async function loadNFLSZN(req, res) {
                     homePoints: (game.scoring ? game.scoring.home_points : 0),
                     awayPoints: (game.scoring ? game.scoring.away_points : 0),
                     awayLogoUrl: "none Rn",
-                    homeLogoUrl: "none Rn"
+                    homeLogoUrl: "none Rn",
                 })
                 await current.save()
             } catch (err) {
@@ -197,6 +198,65 @@ async function loadNFLSZN(req, res) {
         })
     })
 }
+
+
+const updateStandingsNFL = async function updateStandingsNFL(req, res) {
+    try {
+        let currentStandings = await axios.get('http://api.sportradar.us/nfl/official/trial/v6/en/seasons/2020/standings.json?api_key=7kks4khpf5zepeq5gzh7wgxv', {})
+
+        let teamArr = []
+        console.log(currentStandings)
+        //load standings into array
+        currentStandings.data.conferences.forEach((conference) => {
+            conference.divisions.forEach((division) => {
+                division.teams.forEach((team) => {
+                    teamArr.push(team)
+
+
+                })
+
+
+            })
+        }
+        )
+        teamArr.forEach(async (team) => {
+            try {
+                //update records in which team in array was the home team
+                NFLGame.updateMany({ homeTeam: `${team.market} ${team.name}` }, { $set: { homeWins: team.wins, homeLosses: team.losses, homeTies: team.ties } }, (err) => {
+                    if (err) {
+                        console.log(err.toString())
+                    }
+                })
+                //update records in which team in array was the away team
+                NFLGame.updateMany({ awayTeam: `${team.market} ${team.name}` }, { $set: { awayWins: team.wins, awayLosses: team.losses, awayTies: team.ties } },
+                    (err) => {
+                        if (err) {
+                            console.log(err.toString())
+                        }
+                    })
+
+            } catch (err) {
+                console.log(err.toString())
+            }
+
+
+        })
+        res.json({
+            message: "records Updated Succesfully"
+        })
+
+
+    } catch (err) {
+        res.json({
+            message: err.toString()
+        })
+
+    }
+
+
+
+}
+
 //api/getWeeklyNFLgames/week:
 async function getWeeklyNFLGames(req, res) {
 
@@ -223,4 +283,4 @@ module.exports.getLiveSoccerScores = getLiveSoccerScores;
 module.exports.getLiveBasketBallScores = getLiveBasketBallScores;
 module.exports.getNCAAFootballScores = getNCAAFootballScores;
 module.exports.getNBASimulation = getNBASimulation;
-
+module.exports.updateStandingsNFL = updateStandingsNFL

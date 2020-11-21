@@ -60,6 +60,20 @@
 	margin-bottom: 15px;
 	line-height: 40px;
 }
+.teamRecord {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 24px;
+	line-height: 100%;
+	/* or 24px */
+	display: flex;
+	align-items: center;
+	letter-spacing: 0.05em;
+	margin-bottom: 5px;
+
+	color: #c4c4c4;
+}
 .teamNameDiv {
 	display: flex;
 	justify-content: center;

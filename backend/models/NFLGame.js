@@ -34,7 +34,31 @@ const gameSchema = new mongoose.Schema({
     },
     homeLogoUrl: {
         type: String
-    }
+    },
+    homeRecord: {
+        type: String
+    },
+    awayRecord: {
+        type: String
+    },
+    homeWins: {
+        type: Number
+    },
+    awayWins: {
+        type: Number
+    },
+    homeLosses: {
+        type: Number
+    },
+    awayLosses: {
+        type: Number
+    },
+    homeTies: {
+        type: Number
+    },
+    awayTies: {
+        type: Number
+    },
 
 
 
