@@ -88,7 +88,7 @@ app.post("/api/update/user/following_games", async (req, res) => updateFollowing
 
 // Deletes following games
 // Expects an array with the teams to unfollow 
-app.post("/api/delete/user/following_teams", async (req, res) => deleteFollowingTeams(req, res))
+app.post("/api/delete/user/following_games", async (req, res) => deleteFollowingGames(req, res))
 
 // will change to:
 // /api/update/login
