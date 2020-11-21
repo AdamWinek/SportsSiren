@@ -98,7 +98,7 @@ function NFLScoreboard(props) {
 
     function formatDate(gameDate) {
         return `${gameDate.getMonth() + 1}-${gameDate.getDate()}-${gameDate.getFullYear()} 
-        ${gameDate.getHours() > 12 ? gameDate.getHours() % 12 : gameDate.getHours()}${gameDate.getMinutes() < 10 ? "0" : ""}${gameDate.getMinutes()}${gameDate.getHours() > 12 ? "PM" : "AM"}`
+        ${gameDate.getHours() > 12 ? gameDate.getHours() % 12 : gameDate.getHours()}:${gameDate.getMinutes() < 10 ? "0" : ""}${gameDate.getMinutes()}${gameDate.getHours() > 12 ? "PM" : "AM"}`
 
     }
 
