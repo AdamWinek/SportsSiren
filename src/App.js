@@ -72,15 +72,12 @@ function App() {
             <LoginPage login={(email, password) => login(email, password)} loggedIn={loggedIn} />
           </Route>
           <Route path="/home">
-            {console.log(loggedIn)}
             {loggedIn ? <Homepage /> : <Redirect to="/" />}
           </Route>
           <Route path="/subscription">
-            {console.log(loggedIn)}
             {loggedIn ? <SubscribePage /> : <Redirect to="/" />}
           </Route>
           <Route path="/settings">
-            {console.log(loggedIn)}
             {loggedIn ? <Settings /> : <Redirect to="/" />}
           </Route>
         </Switch>
