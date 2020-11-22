@@ -89,8 +89,8 @@ function SubscriptionCard(props) {
       {logo}
 
       <div className={styles.notification}>
-        <img src={email} alt="sms logo" className={props.subArray[0].viaEmail ? styles.greyIcom : styles.none}></img>
-        <img src={sms} alt="email logo" className={props.subArray[0].viaText ? styles.greyIcom : styles.none}></img>
+        <img src={email} alt="sms logo" className={props.subArray[0].viaEmail ? styles.greyIcon : styles.none}></img>
+        <img src={sms} alt="email logo" className={props.subArray[0].viaText ? styles.greyIcon : styles.none}></img>
       </div>
       <div className={styles.text}>
         <h3>Notify me when</h3>
