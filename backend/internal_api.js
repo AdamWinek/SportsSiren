@@ -331,7 +331,6 @@ async function handleNotification(game) {
           sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has started. Tune into the game now!`, subscription.phone)
         }
 
-
       }
 
       //send notification
