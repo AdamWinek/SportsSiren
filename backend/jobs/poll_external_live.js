@@ -6,16 +6,13 @@ mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://AdamLeonHoulton:AdamLeonHoulton@sportssiren.rrbya.mongodb.net/SportsSiren?retryWrites=true&w=majority', { useNewUrlParser: true });
 const db = mongoose.connection;
 
-console.log("poll_ext")
 module.exports = (agenda) => {
      agenda.define("poll_external_live", async (job, done) => {
-         console.log("here")
             let url = 'http://static.nfl.com/liveupdate/scores/scores.json'
             const result = await axios({
                 method: "get",
                 url: url,
               });   
-            console.log("throwing")
             let game_scores = result.data; 
             //console.log(game_scores); 
             for(game in game_scores) { 
@@ -56,13 +53,11 @@ module.exports = (agenda) => {
                     })    
                 }
             }
-            console.log("SUCCESS");
             done();
 
         })
         
         
-        console.log("poll_epollt")
 
 
     

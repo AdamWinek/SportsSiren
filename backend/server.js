@@ -44,6 +44,7 @@ db.once("open", function () {
     console.log("wereConnected");
 });
 
+
 // parse application/json
 app.use(bodyParser.json());
 // Serve the static files from the React app

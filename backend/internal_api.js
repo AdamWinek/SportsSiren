@@ -45,9 +45,6 @@ async function setNotificationThresholds(req, res) {
       console.log(err);
     }
   );
-  console.log("trinyg to update user");
-
-  console.log(updatedUser);
 
 
 }
@@ -70,9 +67,7 @@ async function setNotificationPreferences(req, res) {
       console.log(err);
     }
   );
-  console.log("trinyg to update user");
 
-  console.log(updatedUser);
 
 
 
@@ -88,11 +83,7 @@ async function setFollowingTeams(req, res) {
       console.log(err);
     }
   );
-  console.log("trinyg to update user");
 
-  console.log(updatedUser);
-
-  console.log("SETTING NEW FOLLOWING PREFERENCES");
 }
 async function deleteFollowingTeams(req, res) {
   let currentUser = await User.findOne({ email: req.body.email }).exec();
@@ -105,9 +96,7 @@ async function deleteFollowingTeams(req, res) {
       console.log(err);
     }
   );
-  console.log("removed from user");
 
-  console.log(updatedUser);
 
 
 }
@@ -123,11 +112,6 @@ async function updateFollowingGames(req, res) {
       console.log(err);
     }
   );
-  console.log("trinyg to update user");
-
-  console.log(updatedUser);
-
-  console.log("SETTING NEW FOLLOWING PREFERENCES");
 }
 
 
@@ -142,56 +126,29 @@ async function deleteFollowingGames(req, res) {
       console.log(err);
     }
   );
-  console.log("removed from user");
-
-  console.log(updatedUser);
-
-
 }
 async function login(req, res) {
-  console.log(req.body);
   let currentUser = await User.findOne({ email: req.body.email }).exec();
   if (currentUser == undefined) {
     res.status(400);
     res.json({
-      message: "No user associated with email",
+      message: "Their was an error with your password",
     });
-  } else if (req.body.password == undefined) {
-    res.status(400);
+  } else {
+    let token = jwt.sign({ email: req.body.email }, "daSecretToken", {
+      expiresIn: "1h",
+    });
+
+    res.status(200);
     res.json({
-      message: "wrong password",
+      token: token,
+      email: req.body.email,
+      fname: currentUser.fname,
+      lname: currentUser.lname,
+      phone: currentUser.phone,
     });
-    return;
   }
-
-
-
-
-
-  bcrypt.compare(req.body.password, currentUser.password, function (
-    err,
-    result
-  ) {
-    if (!result || err) {
-      res.status(400);
-      res.json({
-        message: "Their was an error with your password",
-      });
-    } else {
-      let token = jwt.sign({ email: req.body.email }, "daSecretToken", {
-        expiresIn: "1h",
-      });
-
-      res.status(200);
-      res.json({
-        token: token,
-        email: req.body.email,
-        fname: currentUser.fname,
-        lname: currentUser.lname,
-        phone: currentUser.phone,
-      });
-    }
-  });
+});
 
 
 }
@@ -227,12 +184,20 @@ async function sendNotification(req, res) {
 
 async function registerUser(req, res) {
   try {
+    let formatted_phone = "";
+    if (req.body.telephone.includes("-")) {
+      console.log("1" + req.body.telephone.replace(/-/g, ""));
+      formatted_phone = "+1" + req.body.telephone.replace(/-/g, "");
+    }
+    else {
+      formatted_phone = "+1" + req.body.telephone;
+    }
     bcrypt.hash(req.body.password, 10, async function (err, hash) {
       let user = new User({
         fname: req.body.fname,
         lname: req.body.lname,
         email: req.body.email,
-        phone: req.body.phone,
+        phone: formatted_phone,
         password: hash,
       });
 
@@ -242,6 +207,7 @@ async function registerUser(req, res) {
           message: "User Added",
         });
       } catch (e) {
+        console.log(e);
         res.json({
           message: e.toString(),
         });
@@ -252,6 +218,12 @@ async function registerUser(req, res) {
       message: e.toString(),
     });
   }
+});
+  } catch (e) {
+  res.json({
+    message: e.toString(),
+  });
+}
 }
 
 
