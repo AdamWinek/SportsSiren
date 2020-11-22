@@ -20,7 +20,7 @@ module.exports = (agenda) => {
                 if (typeof game !== null) {
                     //console.log("game " + game_scores[game].home.score.T);
                     if(game_scores[game].away.abbr == "NE") { 
-                        console.log(game_scores[game])
+                        //console.log(game_scores[game])
                     }
                     let id_to_user = game_scores[game].home.abbr + "-" + game_scores[game].away.abbr;
                     await NFLGame.findOneAndUpdate(
