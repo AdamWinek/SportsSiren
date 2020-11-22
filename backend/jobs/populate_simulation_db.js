@@ -1,6 +1,6 @@
 const axios = require('axios')
 const mongoose = require('mongoose');
-const data = require("../example_api_responses/example_live_scores_full.json"); 
+const data = require("../example_api_responses/example_single_game.json"); 
 const simulation_game = require("../models/simulation_game"); 
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://AdamLeonHoulton:AdamLeonHoulton@sportssiren.rrbya.mongodb.net/SportsSiren?retryWrites=true&w=majority', { useNewUrlParser: true });
