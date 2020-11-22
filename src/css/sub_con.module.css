@@ -6,9 +6,9 @@
 }
 .title::before {
     position: absolute;
-    bottom: -3px;
+    bottom: 3px;
     content: '';
-    width: 400px;
+    width: 800px;
     height: 20px;
     background-color: rgb(255,239,90);
     z-index: -5;

@@ -81,7 +81,7 @@
 	font-family: Roboto;
 	font-style: normal;
 	font-weight: 900;
-	font-size: 36px;
+	font-size: 30px;
 	line-height: 100%;
 	color: #000000;
 	text-align: center;
@@ -90,8 +90,12 @@
 .vs {
 	font-family: Roboto;
 	font-style: normal;
-	font-weight: 900;
-	font-size: 48px;
+	font-weight: 300;
+	font-size: 25px;
 	line-height: 100%;
 	color: #c4c4c4;
+	margin: 20px;
+}
+.when {
+	padding: 15px 0;
 }

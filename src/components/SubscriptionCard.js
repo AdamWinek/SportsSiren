@@ -94,7 +94,7 @@ function SubscriptionCard(props) {
       </div>
       <div className={styles.text}>
         <h3>Notify me when</h3>
-        <ul>
+        <ul className={styles.when}>
           {when}
         </ul>
         <div className={styles.buttons}>
