@@ -63,6 +63,11 @@
     color: rgba(0, 0, 0, .6);
 
 }
+.team {
+    width: 240px;
+    text-align: center;
+}
+
 .logo {
     filter: saturate(0);
  
