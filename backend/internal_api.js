@@ -299,24 +299,20 @@ async function handleNotification(game) {
 
   }
   // difference in Score
-  let scoreDelta = Math.abs(game.home_total_score - game.away_total_score)
-
+  let scoreDelta = Math.abs(game.homeTotalScore - game.awayTotalScore)
   let toNotify = []
-
-
-
   //get NFL subscription object
   toNotify = toNotify.concat(await Subscription.find({
     type: "league", identifier: "NFL"
   }).exec())
   //get homeTeam subscription object
   toNotify = toNotify.concat(await Subscription.find({
-    type: "league", identifier: game.home_abbr
+    type: "league", identifier: game.homeAbbr
   }).exec())
 
   //get awayTeam subscription object
   toNotify = toNotify.concat(await Subscription.find({
-    type: "league", identifier: game.away_abbr
+    type: "league", identifier: game.awayAbbr
   }).exec())
 
 
@@ -332,7 +328,7 @@ async function handleNotification(game) {
       if (!subscription.notifiedGames.contains(identifier) && timeUntilEnd > 0) {
 
         if (subscription.viaText) {
-          sendTextMessage(`Sports Siren Alert!! ${game.home_abbr} vs. ${game.away_abbr} has started. Tune into the game now!`, subscription.phone)
+          sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has started. Tune into the game now!`, subscription.phone)
         }
 
 
@@ -348,7 +344,7 @@ async function handleNotification(game) {
       // notification hasnt been sent
       if (!subscription.notifiedGames.contains(identifier) && timeUntilEnd == 0) {
         if (subscription.viaText) {
-          sendTextMessage(`Sports Siren Alert!! ${game.home_abbr} vs. ${game.away_abbr} has ended. Final score ${game.home_abbr}:${game.home_total_score} to ${game.away_abbr}:${game.away_total_score}`, subscription.phone)
+          sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has ended. Final score ${game.homeAbbr}:${game.homeTotalScore} to ${game.awayAbbr}:${game.awayTotalScore}`, subscription.phone)
         }
 
       }
@@ -368,19 +364,14 @@ async function handleNotification(game) {
 
       if (toNotify && !subscription.notifiedGames.contains(identifier)) {
         if (subscription.viaText) {
-          sendTextMessage(`Sports Siren Alert!! ${game.home_abbr} vs. ${game.away_abbr}. The game has ${subscription.timeUntilEnd} minutes left.Current score ${game.home_abbr}: ${game.home_total_score} to ${game.away_abbr}: ${game.away_total_score}`, subscription.phone)
+          sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr}. The game has ${subscription.timeUntilEnd} minutes left.Current score ${game.homeAbbr}: ${game.homeTotalScore} to ${game.awayAbbr}: ${game.awayTotalScore}`, subscription.phone)
         }
-
-
-
         subscription.notifiedGames.push({ gameId: game.gameId }).save()
 
       }
 
     }
   })
-
-
 }
 
 async function sendTextMessage(message, phone) {

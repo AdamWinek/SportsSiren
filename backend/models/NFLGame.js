@@ -11,6 +11,16 @@ const gameSchema = new mongoose.Schema({
     homeTeam: {
         type: String
     },
+    homeAbbr: {
+        type: String
+    },
+    awayAbbr: {
+        type: String
+    },
+    abbrKey: {
+        type: String,
+        unique: true
+    },
     awayTeam: {
         type: String,
     },
@@ -58,7 +68,47 @@ const gameSchema = new mongoose.Schema({
     },
     awayTies: {
         type: Number
+    }, homeTotalScore: {
+        type: Number,
     },
+    homeFirstQuarterScore: {
+        type: Number,
+    },
+    homeSecondQuarterScore: {
+        type: Number,
+    },
+    homeThirdQuarterScore: {
+        type: Number,
+    },
+    homeFourthQuarterScore: {
+        type: Number,
+    },
+    awayTotalScore: {
+        type: Number,
+    },
+    awayFirstQuarterScore: {
+        type: Number,
+    },
+    awaySecondQuarterScore: {
+        type: Number,
+    },
+    awayThirdQuarterScore: {
+        type: Number,
+    },
+    awayFourthQuarterScore: {
+        type: Number,
+    },
+    clock: {
+        type: String,
+    },
+    qtr: {
+        type: String,
+    }
+
+
+
+
+
 
 
 
