@@ -19,7 +19,7 @@
 :focus {
 	outline: none;
 }
-label {
+.label {
 	display: inline-block;
 	font-size: 1.3em;
 	font-weight: 900;
