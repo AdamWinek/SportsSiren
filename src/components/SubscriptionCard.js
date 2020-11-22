@@ -96,20 +96,18 @@ function SubscriptionCard(props) {
     <>
 
       <div className={styles.container}>
-
         {logo}
-
         <div className={styles.notification}>
-          <img src={email} alt="email logo" className={props.subArray[0].viaEmail ? styles.none : styles.greyIcon}></img>
-          <img src={sms} alt="sms logo" className={props.subArray[0].viaText ? styles.none : styles.greyIcon}></img>
+          <img src={email} alt="sms logo" className={props.subArray[0].viaEmail ? styles.greyIcon : styles.none}></img>
+          <img src={sms} alt="email logo" className={props.subArray[0].viaText ? styles.greyIcon : styles.none}></img>
         </div>
         <div className={styles.text}>
           <h3>Notify me when</h3>
-          <ul>
+          <ul className={styles.when}>
             {when}
           </ul>
           <div className={styles.buttons}>
-            <button className={styles.button} onClick={() => setEditToggle(!editToggle)}>Edit</button>
+            <button className={styles.button}>Edit</button>
             <button className={styles.button}>Delete</button>
           </div>
         </div>
