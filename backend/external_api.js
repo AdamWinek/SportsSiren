@@ -184,8 +184,7 @@ async function loadNFLSZN(req, res) {
                     utcOffset: game.utc_offset,
                     homePoints: (game.scoring ? game.scoring.home_points : 0),
                     awayPoints: (game.scoring ? game.scoring.away_points : 0),
-                    awayLogoUrl: "none Rn",
-                    homeLogoUrl: "none Rn",
+
                 })
                 await current.save()
             } catch (err) {
