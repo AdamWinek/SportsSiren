@@ -80,10 +80,10 @@ function SimulationForm(props) {
               <label htmlFor="endofgame">Game ends</label>
               <br></br>
               <label>Game is ending in {data.time} minutes</label>
-              <input className="" type="range"  min="0" max="21" name="time" onChange={(e) => onSlide(e)}></input>
+              <input className="" type="range"  min="1" max="59" name="time" onChange={(e) => onSlide(e)}></input>
               <br></br>
               <label>Game is within {data.threshold} points</label>
-              <input className="" type="range"  min="1" max="59" name="threshold" onChange={(e) => onSlide(e)}></input>
+              <input className="" type="range"  min="0" max="21" name="threshold" onChange={(e) => onSlide(e)}></input>
               <br></br>
               <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
             
