@@ -5,14 +5,13 @@ import styles from "../css/home_page_styles.module.css"
 import ScoreGraph from "../components/ScoreGraph"
 import Countdown from "../components/Countdown"
 function Homepage(props) {
-    const date1 = new Date('December 17, 2020 03:24:00');
-
+  
 
     return (
         <div>
 
             <HomeNav active={"Home"} />
-            <Countdown scheduledTime={date1}></Countdown>
+            <Countdown ></Countdown>
             <div className={styles.body}>
                 <h1 className={styles.sectionHeader}>Pinned</h1>
                 <div className={styles.sectionBreak}></div>
