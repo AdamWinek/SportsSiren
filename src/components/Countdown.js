@@ -1,13 +1,38 @@
 import React, { useEffect, useState } from "react";
 import styles from "../css/front_countdown.module.css";
+import axios from "axios"
 
 function Countdown(props) {
   const [timeUntil, setTimeUntil] = useState(null);
+  const [game, setGame] = useState(null)
 
-  useEffect(() => setInterval(updateTimeRemaining, 1000), []);
+
+  useEffect(() => {
+
+    let getGame = async function () {
+      console.log('here')
+      let methodUrl = "https://sports-siren.herokuapp.com/api/"
+      console.log(process.env.REACT_APP_DEV_ENV)
+      if (process.env.REACT_APP_DEV_ENV == "development") {
+        methodUrl = "http://localhost:3000/api/"
+      }
+
+      let result = await axios.get(methodUrl + 'get/nextUpcomingGame', {
+      })
+      console.log(result)
+      setGame(result.data.game[0])
+
+
+    }
+    getGame()
+  }, []);
 
   function updateTimeRemaining() {
-    let scheduledTime = new Date(props.scheduledTime);
+    if (game == null) {
+      return
+    }
+
+    let scheduledTime = new Date(game.scheduled);
     let current = Date.now();
     let elapsed = scheduledTime.getTime() - current;
 
@@ -26,10 +51,10 @@ function Countdown(props) {
       console.log(timeUntil)
     );
   }
+  setInterval(() => updateTimeRemaining(), 1000)
+  console.log(game)
 
-  console.log(props.scheduledTime);
-
-  if (timeUntil == null) {
+  if (game == null || timeUntil == null) {
     return null;
   } else {
     return (

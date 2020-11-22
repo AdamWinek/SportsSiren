@@ -12,8 +12,8 @@ function Homepage(props) {
         <div>
 
             <HomeNav active={"Home"} />
-            <Countdown scheduledTime={date1}></Countdown>
             <div className={styles.body}>
+                <Countdown />
                 <h1 className={styles.sectionHeader}>Pinned</h1>
                 <div className={styles.sectionBreak}></div>
                 <NFLScoreboard />
@@ -22,8 +22,8 @@ function Homepage(props) {
                 <div className={styles.sectionBreak}>
                     <ScoreGraph />
                 </div>
-                
-        
+
+
 
 
             </div>
