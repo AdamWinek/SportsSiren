@@ -1,0 +1,26 @@
+.title {
+    position: relative;
+    font-size: 3.5em;
+    margin-top: 100px;
+    margin-bottom: 80px;
+}
+.title::before {
+    position: absolute;
+    bottom: -3px;
+    content: '';
+    width: 400px;
+    height: 20px;
+    background-color: rgb(255,239,90);
+    z-index: -5;
+
+}
+.subscribedlist > li{
+    list-style-type: none;
+    margin-bottom: 40px;
+    
+
+}
+.body {
+    padding-left: 50px;
+    padding-right: 50px;
+}

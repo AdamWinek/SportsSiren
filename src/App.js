@@ -6,6 +6,7 @@ import SampleContextPage from "./pages/SampleContextPage"
 import axios from "axios"
 import Scoreboard from './components/Scoreboard';
 import NFLScoreboard from './components/NFLScoreboard';
+import SubscribePage from './pages/SubscribePage'
 import {
   BrowserRouter as Router,
   Switch,
@@ -73,6 +74,10 @@ function App() {
           <Route path="/home">
             {console.log(loggedIn)}
             {loggedIn ? <Homepage /> : <Redirect to="/" />}
+          </Route>
+          <Route path="/subscription">
+            {console.log(loggedIn)}
+            {loggedIn ? <SubscribePage /> : <Redirect to="/" />}
           </Route>
           <Route path="/settings">
             {console.log(loggedIn)}
