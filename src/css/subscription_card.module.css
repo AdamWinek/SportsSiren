@@ -1,8 +1,6 @@
 .container {
-    display: inline-flex;
-    border: 5px solid black;
-    
-    
+	display: inline-flex;
+	border: 5px solid black;
 }
 .container > div:nth-child(1) {
     width: 200px;
@@ -12,74 +10,88 @@
     align-items: center;
     margin: 20px 30px;
 
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 30px;
 }
 
 .container > div:nth-child(2) {
-    width: 80px;
+	width: 80px;
 
-  
-    
-    border-left: 5px solid black;
-    border-right: 5px solid black;
-    padding: 0 20px;
-
+	border-left: 5px solid black;
+	border-right: 5px solid black;
+	padding: 0 20px;
 }
 
 .container > div:nth-child(3) {
-    width: 300px;
-   
-
+	width: 300px;
 }
 .container > div:nth-child(1) > h3 {
-    font-size: 1.5em;
-    padding-bottom: 20px;
-
-
+	font-size: 1.5em;
+	padding-bottom: 20px;
 }
 .container > div:nth-child(1) > img {
-    width: 70%;
-    filter: saturate(0);
-    
-
-
+	width: 70%;
+	/* filter: saturate(0); */
 }
 
 .button {
-    color: white;
-    padding: 10px 40px;
-    border: none;
-    background-color: black;
-    border-radius: 7px;
+	color: white;
+	padding: 10px 40px;
+	border: none;
+	background-color: black;
+	border-radius: 7px;
 }
 .button:nth-child(1) {
-    margin-right: 10px;
+	margin-right: 10px;
 }
 .button:nth-child(2) {
-    background-color: rgb(216, 91, 69);
+	background-color: rgb(216, 91, 69);
 }
 .text {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin: 20px;
 }
 
 .text > h3 {
-    font-size: 1.5em;
+	font-size: 1.5em;
 }
 .text > ul li {
-    list-style-position: inside;
-    color: rgb(146, 141, 140);
+	list-style-position: inside;
+	color: rgb(146, 141, 140);
 }
 .notification {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
 }
 .notification > img:nth-child(1) {
-    height: 30px;
-    margin-bottom: 20px;
+	height: 30px;
+	margin-bottom: 20px;
 }
 
+.greyIcon {
+	opacity: 0.5;
+}
+.gameTitle {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: 900;
+	font-size: 36px;
+	line-height: 100%;
+	color: #000000;
+	text-align: center;
+}
 
+.vs {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: 900;
+	font-size: 48px;
+	line-height: 100%;
+	color: #c4c4c4;
+}

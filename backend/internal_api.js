@@ -14,6 +14,7 @@ let jwt = require("jsonwebtoken");
 const Subscription = require('./models/Subscription');
 const { Enqueue } = require('twilio/lib/twiml/VoiceResponse');
 const twilio = require("twilio");
+const e = require('express');
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 let twilioInstance = new twilio(accountSid, authToken);
@@ -307,21 +308,20 @@ async function handleNotification(game) {
   }).exec())
   //get homeTeam subscription object
   toNotify = toNotify.concat(await Subscription.find({
-    type: "league", identifier: game.homeAbbr
+    type: "team", identifier: game.homeAbbr
   }).exec())
 
   //get awayTeam subscription object
   toNotify = toNotify.concat(await Subscription.find({
-    type: "league", identifier: game.awayAbbr
+    type: "team", identifier: game.awayAbbr
   }).exec())
 
 
   //get gameId subscription object
   toNotify = toNotify.concat(await Subscription.find({
-    type: "league", identifier: game.gameId
+    type: "game", identifier: game.gameId
   }).exec())
 
-  console.log(toNotify)
   toNotify.forEach((subscription) => {
     if (subscription.onStart != undefined && subscription.onStart) {
       // has notification been sent
@@ -379,7 +379,6 @@ async function sendTextMessage(message, phone) {
     to: phone, // Text this number
     from: "+18285200670", // The number we bought
   });
-  console.log(msg)
 }
 
 
@@ -417,10 +416,74 @@ function sendText(home_object, away_object, game_time) {
 
 
 
+/// app/get/userSubscriptions/userEmail
+
+async function getUserSubscriptions(req, res) {
+  //req.params.email
+
+
+  if (req.params.email == undefined) {
+    res.json({ message: "No Email Provided" })
+  }
+  try {
+    let subscriptions = await Subscription.find({ email: req.params.email }, (err) => {
+      if (err) {
+        res.json({ message: err.toString() })
+      }
+    }).exec()
+    let returnObj = {
+      team: {}, league: {}, game: {},
+    }
+    subscriptions.forEach((record) => {
+      let type = record.type
+      let id = record.identifier
+      if (returnObj[type][id] == undefined) {
+        returnObj[type][id] = [record]
+      } else {
+        returnObj[type][id].push(record)
+      }
+    })
+
+    res.json({ subscriptions: returnObj });
+
+
+  } catch (err) {
+    res.json({ message: err.toString() });
+
+  }
 
 
 
 
+
+
+
+}
+
+// /api/get/gameById/gameId:
+async function getGameById(req, res) {
+
+  if (req.params.gameId == undefined) {
+    res.json({ message: "must pass in a game id" })
+
+  } else {
+    try {
+      let game = await NFLGame.findOne({ gameId: req.params.gameId }).exec()
+      res.json({ game: game })
+
+
+
+    } catch (err) {
+      res.json({ message: err.toString() })
+
+    }
+
+
+  }
+
+
+
+}
 
 
 
@@ -437,3 +500,5 @@ module.exports.login = login;
 module.exports.sendNotification = sendNotification;
 module.exports.registerUser = registerUser;
 module.exports.createSubscription = createSubscription
+module.exports.getUserSubscriptions = getUserSubscriptions
+module.exports.getGameById = getGameById
