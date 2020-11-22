@@ -278,7 +278,9 @@ async function getWeeklyNFLGames(req, res) {
 async function getMostRecentGame(req, res) {
 
     try {
-        let game = await NFLGame.find({ $or: [{ status: "scheduled" }, { status: "scheduled" }] }).sort({ date: -1 }).limit(1).exec()
+        let game = await NFLGame.find({ "scheduled": {"$gte": new Date()}, status: "scheduled"}  ).sort({ date: -1 }).limit(4).exec()
+        
+        console.log("most recent"); 
         console.log(game)
         res.json({
             game: game

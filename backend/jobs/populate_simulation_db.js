@@ -13,11 +13,16 @@ module.exports = (agenda) => {
         console.log(data.length);
         let i = 0;
         //console.log(game_scores); 
+        let outer_count = 0;
         for (game in game_scores) {
+            let inner_count = 0;
+            console.log(outer_count);
             for (unique in game_scores[game]) {
-
-
+                //console.log("length is " + game_scores[game].length)
+                //console.log(i);
+                //console.log(inner_count);
                 try {
+
                     //console.log("asdd")
                     //console.log(game_scores[game][unique].clock)
                     //game_scores[game][unique].home.score[1]
@@ -46,6 +51,34 @@ module.exports = (agenda) => {
                             clock: game_scores[game][unique].clock,
                             qtr: game_scores[game][unique].qtr,
                         }
+                        //console.log(game_scores[game][unique].home.score);
+                        //console.log(game_scores[game][unique].home.score['2']);
+                        //console.log(game_obj);
+                        console.log(id_to_user)
+                        simulation_game.findOneAndUpdate(
+                            { abbrKey: id_to_user },
+                            {
+                                $set: {
+                                    homeAbbr: game_scores[game][unique].home.abbr,
+                                    awayAbbr: game_scores[game][unique].away.abbr,
+                                    homeTotalScore: game_scores[game][unique].home.score.T,
+                                    homeFirstQuarterScore: game_scores[game][unique].home.score[1],
+                                    homeSecondQuarterScore: game_scores[game][unique].home.score[2],
+                                    homeThirdQuarterScore: game_scores[game][unique].home.score[3],
+                                    homeFourthQuarterScore: game_scores[game][unique].home.score[4],
+                                    awayTotalScore: game_scores[game][unique].away.score.T,
+                                    awayFirstQuarterScore: game_scores[game][unique].away.score[1],
+                                    awaySecondQuarterScore: game_scores[game][unique].away.score[1],
+                                    awayThirdQuarterScore: game_scores[game][unique].away.score[1],
+                                    awayFourthQuarterScore: game_scores[game][unique].away.score[1],
+                                    clock: game_scores[game][unique].clock,
+                                    qtr: game_scores[game][unique].qtr,
+                                },
+                            },
+                            { safe: true, upsert: true, new: true },
+                            function (err, model) {
+                                //console.log(err);
+                            }
                         console.log(game_scores[game][unique].home.score);
                         console.log(game_scores[game][unique].home.score['2']);
                         console.log(game_obj);
@@ -84,6 +117,8 @@ module.exports = (agenda) => {
                 }
 
             }
+            inner_count += 1;
+            break;
         }
         console.log("DASDSD")
         done();

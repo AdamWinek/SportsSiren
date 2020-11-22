@@ -19,6 +19,9 @@ module.exports = (agenda) => {
             try {
                 if (typeof game !== null) {
                     //console.log("game " + game_scores[game].home.score.T);
+                    if(game_scores[game].away.abbr == "NE") { 
+                        //console.log(game_scores[game])
+                    }
                     let id_to_user = game_scores[game].home.abbr + "-" + game_scores[game].away.abbr;
                     await NFLGame.findOneAndUpdate(
                         { abbrKey: id_to_user },
@@ -36,8 +39,8 @@ module.exports = (agenda) => {
                                 awaySecondQuarterScore: game_scores[game].away.score[1],
                                 awayThirdQuarterScore: game_scores[game].away.score[1],
                                 awayFourthQuarterScore: game_scores[game].away.score[1],
-                                clock: game.clock,
-                                qtr: game.qtr,
+                                clock: game_scores[game].clock,
+                                qtr: game_scores[game].qtr,
                             },
                         },
                         { safe: true, upsert: true, new: true },
