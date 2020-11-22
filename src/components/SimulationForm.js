@@ -24,13 +24,13 @@ function SimulationForm(props) {
 
   const [toggle, setToggle] = useState(false);
 
-  //Tampa Bay vs New England
+  //Baltimore vs New England
   if (toggle) {
 
     return (
       <div>
         <div className={styles.headerBox}>
-          <h3 className={styles.header}>Tamba Bay vs. New England </h3>
+          <h3 className={styles.header}>Baltimore vs. New England </h3>
           <div className={styles.btnWrapper}>
             <button className={styles.btn} onClick={() => setToggle(true)}>
               Simulate Game
@@ -96,7 +96,7 @@ function SimulationForm(props) {
     return (
       <div>
         <div className={styles.headerBox}>
-          <h3 className={styles.header}>Tamba Bay vs. New England</h3>
+          <h3 className={styles.header}>Baltimore vs. New England</h3>
           <div className={styles.btnWrapper}>
             <button className={styles.btn} onClick={() => setToggle(true)}>
               Simulate Game
