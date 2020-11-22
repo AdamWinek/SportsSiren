@@ -15,7 +15,8 @@ class AgendaJob {
             console.log("creating"); 
             this.agenda.on("ready", () => {
                 console.log("agenda ready!");
-                //this._agenda.every("5 minutes", "ur job");
+                // Uncomment to run it live
+                //this.agenda.every("1.5 minutes", "poll_external_live");
                 this.agenda.start();
                 // this.agenda.now('poll_external_live');
             });
