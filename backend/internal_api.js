@@ -129,25 +129,31 @@ async function deleteFollowingGames(req, res) {
 }
 async function login(req, res) {
   let currentUser = await User.findOne({ email: req.body.email }).exec();
-  if (currentUser == undefined) {
-    res.status(400);
-    res.json({
-      message: "Their was an error with your password",
-    });
-  } else {
-    let token = jwt.sign({ email: req.body.email }, "daSecretToken", {
-      expiresIn: "1h",
-    });
+  bcrypt.compare(req.body.password, currentUser.password, function (
+    err,
+    result
+  ) {
+    if (!result || err) {
+      res.status(400);
+      res.json({
+        message: "Their was an error with your password",
+      });
+    } else {
+      let token = jwt.sign({ email: req.body.email }, "daSecretToken", {
+        expiresIn: "1h",
+      });
 
-    res.status(200);
-    res.json({
-      token: token,
-      email: req.body.email,
-      fname: currentUser.fname,
-      lname: currentUser.lname,
-      phone: currentUser.phone,
-    });
-  }
+      res.status(200);
+      res.json({
+        token: token,
+        email: req.body.email,
+        fname: currentUser.fname,
+        lname: currentUser.lname,
+        phone: currentUser.phone,
+      });
+    }
+  });
+
 };
 
 
