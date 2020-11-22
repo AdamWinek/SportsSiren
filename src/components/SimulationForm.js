@@ -38,7 +38,7 @@ function SimulationForm(props) {
       // fire notification in 60- data.time seconds 
 
       // if theshold AND time
-        if(scoreDiff[60-data.time] <= threshold) { 
+        if(scoreDiff[60-data.time] <= data.threshold) { 
           // fire notification
         }
         else { 
