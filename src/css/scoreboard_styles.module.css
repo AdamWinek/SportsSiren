@@ -127,6 +127,11 @@
 	font-style: normal;
 	font-size: 64px;
 	color: #c4c4c4;
+	transition: all .5 ease-out;
+}
+.arrow:hover {
+	color: black;
+	transform: scale(1.5);
 }
 
 .smallScore {
