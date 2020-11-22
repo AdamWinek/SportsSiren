@@ -11,13 +11,14 @@ class AgendaJob {
       },
     });
     require('./jobs/poll_external_live')(this.agenda);
+    require('./jobs/populate_simulation_db')(this.agenda);
 
     this.agenda.on("ready", () => {
       console.log("agenda ready!");
       // Uncomment to run it live
       //this.agenda.every("1.5 minutes", "poll_external_live");
       this.agenda.start();
-      //this.agenda.now('poll_external_live');
+      this.agenda.now('populate_simulation_db');
     });
   }
 

@@ -8,7 +8,7 @@ const SubCon = (props) => {
     return(
         <div className={styles.body}>
 
-            <h1 className={styles.title}>{userCon.user.fname} Subscriptions</h1>
+            <h1 className={styles.title}>{userCon.user.fname}'s Subscriptions</h1>
             <ul className={styles.subscribedlist}>
                 <li><SubsciptionCard></SubsciptionCard></li>
                 <li><SubsciptionCard></SubsciptionCard></li>

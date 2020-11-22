@@ -28,6 +28,19 @@
 	text-decoration: none !important;
 }
 
+.navLinks:hover {
+	margin-left: 40px;
+	margin-right: 40px;
+	font-family: Roboto;
+	font-style: normal;
+	font-size: 24px;
+	text-align: center;
+	color: grey;
+	text-decoration: none !important;
+	transition: color .75s; 
+}
+
+
 .activeLink {
 	margin-left: 40px;
 	margin-right: 40px;
