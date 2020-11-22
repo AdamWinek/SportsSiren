@@ -272,6 +272,31 @@ async function getWeeklyNFLGames(req, res) {
         })
     }
 }
+
+//gets most recent scheduled game that has not been started
+async function getMostRecentGame(req, res) {
+
+    try {
+        let game = await NFLGame.find({ $or: [{ status: "scheduled" }, { status: "scheduled" }] }).sort({ date: -1 }).limit(1).exec()
+        console.log(game)
+        res.json({
+            game: game
+        })
+
+    } catch (err) {
+        res.json({
+            message: err.toString()
+        })
+    }
+
+
+
+}
+
+
+
+
+
 module.exports.dailyGamesNBA = dailyGamesNBA;
 module.exports.gameInDBNBA = gameInDBNBA
 module.exports.loadNFLSZN = loadNFLSZN;
@@ -284,3 +309,4 @@ module.exports.getLiveBasketBallScores = getLiveBasketBallScores;
 module.exports.getNCAAFootballScores = getNCAAFootballScores;
 module.exports.getNBASimulation = getNBASimulation;
 module.exports.updateStandingsNFL = updateStandingsNFL
+module.exports.getMostRecentGame = getMostRecentGame

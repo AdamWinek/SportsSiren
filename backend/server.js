@@ -34,6 +34,7 @@ const { login } = require("./internal_api.js");
 const { sendNotification } = require("./internal_api.js");
 const { registerUser } = require("./internal_api.js");
 const { updateStandingsNFL } = require("./external_api.js")
+const { getMostRecentGame } = require("./external_api")
 
 let agenda = require('./agenda');
 
@@ -226,6 +227,12 @@ app.get('/api/sendNotification', async (req, res) => {
         })
     }
 })
+
+
+app.get('/api/get/nextUpcomingGame', (req, res) => getMostRecentGame(req, res))
+
+
+
 
 
 // will change to:
