@@ -30,6 +30,7 @@ function NFLScoreboard(props) {
     // })
 
 
+
     useEffect(() => {
         let getGame = async function () {
             console.log('here')
@@ -42,10 +43,8 @@ function NFLScoreboard(props) {
                 try {
                     let result = await axios.get(methodUrl + 'getWeeklyNFLGames/11', {
                     })
-                    console.log(result)
                     let gamesArr = result.data.games.map((game) => {
                         let gameDate = new Date(game.scheduled)
-                        console.log(game);
 
                         return (
                             < div className={styles.scoreboard}>
@@ -95,6 +94,9 @@ function NFLScoreboard(props) {
 
         }
         getGame()
+        // update game every minute
+
+
     }, [index])
 
     function formatDate(gameDate) {
@@ -156,7 +158,7 @@ function NFLScoreboard(props) {
             </div> */}
             <div className={styles.controls}>
                 <div className={styles.arrow} onClick={() => setIndex({ num: mod(index.num - 1, games.length), from: "left" })} > {"←"} </div>
-                
+
                 <div className={styles.arrow} onClick={() => setIndex({ num: mod(index.num + 1, games.length), from: "right" })}>{"→"}</div>
             </div>
         </div >
