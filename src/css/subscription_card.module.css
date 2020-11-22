@@ -3,7 +3,12 @@
 	border: 5px solid black;
 }
 .container > div:nth-child(1) {
-	width: 200px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 30px;
 
 	display: flex;
 	flex-direction: column;
