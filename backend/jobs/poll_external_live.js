@@ -14,7 +14,7 @@ module.exports = (agenda) => {
             url: url,
         });
         let game_scores = result.data;
-        //console.log(game_scores); 
+        console.log(game_scores); 
         for (game in game_scores) {
             try {
                 if (typeof game !== null) {
