@@ -18,7 +18,7 @@ class AgendaJob {
       // Uncomment to run it live
       //this.agenda.every("1.5 minutes", "poll_external_live");
       this.agenda.start();
-      this.agenda.now('populate_simulation_db');
+      //this.agenda.now('populate_simulation_db');
     });
   }
 

@@ -384,12 +384,7 @@ async function sendTextMessage(message, phone) {
 
 
 
-handleNotification({
-
-  qtr: "4",
-  clock: "09:00"
-
-})
+//handleNotification({qtr: "4",clock: "09:00"})
 
 
 
