@@ -33,7 +33,25 @@
 	border-radius: 7px;
 	font-size: 1.3em;
 	font-weight: 900;
+	transition: background-color .75s; 
+	transition: all .5 ease-out;
+
 }
+.deleteAccount:hover {
+	border: none;
+	color: white;
+	background-color: darkred;
+	display: flex;
+	width: 400px;
+	margin-bottom: 50px;
+	justify-content: center;
+	padding: 15px 0;
+	border-radius: 7px;
+	font-size: 1.3em;
+	font-weight: 900;
+	transition: background-color .75s; 
+}
+
 .deleteMsg {
 	font-family: Roboto;
 	font-style: normal;
@@ -67,8 +85,22 @@
 	border-radius: 7px;
 	font-size: 1.3em;
 	font-weight: 900;
+	transition: background-color .75s; 
+	transition: all .5 ease-out;
 }
-
+.submit:hover {
+	border: none;
+	color: white;
+	background-color: grey; 
+	display: flex;
+	width: 400px;
+	justify-content: center;
+	padding: 15px 0;
+	border-radius: 7px;
+	font-size: 1.3em;
+	font-weight: 900;
+	transition: background-color .75s; 
+}
 .form {
 	position: relative;
 	display: flex;
