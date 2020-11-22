@@ -1,6 +1,6 @@
 .form {
 	background: #ffffff;
-	border: 20px solid #000000;
+	border: 8px solid #000000;
 	padding: 20px;
 }
 
@@ -9,20 +9,15 @@
 	color: white;
 	background-color: black;
 	display: flex;
-	width: 400px;
+	padding: 10px 40px;
 	justify-content: center;
-	padding: 15px 0;
+
 	border-radius: 7px;
-	font-size: 1.3em;
+	margin-left: 60px;
 	font-weight: 900;
 }
 
-.btnWrapper {
-	width: 450px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
+
 
 .headerBox {
 	display: flex;
@@ -32,4 +27,5 @@
 .header {
 }
 .bodyContent {
+	margin-top: 60px;
 }
