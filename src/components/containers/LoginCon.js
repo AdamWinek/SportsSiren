@@ -45,7 +45,7 @@ const LoginCon = (props) => {
                         </div>
                         <div className={styles.question}>
                             <label className={styles.label} htmlFor="password">Password</label>
-                            <input type="text" id="password" name="userpassword"
+                            <input type="password" id="password" name="userpassword"
                                 className={styles.input}
                                 placeholder="Enter your password"
                                 value={password}
