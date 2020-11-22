@@ -36,7 +36,8 @@ const { registerUser } = require("./internal_api.js");
 const { updateStandingsNFL } = require("./external_api.js")
 const { getMostRecentGame } = require("./external_api")
 const { createSubscription } = require("./internal_api")
-
+const { getUserSubscriptions } = require("./internal_api")
+const { getGameById } = require("./internal_api")
 let agenda = require("./agenda_singleton");
 let agenda_instance = agenda.getInstance();
 
@@ -234,8 +235,7 @@ app.get('/api/sendNotification', async (req, res) => {
 
 app.get('/api/get/nextUpcomingGame', (req, res) => getMostRecentGame(req, res))
 
-
-
+app.get('/api/get/userSubscriptions/:email', (req, res) => getUserSubscriptions(req, res))
 
 
 // will change to:
@@ -258,6 +258,10 @@ app.get("/api/loadNFLSZN", (req, res) => loadNFLSZN(req, res));
 app.get("/api/getWeeklyNFLGames/:week", (req, res) =>
     getWeeklyNFLGames(req, res)
 );
+
+app.get("/api/get/gameById/:gameId", (req, res) => getGameById(req, res))
+
+
 
 app.post("/api/post/createSubscription", (req, res) => createSubscription(req, res));
 

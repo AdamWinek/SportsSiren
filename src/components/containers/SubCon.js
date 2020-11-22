@@ -1,25 +1,69 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import userContext from "../userContext"
-import SubsciptionCard from "../SubscriptionCard"
+import SubscriptionCard from "../SubscriptionCard"
 import styles from "../../css/sub_con.module.css"
+import axios from "axios"
 const SubCon = (props) => {
-    const userCon = useContext(userContext)
-//{userCon.user.fname}
-    return(
+    //{userCon.user.fname}
+
+    const [subscriptions, setSubscriptions] = useState(null);
+    let userCon = useContext(userContext)
+
+
+    useEffect(() => {
+
+        async function getSubscriptionsApi() {
+            let methodUrl = "https://sports-siren.herokuapp.com/api/"
+            console.log(process.env.REACT_APP_DEV_ENV)
+            if (process.env.REACT_APP_DEV_ENV == "development") {
+                methodUrl = "http://localhost:3000"
+            }
+
+            try {
+                let result = await axios.get(methodUrl + `/api/get/userSubscriptions/${userCon.user.email}`, {
+                })
+
+                //appends subscription object to a array of sub cards
+                console.log(Object.values(result.data.subscriptions.league))
+                let temp = []
+                if (result.data.subscriptions.league != undefined) {
+                    Object.values(result.data.subscriptions.league).forEach((subArray) => {
+                        temp.push((<li><SubscriptionCard subArray={subArray} /></li>))
+                    })
+                }
+                if (result.data.subscriptions.game != undefined) {
+                    Object.values(result.data.subscriptions.game).forEach((subArray) => {
+                        temp.push((<li><SubscriptionCard subArray={subArray} /></li>))
+                    })
+                }
+                if (result.data.subscriptions.team != undefined) {
+                    Object.values(result.data.subscriptions.team).forEach((subArray) => {
+                        temp.push((<li><SubscriptionCard subArray={subArray} /></li>))
+                    })
+                }
+                setSubscriptions(temp)
+
+            }
+
+            catch (err) {
+                console.log(err.toString())
+            }
+
+        }
+        if (subscriptions == null) {
+            getSubscriptionsApi()
+        }
+    }, [])
+
+    console.log(subscriptions)
+
+
+    return (
         <div className={styles.body}>
 
             <h1 className={styles.title}>{userCon.user.fname}'s Subscriptions</h1>
             <ul className={styles.subscribedlist}>
-                <li><SubsciptionCard></SubsciptionCard></li>
-                <li><SubsciptionCard></SubsciptionCard></li>
-                <li><SubsciptionCard></SubsciptionCard></li>
-                <li><SubsciptionCard></SubsciptionCard></li>
-                <li><SubsciptionCard></SubsciptionCard></li>
-                <li><SubsciptionCard></SubsciptionCard></li>
-                <li><SubsciptionCard></SubsciptionCard></li>
-                <li><SubsciptionCard></SubsciptionCard></li>
-                
-        
+                {subscriptions}
             </ul>
 
 
