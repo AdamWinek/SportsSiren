@@ -78,7 +78,7 @@ module.exports = (agenda) => {
                             { safe: true, upsert: true, new: true },
                             function (err, model) {
                                 //console.log(err);
-                            }
+                            })
                         console.log(game_scores[game][unique].home.score);
                         console.log(game_scores[game][unique].home.score['2']);
                         console.log(game_obj);
