@@ -25,7 +25,6 @@ const SubscriptionSchema = new mongoose.Schema({
     phone: {
         type: String
     },
-
     // league name or team name or gameId
     identifier: {
         type: String
