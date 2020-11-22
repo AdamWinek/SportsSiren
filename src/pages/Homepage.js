@@ -4,6 +4,7 @@ import NFLScoreboard from "../components/NFLScoreboard"
 import styles from "../css/home_page_styles.module.css"
 import ScoreGraph from "../components/ScoreGraph"
 import Countdown from "../components/Countdown"
+import SimulationFrom from "../components/SimulationForm"
 function Homepage(props) {
   
 
@@ -22,6 +23,7 @@ function Homepage(props) {
                 <div className={styles.sectionBreak}></div>
                 <div className={styles.sectionBreak}>
                 </div>
+                <SimulationFrom></SimulationFrom>
 
 
 
