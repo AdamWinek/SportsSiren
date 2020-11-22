@@ -45,7 +45,7 @@ function NFLScoreboard(props) {
                     console.log(result)
                     let gamesArr = result.data.games.map((game) => {
                         let gameDate = new Date(game.scheduled)
-
+                        console.log(game);
 
                         return (
                             < div className={styles.scoreboard}>
@@ -70,7 +70,8 @@ function NFLScoreboard(props) {
                                     </div>
                                 </div>
                                 <div className={styles.scoreDiv}>
-                                    <h1 className={styles.scoreH1}>{game ? game.homePoints : 'loading'} - {game ? game.awayPoints : 'loading'}</h1>
+                                    <h1 className={styles.scoreH1}>{game ? game.homeTotalScore : 'loading'} - {game ? game.awayTotalScore : 'loading'}</h1>
+                                    <h3 className={styles.time}>Quarter: {game ? game.qtr : 'loading'} | {game ? game.clock : 'loading'}</h3>
                                 </div>
                             </div>
                         )
