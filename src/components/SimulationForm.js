@@ -18,8 +18,36 @@ function SimulationForm(props) {
     setData({ ...data, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
+    let scoreDiff = {
+      59: 0, 58: 0, 57: 0,  56: 0, 55: 0, 54: 0, 53: 0, 52: 0, 51: 7, 50: 17, 
+      49: 7, 48: 7, 47: 10,  46: 10, 45: 10, 46: 17, 43: 17, 42: 17, 41: 10, 40: 10, 
+      39: 10, 38: 10, 37: 10,  36: 10, 35: 10, 34: 10, 33: 7, 32: 7, 31: 7, 30: 4, 
+      29: 4, 28: 4, 27: 4,  26: 11, 25: 11, 24: 11, 23: 11, 22: 4, 21: 4, 20: 4, 
+      19: 4, 18: 4, 17: 4,  16: 4, 15: 4, 14: 10, 13: 10, 12: 10, 11: 10, 10: 10, 
+      9: 10, 8: 10, 7: 10,  6: 10, 5: 10, 4: 10, 3: 17, 2: 17, 1: 17, 0: 17, 
+    }
     e.preventDefault()
     console.log(data)
+    if(data.startofgame) { 
+      // fire notification now 
+    }
+    else if (data.endofgame) { 
+      // fire notification in 60s 
+    }
+    else if(data.time) { 
+      // fire notification in 60- data.time seconds 
+
+      // if theshold AND time
+        if(scoreDiff[60-data.time] <= threshold) { 
+          // fire notification
+        }
+        else { 
+          // don't fire
+        }
+      // fire notification in 60- data.time seconds 
+      
+    }
+    // start 
   }
 
   const [toggle, setToggle] = useState(false);
