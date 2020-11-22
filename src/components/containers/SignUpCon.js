@@ -24,6 +24,14 @@ const SignUpCon = (props) => {
             if (process.env.REACT_APP_DEV_ENV == "development") {
                 methodUrl = "http://localhost:3000/api/";
             }
+            let data =   {
+                fname: fname,
+                lname: lname,
+                email: email,
+                password: password,
+                telephone: telephone,
+            }
+
             let response = await axios({
                 method: "POST",
                 url: methodUrl + "registerUser",
@@ -35,7 +43,6 @@ const SignUpCon = (props) => {
                     telephone: telephone,
                 },
             });
-            console.log("succesful sign up")
         } catch (err) {
             return err.toString();
         }
@@ -112,7 +119,7 @@ const SignUpCon = (props) => {
                     <div className={styles.question}>
                         <label className={styles.label} htmlFor="password">Password</label>
                         <input
-                            type="text"
+                            type="password"
                             id="password"
                             name="password"
                             placeholder="Enter your password"
@@ -137,7 +144,7 @@ const SignUpCon = (props) => {
                         />
                         <span className={styles.focus_border}></span>
                     </div>
-                    <button className={styles.submit}>Sign up</button>
+                    <button className={styles.submit} onSubmit={(e) => handleSubmit(e)}>Sign Up!</button>
                 </form>
             </div>
         </div>
