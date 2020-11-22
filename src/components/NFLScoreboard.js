@@ -155,9 +155,7 @@ function NFLScoreboard(props) {
             </div> */}
             <div className={styles.controls}>
                 <div className={styles.arrow} onClick={() => setIndex({ num: mod(index.num - 1, games.length), from: "left" })} > {"←"} </div>
-                <div className={styles.centerControls}>
-                    <div className={styles.control}>+</div><div className={styles.control}>-</div>
-                </div>
+                
                 <div className={styles.arrow} onClick={() => setIndex({ num: mod(index.num + 1, games.length), from: "right" })}>{"→"}</div>
             </div>
         </div >
