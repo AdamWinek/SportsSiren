@@ -47,7 +47,7 @@ function SimulationForm(props) {
       // fire notification in 60- data.time seconds 
       
     }
-    // start 
+    // start rendering simulation 
   }
 
   const [toggle, setToggle] = useState(false);
