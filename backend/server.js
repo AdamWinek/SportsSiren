@@ -22,7 +22,7 @@ let twilioInstance = new twilio(accountSid, authToken);
 //get routes from GameController
 const { dailyGamesNBA } = require("./external_api.js");
 const { gameInDBNBA } = require("./external_api.js");
-const { loadNFlSZN } = require("./external_api.js");
+const { loadNFLSZN } = require("./external_api.js");
 const { getWeeklyNFLGames } = require("./external_api.js");
 const { setNotificationThresholds } = require("./internal_api.js");
 const { setNotificationPreferences } = require("./internal_api.js");
@@ -37,8 +37,8 @@ const { updateStandingsNFL } = require("./external_api.js")
 const { getMostRecentGame } = require("./external_api")
 const { createSubscription } = require("./internal_api")
 
-let agenda = require("./agenda_singleton"); 
-let agenda_instance = agenda.getInstance(); 
+let agenda = require("./agenda_singleton");
+let agenda_instance = agenda.getInstance();
 
 db.once("open", function () {
     console.log("wereConnected");
