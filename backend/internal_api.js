@@ -148,10 +148,10 @@ async function login(req, res) {
       phone: currentUser.phone,
     });
   }
-});
+};
 
 
-}
+
 
 async function sendNotification(req, res) {
 
@@ -218,12 +218,8 @@ async function registerUser(req, res) {
       message: e.toString(),
     });
   }
-});
-  } catch (e) {
-  res.json({
-    message: e.toString(),
-  });
-}
+
+
 }
 
 
