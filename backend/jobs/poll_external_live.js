@@ -1,6 +1,6 @@
 const axios = require('axios')
 const mongoose = require('mongoose');
-const NFL_live_game = require('../models/NFL_live_game')
+const NFLGame = require('../models/NFLGame.js')
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://AdamLeonHoulton:AdamLeonHoulton@sportssiren.rrbya.mongodb.net/SportsSiren?retryWrites=true&w=majority', { useNewUrlParser: true });
@@ -19,8 +19,9 @@ module.exports = (agenda) => {
                 try { 
                     if(typeof game !== null) {
                         //console.log("game " + game_scores[game].home.score.T);
-                        await NFL_live_game.findOneAndUpdate(
-                            {gameId: game}, 
+                        let id_to_user = game_scores[game].home.abbr + "-" + game_scores[game].away.abbr;
+                        await NFLGame.findOneAndUpdate(
+                            {gameId: id_to_user}, 
                             {
                                 $set: {
                                     gameId: game, 
