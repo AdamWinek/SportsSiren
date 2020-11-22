@@ -36,7 +36,8 @@ const { registerUser } = require("./internal_api.js");
 const { updateStandingsNFL } = require("./external_api.js")
 const { getMostRecentGame } = require("./external_api")
 
-let agenda = require('./agenda');
+let agenda = require("./agenda_singleton"); 
+let agenda_instance = agenda.getInstance(); 
 
 db.once("open", function () {
     console.log("wereConnected");
