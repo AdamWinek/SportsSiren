@@ -76,7 +76,7 @@
 	appearance: none;
 	width: 25px; /* Set a specific slider handle width */
 	height: 25px; /* Slider handle height */
-	background: #4CAF50; /* Green background */
+	background: black; /* Green background */
 	border-radius: 50%;
 	cursor: pointer; /* Cursor on hover */
   }
@@ -85,6 +85,6 @@
 	width: 25px; /* Set a specific slider handle width */
 	height: 25px; /* Slider handle height */
 	border-radius: 50%;
-	background: #4CAF50; /* Green background */
+	background: black; /* Green background */
 	cursor: pointer; /* Cursor on hover */
   }
