@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
-const liveSchema = new mongoose.Schema({
-    gameId: {
+const simulation_schema = new mongoose.Schema({
+    abbrKey: {
         type: String,
         unique: true
     },
@@ -52,6 +52,6 @@ const liveSchema = new mongoose.Schema({
 
 
 }, { timestamps: true })
-const game = mongoose.model("NFL_live_game", liveSchema);
+const game = mongoose.model("simulation_game", simulation_schema);
 
 module.exports = game
