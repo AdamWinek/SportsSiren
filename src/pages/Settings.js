@@ -118,7 +118,7 @@ function Settings(props) {
 
     let deleteMsg = null
     if (deleteSafety) {
-        deleteMsg = (<h1 className={styles.deleteMsg}> Clicking again will delete your account this is permanent.</h1>)
+        deleteMsg = (<h1 className={styles.deleteMsg}> Clicking again will delete your account. This is permanent.</h1>)
 
     }
 
