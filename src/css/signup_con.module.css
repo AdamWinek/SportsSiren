@@ -42,6 +42,16 @@ input[type='tel'] {
 	padding: 7px 0;
 	border-bottom: 1px solid #ccc;
 }
+input[type='password'] {
+	font: 15px/24px Helvetica, Arial, sans-serif;
+	color: #333;
+	width: 100%;
+	box-sizing: border-box;
+	letter-spacing: 1px;
+	border: 0;
+	padding: 7px 0;
+	border-bottom: 1px solid #ccc;
+}
 
 .input ~ .focus_border {
 	position: absolute;

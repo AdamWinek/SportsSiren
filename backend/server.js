@@ -35,6 +35,7 @@ const { sendNotification } = require("./internal_api.js");
 const { registerUser } = require("./internal_api.js");
 const { updateStandingsNFL } = require("./external_api.js")
 const { getMostRecentGame } = require("./external_api")
+const { createSubscription } = require("./internal_api")
 
 let agenda = require("./agenda_singleton"); 
 let agenda_instance = agenda.getInstance(); 
@@ -42,6 +43,7 @@ let agenda_instance = agenda.getInstance();
 db.once("open", function () {
     console.log("wereConnected");
 });
+
 
 // parse application/json
 app.use(bodyParser.json());
@@ -256,6 +258,10 @@ app.get("/api/loadNFLSZN", (req, res) => loadNFLSZN(req, res));
 app.get("/api/getWeeklyNFLGames/:week", (req, res) =>
     getWeeklyNFLGames(req, res)
 );
+
+app.post("/api/post/createSubscription", (req, res) => createSubscription(req, res));
+
+
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

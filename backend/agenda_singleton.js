@@ -12,10 +12,10 @@ class AgendaJob {
           });
           require('./jobs/poll_external_live')(this.agenda);
 
-            console.log("creating"); 
             this.agenda.on("ready", () => {
                 console.log("agenda ready!");
-                //this._agenda.every("5 minutes", "ur job");
+                // Uncomment to run it live
+                //this.agenda.every("1.5 minutes", "poll_external_live");
                 this.agenda.start();
                 // this.agenda.now('poll_external_live');
             });
@@ -23,7 +23,6 @@ class AgendaJob {
   
         getInstance() {
         if (AgendaJob.singleton == null) {
-            console.log("inited");
           AgendaJob.singleton = new AgendaJob();
         }
         return AgendaJob.singleton;
