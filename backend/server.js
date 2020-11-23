@@ -70,7 +70,6 @@ app.post("/api/update/user/notification_thresholds", async (req, res) => setNoti
 
 
 
-
 // Expects object
 // parameter_obj = {
 //              "phone_preference": true,
@@ -198,26 +197,39 @@ app.put('/api/updatePhone', async (req, res) => {
 
 
 
+app.post("/api/sendSimulationText", async (req, res) => { 
+    console.log("in sendSimulationText");
+    console.log(req.body);
+    //console.log(req);
+    console.log("--------------------scheduled_tim--------------------------------------------------");
+    let message_to_send = await req.body.message; 
+    let user_to_send = await req.body.phone; 
+    let scheduled_time = await req.body.scheduled_time; 
+    agenda_instance.sendText(user_to_send, message_to_send, scheduled_time); 
+    //require('./schedule_simulation_text')(this.agenda);
+    //this.agenda.now('schedule_simulation_text', {phone: phone, message: message});
+
+
+    
+})
 
 
 
-app.get('/api/sendNotification', async (req, res) => {
 
-    if (req.body.token == undefined) {
-        res.json({
-            message: "You need to login to use this route"
-        })
-    }
+
+app.post('/api/sendNotification', async (req, res) => {
+
     try {
-        let decoded = jwt.verify(req.body.token, 'daSecretToken');
-
+        console.log("in twilio send"); 
+        //console.log(req.body);
+        //console.log(req);
+        console.log("sending to " + req.body.phone + " message " + req.body.message);
         let msg = await twilioInstance.messages.create({
             body: req.body.message,
             to: req.body.phone,  // Text this number
             from: '+18285200670' // The number we bought
         })
-        console.log(msg)
-        console.log(decoded)
+        //console.log(msg)
 
         res.json({
             error: msg.error_message,

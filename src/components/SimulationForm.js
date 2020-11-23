@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react"
+import axios from "axios";
+import userContext from "./userContext"
 
 import styles from "../css/simulation_styles.module.css";
 
-function SimulationForm(props) {
+const  SimulationForm = (props) => {
+  let userCon = useContext(userContext)
+
   const [data, setData] = useState({
     sms: null,
     email: null,
@@ -17,7 +21,31 @@ function SimulationForm(props) {
   const onSlide = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+
+  
+  let sendMessageHandle = async function(message, notify_number, time) { 
+    let methodUrl = "https://sports-siren.herokuapp.com/api/";
+    if (process.env.REACT_APP_DEV_ENV == "development") {
+        methodUrl = "http://localhost:3000/api/";
+    }
+
+      
+    let response = await axios({
+        method: "POST",
+        url: methodUrl + "sendSimulationText",
+        data: {
+            phone: notify_number,
+            message: message,
+            scheduled_time: time,
+        },
+    });
+
+    //console.log(response); 
+    return response; 
+  }
+  const handleSubmit = async (e) => {
+    try { 
+    console.log("simulation_submit");
     let scoreDiff = {
       59: 0,
       58: 0,
@@ -83,22 +111,48 @@ function SimulationForm(props) {
     e.preventDefault();
     setToggle(false);
     console.log(data);
+    console.log(userCon)
+    console.log(userCon.user.phone)
+    console.log(userCon.user)
+    let notify_number = userCon.user.phone;
+
     if (data.startofgame) {
       // fire notification now
-    } else if (data.endofgame) {
-      // fire notification in 60s
-    } else if (data.time) {
-      // fire notification in 60- data.time seconds
+      //console.log("firing at start");
 
+      let time = "now";
+      let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game just started! Tune in!"; 
+      sendMessageHandle(notify_message, notify_number, time); 
+    } 
+     if (data.endofgame) {
+      // fire notification in 60s
+      console.log("firing at end");
+      let time = "in 1 minute"
+      let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game just ended! We hope you enjoyed! Check our site to see what game is up next."; 
+      sendMessageHandle(notify_message, notify_number, time); 
+      console.log("text sent")
+
+    } 
+     if (data.time) {
+      // fire notification in 60- data.time seconds
+      console.log("firing at time");
+      let time = "in " + (60-Number.parseInt(data.time)) + " seconds";
       // if theshold AND time
       if (scoreDiff[60 - data.time] <= data.threshold) {
         // fire notification
+        let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game is at the __ mark and the score is __ " + " " + ". Within your threshold of " + data.threshold + " points. Tune in now!" ; 
+        sendMessageHandle(notify_message, notify_number, time); 
+  
       } else {
         // don't fire
       }
       // fire notification in 60- data.time seconds
     }
     // start rendering simulation
+  }
+  catch(err) { 
+    console.log(err); 
+  }
   };
 
   const [toggle, setToggle] = useState(false);
@@ -154,7 +208,7 @@ function SimulationForm(props) {
                 onClick={(e) => onChange(e)}
               ></input>
               <label htmlFor="startofgame" className={styles.label}>
-                Game starts
+                Game starts?
               </label>
               <br></br>
               <input
@@ -166,7 +220,19 @@ function SimulationForm(props) {
                 onClick={(e) => onChange(e)}
               ></input>
               <label htmlFor="endofgame" className={styles.label}>
-                Game ends
+                Game ends?
+              </label>
+              <br></br>
+              <input
+                type="checkbox"
+                id="andscore"
+                name="andscore"
+                value="Apple"
+                className={styles.checkbox}
+                onClick={(e) => onChange(e)}
+              ></input>
+              <label htmlFor="andscore" className={styles.label}>
+                Only within a certain time?
               </label>
               <br></br>
               <label className={styles.rangelabel}>
