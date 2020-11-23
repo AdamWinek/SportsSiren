@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import LoginPage from './pages/LoginPage'
 import SignUpCon from './components/containers/SignUpCon'
 import userContext from "./components/userContext"
@@ -60,6 +60,13 @@ function App() {
   }
 
 
+
+  function logout() {
+    setLoggedIn(false)
+  }
+
+
+
   return (
 
     <userContext.Provider value={{
@@ -82,7 +89,7 @@ function App() {
             {loggedIn ? <SubscribePage /> : <Redirect to="/" />}
           </Route>
           <Route path="/settings">
-            {loggedIn ? <Settings /> : <Redirect to="/" />}
+            {loggedIn ? <Settings logout={() => logout()} /> : <Redirect to="/" />}
           </Route>
         </Switch>
       </Router>

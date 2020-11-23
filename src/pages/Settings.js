@@ -35,6 +35,7 @@ function Settings(props) {
                     },
                 });
                 userCon.loggedIn = false;
+                props.logout()
                 setIsDeleted(true)
 
             } catch (err) {
