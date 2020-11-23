@@ -29,6 +29,7 @@ const { getMostRecentGame } = require("./external_api")
 const { sendSimulationText } = require("./external_api")
 const { sendSimulationEmail } = require("./external_api")
 const { sendEmail } = require("./external_api")
+const { sendNotification } = require("./external_api")
 
 // Internal 
 const { setNotificationThresholds, getAllTeams } = require("./internal_api.js");
