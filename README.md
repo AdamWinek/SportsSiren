@@ -24,6 +24,73 @@ SportsSiren supports a CRUD API. This section serves as documentation for that:
 The API is split into two files; backend/internal_api.js and backend/external_api.js. The external functions interface with one of our four 3rd party API's: [SportsRadar](https://developer.sportradar.com/docs/read/american_football/NFL_v5), the official [NFL live scores API](http://static.nfl.com/liveupdate/scores/scores.json), [Twilio's SMS API](https://www.twilio.com/docs/sms/api), and [SendGrid's email API](https://sendgrid.com/docs/API_Reference/Web_API_v3/Mail/index.html). The API 
 
 
+## API Overview
+```
+/api
+    /create
+        /registerUser
+        /sendEmail
+        /createSubscription
+        /loadNFLSZN
+        /sendSimulationText
+        /sendSimulationEmail
+    /read
+        /gameById/:gameId
+        /nextUpcomingGame
+        /userSubscriptions/:email
+        /getWeeklyNFLGames/:week
+    /update 
+        /NFLStandings
+        /user/updatePassword
+        /user/updatePhone
+        /user/subscriptions
+    /delete 
+        /deleteAccount
+        /deleteAccount
+```
+### Create
+```
+/api/create
+    /registerUser
+        Parameters: 
+                fname: "John", (String), 
+                lname: "Smith", (String),
+                email: "johnsmith@unc.edu", (String), 
+                phone: "123-456-7890", (String),
+                password: "$2b$10$//DXiVVE59p7G5k/4Klx/ezF7BI42QZKmoOD0NDvUuqxRE5bFFBLy" (bcryptHash)
+        Effect: 
+                Registers user in database. 
+    /sendEmail
+        Parameters: 
+                message: "This is a test message" (String), 
+                to: "test@unc.edu" (String),
+        Effect: 
+                Registers user in database. 
+    /createSubscription
+        Parameters: 
+                type: "game", (String),
+                fname: "John", (String), 
+                lname: "Smith", (String),
+                email: "johnsmith@unc.edu", (String), 
+                phone: "123-456-7890", (String),
+                identifier: "565ff61b-eeb1-4caa-b1cd-b29ce3a59737" (GameIdentifier),
+                notifiedGames: ["NE-LA", "CAR-NYJ"] (Array of Games), 
+                viaEmail: true, (Boolean), 
+                viaText: false, (Boolean), 
+                onStart: true, (Boolean), 
+                onEnd: false, (Boolean), 
+                scoreCriteria: 10, (Number), 
+                timeCriteria: 15, (Number), 
+        Effect: 
+                Registers user in database. 
+    /loadNFLSZN
+        Parameters: 
+    /sendSimulationText
+        Parameters: 
+    /sendSimulationEmail
+        Parameters: 
+```
+
 - #### /api 
     - ####   /api/create 
         - #### /api/create/registerUser
