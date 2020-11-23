@@ -87,18 +87,10 @@ app.post("/api/delete/user/following_games", async (req, res) => deleteFollowing
 app.delete('/api/deleteAccount', async (req, res) => deleteAccount(req, res))
 app.post('/api/delete/subscriptions', (req, res) => deleteSubscription(req, res))
 
-
-
-
-
-
-
 let agenda = require("./agenda_singleton");
 let agenda_instance = agenda.getInstance();
 
 db.once("open", function () {console.log("wereConnected");});
-
-
 
 app.post("/api/sendSimulationText", async (req, res) =>  {
     console.log("in sendSimulationText");
@@ -125,11 +117,6 @@ app.post("/api/sendSimulationEmail", async (req, res) => {
     //require('./schedule_simulation_text')(this.agenda);
     //this.agenda.now('schedule_simulation_text', {phone: phone, message: message});
 })
-
-
-
-
-
 
 app.get(["/", "/*"], (req, res) => {console.log(path.join(__dirname, "../build/index.html"));res.sendFile(path.join(__dirname, "../build/index.html"));});
 app.listen(port, () => {console.log(`Example app listening at http://localhost:${port}`);});
