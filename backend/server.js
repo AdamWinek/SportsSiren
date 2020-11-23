@@ -19,185 +19,80 @@ const bodyParser = require("body-parser");
 
 let twilioInstance = new twilio(accountSid, authToken);
 
-//get routes from GameController
+// External
 const { dailyGamesNBA } = require("./external_api.js");
 const { gameInDBNBA } = require("./external_api.js");
 const { loadNFLSZN } = require("./external_api.js");
 const { getWeeklyNFLGames } = require("./external_api.js");
-const { setNotificationThresholds, deleteSubscription } = require("./internal_api.js");
+const { updateStandingsNFL } = require("./external_api.js")
+const { getMostRecentGame } = require("./external_api")
+const { sendSimulationText } = require("./external_api")
+const { sendSimulationEmail } = require("./external_api")
+const { sendEmail } = require("./external_api")
+
+// Internal 
+const { setNotificationThresholds } = require("./internal_api.js");
+const { deleteSubscription } = require("./internal_api.js");
 const { setNotificationPreferences } = require("./internal_api.js");
 const { setFollowingTeams } = require("./internal_api.js");
 const { deleteFollowingTeams } = require("./internal_api.js");
 const { updateFollowingGames } = require("./internal_api.js");
 const { deleteFollowingGames } = require("./internal_api.js");
 const { login } = require("./internal_api.js");
-const { sendNotification } = require("./internal_api.js");
 const { registerUser } = require("./internal_api.js");
-const { updateStandingsNFL } = require("./external_api.js")
-const { getMostRecentGame } = require("./external_api")
 const { createSubscription } = require("./internal_api")
 const { getUserSubscriptions } = require("./internal_api")
 const { getGameById } = require("./internal_api")
 const { updateSubscription } = require("./internal_api")
-
-let agenda = require("./agenda_singleton");
-let agenda_instance = agenda.getInstance();
-
-db.once("open", function () {
-    console.log("wereConnected");
-});
-
+const { deleteAccount } = require("./internal_api")
+const { updatePassword } = require("./internal_api")
+const { updatePhone } = require("./internal_api")
 
 // parse application/json
 app.use(bodyParser.json());
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, "../build")));
-
-app.get("/api", (req, res) => {
-    res.send("Dis da Server");
-});
-
-// will change to:
-// /api/create/registerUser
-app.post("/api/registerUser", async (req, res) => registerUser(req, res));
-
-// Expects object
-//     let thresholdObject = {
-//          "score_threshold": 3, 
-//          "time_threshold": 10
-// };
-app.post("/api/update/user/notification_thresholds", async (req, res) => setNotificationThresholds(req, res));
-
-
-
-// Expects object
-// parameter_obj = {
-//              "phone_preference": true,
-//              "email_preference": false
-//      };
-app.post("/api/update/user/notification_preferences", async (req, res) => setNotificationPreferences(req, res));
-
-// Adds following teams
-// Need to figure out how to actually pass in the teams
-// Expects an array with names of team names 
-app.post("/api/update/user/following_teams", async (req, res) => setFollowingTeams(req, res));
-
-
-// Expects an array with the teams to unfollow 
-app.post("/api/delete/user/following_teams", async (req, res) => deleteFollowingTeams(req, res));
-
-
-
-// Adds following games
-// Need to figure out how to actually pass in the games
-// Expects an array with names of games ids 
-app.post("/api/update/user/following_games", async (req, res) => updateFollowingGames(req, res));
-
-// Deletes following games
-// Expects an array with the teams to unfollow 
-app.post("/api/delete/user/following_games", async (req, res) => deleteFollowingGames(req, res))
-
-// will change to:
-// /api/update/login
+app.get("/api", (req, res) => {res.send("Dis da Server");});
 app.post("/api/login", async (req, res) => login(req, res))
 
 
+// Create: 
+app.post("/api/registerUser", async (req, res) => registerUser(req, res));
+app.post('/api/sendNotification', async (req, res) => sendNotification(req, res))
+app.post('/api/sendEmail', async (req, res) => sendEmail(req, res))
+app.get("/api/loadNFLSZN", (req, res) => loadNFLSZN(req, res));
+app.post("/api/post/createSubscription", (req, res) => createSubscription(req, res));
 
+// Read: 
+app.get("/api/get/gameById/:gameId", (req, res) => getGameById(req, res))
+app.get('/api/get/nextUpcomingGame', (req, res) => getMostRecentGame(req, res))
+app.get('/api/get/userSubscriptions/:email', (req, res) => getUserSubscriptions(req, res))
+app.get("/api/dailyGamesNBA", (req, res) => dailyGames(req, res));
+app.get("/api/gameInDBNBA/:gameId", (req, res) => gameInDBNBA(req, res));
+app.get("/api/getWeeklyNFLGames/:week", (req, res) =>getWeeklyNFLGames(req, res));
+
+// Update:
+app.post("/api/update/user/notification_thresholds", async (req, res) => setNotificationThresholds(req, res));
+app.post("/api/update/user/notification_preferences", async (req, res) => setNotificationPreferences(req, res));
+app.post("/api/update/user/following_teams", async (req, res) => setFollowingTeams(req, res));
+app.post("/api/update/user/following_games", async (req, res) => updateFollowingGames(req, res));
 app.put('/api/update/NFLStandings', async (req, res) => updateStandingsNFL(req, res))
+app.put('/api/updatePassword', async (req, res) => updatePassword(req, res))
+app.put('/api/updatePhone', async (req, res) => updatePhone(req, res))
+app.put("/api/update/subscriptions", (req, res) => updateSubscription(req, res))
 
+// Delete:
+app.post("/api/delete/user/following_teams", async (req, res) => deleteFollowingTeams(req, res));
+app.post("/api/delete/user/following_games", async (req, res) => deleteFollowingGames(req, res))
+app.delete('/api/deleteAccount', async (req, res) => deleteAccount(req, res))
+app.post('/api/delete/subscriptions', (req, res) => deleteSubscription(req, res))
 
+let agenda = require("./agenda_singleton");
+let agenda_instance = agenda.getInstance();
 
+db.once("open", function () {console.log("wereConnected");});
 
-
-// to use a protected route you must include token in the body of the request
-// inside a protected route you need to check if a token has been included and is correct
-app.get('/api/sampleProtectedRoute', async (req, res) => {
-
-    if (req.body.token == undefined) {
-        res.json({
-            message: "You need to login to use this route"
-        })
-    }
-    try {
-        let decoded = jwt.verify(req.body.token, 'daSecretToken');
-        res.json({
-            message: "ya did it"
-        })
-
-    } catch (err) {
-        res.json({
-            message: "wrong token"
-        })
-    }
-})
-
-
-app.delete('/api/deleteAccount', async (req, res) => {
-    console.log(req.body, "here")
-    try {
-        await User.deleteOne({ email: req.body.email }, function (err) {
-            if (err) { console.log(err.toString()) };
-        });
-        res.json({ message: "user deleted" });
-
-
-    } catch (err) {
-        res.json({ message: err.toString() })
-
-
-
-    }
-
-
-})
-
-app.put('/api/updatePassword', async (req, res) => {
-
-    try {
-        bcrypt.hash(req.body.oldPassword, 10, async function (err, hash) {
-            try {
-                const newHash = bcrypt.hashSync(req.body.newPassword, 10);
-
-                await User.updateOne({ email: req.body.email }, { $set: { password: newHash } }, (err) => {
-                    if (err) {
-                        console.log(err)
-
-                    }
-                }
-                );
-                res.json({ message: "password changed" });
-
-            } catch (err) {
-                res.json({ message: err.toString() })
-
-            }
-        })
-    } catch (e) {
-        res.json({
-            message: e.toString()
-        })
-
-    }
-})
-
-
-
-app.put('/api/updatePhone', async (req, res) => {
-
-    try {
-        await User.updateOne({ email: req.body.email }, { $set: { phone: req.body.phone } });
-        res.json({ message: "phone changed" });
-
-    } catch (err) {
-        res.json({ message: "There was an error with your phone" })
-
-    }
-
-})
-
-
-
-app.post("/api/sendSimulationText", async (req, res) => { 
+app.post("/api/sendSimulationText", async (req, res) =>  {
     console.log("in sendSimulationText");
     console.log(req.body);
     //console.log(req);
@@ -208,11 +103,9 @@ app.post("/api/sendSimulationText", async (req, res) => {
     agenda_instance.sendText(user_to_send, message_to_send, scheduled_time); 
     //require('./schedule_simulation_text')(this.agenda);
     //this.agenda.now('schedule_simulation_text', {phone: phone, message: message});
-
-
-    
 })
-app.post("/api/sendSimulationEmail", async (req, res) => { 
+
+app.post("/api/sendSimulationEmail", async (req, res) => {
     console.log("in sendSimulationEmail");
     console.log(req.body);
     //console.log(req);
@@ -225,119 +118,8 @@ app.post("/api/sendSimulationEmail", async (req, res) => {
     //this.agenda.now('schedule_simulation_text', {phone: phone, message: message});
 })
 
-
-
-
-
-app.post('/api/sendNotification', async (req, res) => {
-
-    try {
-        console.log("in twilio send"); 
-        //console.log(req.body);
-        //console.log(req);
-        console.log("sending to " + req.body.phone + " message " + req.body.message);
-        let msg = await twilioInstance.messages.create({
-            body: req.body.message,
-            to: req.body.phone,  // Text this number
-            from: '+18285200670' // The number we bought
-        })
-        //console.log(msg)
-
-        res.json({
-            error: msg.error_message,
-            status: msg.status
-        })
-
-
-
-
-    } catch (err) {
-        res.json({
-            message: err.toString()
-        })
-    }
-})
-
-app.post('/api/sendEmail', async (req, res) => {
-
-    try {
-        console.log("trying to send (in server.js/sendEmail)")
-        const sgMail = require('@sendgrid/mail');
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        console.log("sending to " + req.body.email);
-        const msg = {
-            to: req.body.email,
-            from: 'sportssiren@gmail.com', // Use the email address or domain you verified above
-            subject: 'SportsSiren Notification!',
-            text: req.body.message,
-          };
-          (async () => {
-            try {
-              await sgMail.send(msg);
-            } catch (error) {
-              console.error(error);
-          
-              if (error.response) {
-                console.error(error.response.body)
-              }
-            }
-          })();
-          console.log("sent er out")
-
-
-    } catch (err) {
-        console.log(err)
-    }
-})
-
-
-app.post('/api/delete/subscriptions', (req, res) => deleteSubscription(req, res))
-
-
-app.get('/api/get/nextUpcomingGame', (req, res) => getMostRecentGame(req, res))
-
-app.get('/api/get/userSubscriptions/:email', (req, res) => getUserSubscriptions(req, res))
-
-
-// will change to:
-// /api/get/dailyGamesNBA
-app.get("/api/dailyGamesNBA", (req, res) => dailyGames(req, res));
-
-
-// will change to:
-// /api/get/gameInDBNBA/:gameId
-app.get("/api/gameInDBNBA/:gameId", (req, res) => gameInDBNBA(req, res));
-
-
-// will change to:
-// /api/get/loadNFLSZN
-app.get("/api/loadNFLSZN", (req, res) => loadNFLSZN(req, res));
-
-
-// will change to:
-// /api/get/getWeeklyNFLGames/:week
-app.get("/api/getWeeklyNFLGames/:week", (req, res) =>
-    getWeeklyNFLGames(req, res)
-);
-
-app.get("/api/get/gameById/:gameId", (req, res) => getGameById(req, res))
-
-
-
-app.post("/api/post/createSubscription", (req, res) => createSubscription(req, res));
-
-app.put("/api/update/subscriptions", (req, res) => updateSubscription(req, res))
-
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
-app.get(["/", "/*"], (req, res) => {
-    console.log(path.join(__dirname, "../build/index.html"));
-    res.sendFile(path.join(__dirname, "../build/index.html"));
-});
-
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
-});
+app.get(["/", "/*"], (req, res) => {console.log(path.join(__dirname, "../build/index.html"));res.sendFile(path.join(__dirname, "../build/index.html"));});
+app.listen(port, () => {console.log(`Example app listening at http://localhost:${port}`);});
 
 exports.app = app;
 exports.db = db;

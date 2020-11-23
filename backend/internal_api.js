@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const NBAGame = require("./models/NBAGame")
 const NBATeam = require("./models/NBATeam");
 const NFLGame = require('./models/NFLGame');
-const NFLTeam = require('./models/NFLGame')
+const NFLTeam = require('./models/NFLTeam')
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://AdamLeonHoulton:AdamLeonHoulton@sportssiren.rrbya.mongodb.net/SportsSiren?retryWrites=true&w=majority', { useNewUrlParser: true });
 const db = mongoose.connection;
@@ -128,7 +128,9 @@ async function deleteFollowingGames(req, res) {
     }
   );
 }
+
 async function login(req, res) {
+  console.log(req.body.email); 
   let currentUser = await User.findOne({ email: req.body.email }).exec();
   bcrypt.compare(req.body.password, currentUser.password, function (
     err,
@@ -628,9 +630,90 @@ async function updateSubscription(req, res) {
   }
 }
 
+async function deleteAccount(req, res) {
+
+  console.log(req.body, "here")
+      try {
+          await User.deleteOne({ email: req.body.email }, function (err) {
+              if (err) { console.log(err.toString()) };
+          });
+          res.json({ message: "user deleted" });
+
+
+      } catch (err) {
+          res.json({ message: err.toString() })
+      }
+}
+
+async function updatePassword(req, res) {
+
+  try {
+    bcrypt.hash(req.body.oldPassword, 10, async function (err, hash) {
+        try {
+            const newHash = bcrypt.hashSync(req.body.newPassword, 10);
+
+            await User.updateOne({ email: req.body.email }, { $set: { password: newHash } }, (err) => {
+                if (err) {
+                    console.log(err)
+
+                }
+            }
+            );
+            res.json({ message: "password changed" });
+
+        } catch (err) {
+            res.json({ message: err.toString() })
+
+        }
+    })
+  } catch (e) {
+    res.json({
+        message: e.toString()
+    })
+
+  }
+}
+
+async function updatePhone(req, res) {
+
+  try {
+    await User.updateOne({ email: req.body.email }, { $set: { phone: req.body.phone } });
+    res.json({ message: "phone changed" });
+
+  } catch (err) {
+    res.json({ message: "There was an error with your phone" })
+
+  }
+}
+
+//creates NFL table 
+// we do not want this to be 
+async function createNFLteams() {
+  let here = await NFLGame.find({}).exec()
+  console.log(here)
+
+  here.map(async (game) => {
+    try {
+
+      let team = new NFLTeam({
+        name: game.homeTeam
+      })
+      await team.save()
+
+    } catch (err) {
+
+      console.log(err)
+    }
+
+
+  })
 
 
 
+
+
+
+}
 
 
 module.exports.setNotificationThresholds = setNotificationThresholds;
@@ -647,3 +730,8 @@ module.exports.getUserSubscriptions = getUserSubscriptions
 module.exports.getGameById = getGameById
 module.exports.deleteSubscription = deleteSubscription;
 module.exports.updateSubscription = updateSubscription;
+module.exports.deleteAccount = deleteAccount;
+module.exports.updatePassword = updatePassword;
+module.exports.updatePhone = updatePhone;
+
+
