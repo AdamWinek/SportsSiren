@@ -184,46 +184,6 @@ The API is split into two files; backend/internal_api.js and backend/external_ap
 ```
 
 
-- #### /api 
-    - ####   /api/create 
-        - #### /api/create/registerUser
-            - Creates an user on inital registration.
-            - **Parameters:** 
-        - #### /api/create/sendEmail
-            - Creates and sends an email to user.
-        - #### /api/create/createSubscription
-            - Creates a subscription object and populates it in MongoDB collection.
-        - #### /api/create/loadNFLSZN
-            - Creates a MongoDB collection with games in the NFL season.
-            - Interfaces with SportsRadar API.
-        - #### /api/create/sendSimulationText
-            - Creates and sends a text for game simulation functionality.
-        - #### /api/create/sendSimulationEmail
-            - Creates and sends an email for game simulation functionality
-    - ####   /api/read
-        - #### /api/read/gameById/:gameId
-            - Gets NFL game by ID
-        - #### /api/read/nextUpcomingGame
-            - Gets next NFL game from MongoDB with scheduled start greater than current time. 
-        - #### /api/read/userSubscriptions/:email
-            - Gets subscription objects for a user by email.
-        - #### /api/read/getWeeklyNFLGames/:week
-            - Gets array of NFL games by week.
-    - ####   /api/update 
-        - ##### /api/update/NFLStandings
-            - Updates the NFL standings in the database.
-        - ##### /api/update/user/updatePassword
-            - Updates the user's password.
-        - ##### /api/update/user/updatePhone
-            - Updates the user's phone number.
-        - ##### /api/update/user/subscriptions
-            - Updates the user's following games, teams, and notification thresholds for alerts.
-    - ####   /api/delete 
-        - ##### /api/deleteAccount
-            - Deletes the user's account. 
-        - ##### /api/subscriptions
-            - Deletes a game or team from the user's subscriptions. 
-
 
 # Original Mockup of Front End 
 ![Mock Front End](https://raw.githubusercontent.com/AdamWinek/SportsSiren/master/sports%20siren%20mockup.jpeg)
