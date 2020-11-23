@@ -10,7 +10,7 @@ function HomeNav(props) {
             <Link to="/home"><img src={logo} className={styles.navLogo} alt="logo" /></Link>
             <div className={styles.navItems}>
                 <Link to="/home" className={props.active == "Home" ? styles.activeLink : styles.navLinks}>Home</Link>
-                <Link className={styles.navLinks}>Explore</Link>
+                <Link to="/explore" className={props.active == "Explore" ? styles.activeLink : styles.navLinks}>Explore</Link>
                 <Link to="/subscription" className={props.active == "Subscription" ? styles.activeLink : styles.navLinks} >Subscription</Link>
                 <Link to="/settings" className={props.active == "Settings" ? styles.activeLink : styles.navLinks}>Settings</Link>
             </div>

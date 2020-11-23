@@ -78,7 +78,7 @@ input[type='password'] {
 .submit {
 	border: none;
 	color: white;
-	background-color: black;
+	background-color:  rgb(146, 140, 140);
 	display: flex;
 	width: 100%;
 	justify-content: center;
@@ -86,6 +86,11 @@ input[type='password'] {
 	border-radius: 7px;
 	font-size: 1.3em;
 	font-weight: 900;
+	transition: .5s ease-out;
+}
+.submit:hover {
+	background-color:  black;
+
 }
 .block {
 	width: 100%;

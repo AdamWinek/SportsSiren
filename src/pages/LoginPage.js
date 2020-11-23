@@ -3,7 +3,8 @@ import InfoCon from "../components/containers/InfoCon";
 import LoginCon from "../components/containers/LoginCon";
 import SignUpCon from "../components/containers/SignUpCon";
 import styles from "../css/login_page.module.css";
-import SimulationForm from "../components/SimulationForm"
+import RowCard from "../components/RowCard"
+import RowCon from "../components/containers/RowCon"
 
 
 
@@ -12,6 +13,7 @@ const LoginPage = (props) => {
   function toggleLogin() {
     setonLogin(!onLogin);
   }
+
  
 
 

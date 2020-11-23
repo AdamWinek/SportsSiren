@@ -68,7 +68,7 @@
 .submit {
 	border: none;
 	color: white;
-	background-color: black;
+	background-color: rgb(146, 140, 140);
 	display: flex;
 	width: 100%;
 	justify-content: center;
@@ -76,13 +76,12 @@
 	border-radius: 7px;
 	font-size: 1.3em;
 	font-weight: 900;
-	transition: background-color .75s; 
-	transition: all .5 ease-out;
+	transition: all .5s ease-out;
 }
 .submit:hover {
 	border: none;
 	color: white;
-	background-color: grey; 
+	background-color: black; 
 	display: flex;
 	width: 100%;
 	justify-content: center;
@@ -90,7 +89,6 @@
 	border-radius: 7px;
 	font-size: 1.3em;
 	font-weight: 900;
-	transition: background-color .75s; 
 }
 
 p {

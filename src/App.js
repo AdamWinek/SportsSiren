@@ -7,6 +7,7 @@ import axios from "axios"
 import Scoreboard from './components/Scoreboard';
 import NFLScoreboard from './components/NFLScoreboard';
 import SubscribePage from './pages/SubscribePage'
+import ExplorePage from './pages/ExplorePage'
 import {
   BrowserRouter as Router,
   Switch,
@@ -73,6 +74,9 @@ function App() {
           </Route>
           <Route path="/home">
             {loggedIn ? <Homepage /> : <Redirect to="/" />}
+          </Route>
+          <Route path="/explore">
+            {loggedIn ? <ExplorePage /> : <Redirect to="/" />}
           </Route>
           <Route path="/subscription">
             {loggedIn ? <SubscribePage /> : <Redirect to="/" />}
