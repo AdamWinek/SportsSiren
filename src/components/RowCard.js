@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NFLScorecard from "../components/NFLScorecard";
 import styles from "../css/row_card.module.css";
 import bill from "./bill.gif";
+import NewSubForm from "./NewSubForm";
 
 const RowCard = (props) => {
   const [Subscribed, SetSubscribed] = useState(false);
@@ -15,6 +16,13 @@ const RowCard = (props) => {
     SetSubscribed(!Subscribed);
   };
 
+  function handleToggle() {
+
+    SetForm(!displayForm)
+
+
+  }
+
   if (props.type == "league") {
     return (
       <div className={styles.container}>
@@ -27,25 +35,13 @@ const RowCard = (props) => {
                 Subscribe
               </button>
             ) : (
-              <button className={styles.btnun} onClick={(e) => onSubscribe(e)}>
-                Unsubscribe
-              </button>
-            )}
+                <button className={styles.btnun} onClick={(e) => onSubscribe(e)}>
+                  Unsubscribe
+                </button>
+              )}
           </div>
         )}
-        {displayForm && (
-          <div className={styles.form}>
-            <h1>hey</h1>
-            <h1>hey</h1>
-            <h1>hey</h1>
-            <h1>hey</h1>
-            <h1>hey</h1>
-            <h1>hey</h1>
-            <h1>hey</h1>
-            <button onClick={() => SetForm(!displayForm)}>click em</button>
-            <h1>hey</h1>
-          </div>
-        )}
+        {displayForm && <NewSubForm type={props.type} identifier="NFL" handleToggle={() => handleToggle()} />}
       </div>
     );
   } else if (props.type == "team") {
@@ -64,25 +60,13 @@ const RowCard = (props) => {
                 Subscribe
               </button>
             ) : (
-              <button className={styles.btnun} onClick={(e) => onSubscribe(e)}>
-                Unsubscribe
-              </button>
-            )}
+                <button className={styles.btnun} onClick={(e) => onSubscribe(e)}>
+                  Unsubscribe
+                </button>
+              )}
           </div>
         )}
-        {displayForm && (
-          <div className={styles.form}>
-            <h1>hey</h1>
-            <h1>hey</h1>
-            <h1>hey</h1>
-            <h1>hey</h1>
-            <h1>hey</h1>
-            <h1>hey</h1>
-            <h1>hey</h1>
-            <button onClick={() => SetForm(!displayForm)}>click em</button>
-            <h1>hey</h1>
-          </div>
-        )}
+        {displayForm && <NewSubForm type={props.type} identifier={props.team} handleToggle={() => handleToggle()} />}
       </div>
     );
   } else if (props.type == "game") {
@@ -94,10 +78,10 @@ const RowCard = (props) => {
             Subscribe
           </button>
         ) : (
-          <button className={styles.btnun} onClick={(e) => onSubscribe(e)}>
-            Unsubscribe
-          </button>
-        )}
+            <button className={styles.btnun} onClick={(e) => onSubscribe(e)}>
+              Unsubscribe
+            </button>
+          )}
       </div>
     );
   }
