@@ -4,7 +4,7 @@
 SportsSiren is a notification app that allows you to follow your favorite teams and games so you never miss a second of the action. Configure custom time and score thresholds to receive a notification so that you can tune in to the closest games you care about. Sign up today!
 
 SportsSiren continuously updates the scores of active NFL games and notifies the user based off of their preferences. The user can follow both teams and individual games and configure notification preferences for each. SportsSiren currently allows the user to be notified at the start of the game, end of the game, and with a certain time remaining if the score is within a user-defined threshold. 
-
+https://youtu.be/ibhMHMxv3do
 # Use Case
 
 You are John Smith. Avid football fan but always busy on Sundays. You want to be reminded when games that you care about start and want to be able to watch the most exciting game. SportsSiren lets you get the notifications that YOU care about. Want to watch the Patriots game if the score is within a touchdown? A field goal? Want to get alerts on your email and/or your phone? SportsSiren meets all of these needs, alerting you of the sports events you care about. 
