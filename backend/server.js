@@ -31,7 +31,7 @@ const { sendSimulationEmail } = require("./external_api")
 const { sendEmail } = require("./external_api")
 
 // Internal 
-const { setNotificationThresholds } = require("./internal_api.js");
+const { setNotificationThresholds, getAllTeams } = require("./internal_api.js");
 const { deleteSubscription } = require("./internal_api.js");
 const { setNotificationPreferences } = require("./internal_api.js");
 const { setFollowingTeams } = require("./internal_api.js");
@@ -47,12 +47,13 @@ const { updateSubscription } = require("./internal_api")
 const { deleteAccount } = require("./internal_api")
 const { updatePassword } = require("./internal_api")
 const { updatePhone } = require("./internal_api")
+const { searchTeams } = require("./internal_api")
 
 // parse application/json
 app.use(bodyParser.json());
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, "../build")));
-app.get("/api", (req, res) => {res.send("Dis da Server");});
+app.get("/api", (req, res) => { res.send("Dis da Server"); });
 app.post("/api/login", async (req, res) => login(req, res))
 
 
@@ -69,8 +70,9 @@ app.get('/api/get/nextUpcomingGame', (req, res) => getMostRecentGame(req, res))
 app.get('/api/get/userSubscriptions/:email', (req, res) => getUserSubscriptions(req, res))
 app.get("/api/dailyGamesNBA", (req, res) => dailyGames(req, res));
 app.get("/api/gameInDBNBA/:gameId", (req, res) => gameInDBNBA(req, res));
-app.get("/api/getWeeklyNFLGames/:week", (req, res) =>getWeeklyNFLGames(req, res));
-
+app.get("/api/getWeeklyNFLGames/:week", (req, res) => getWeeklyNFLGames(req, res));
+app.get("/api/get/searchTeams/:searchText", (req, res) => searchTeams(req, res))
+app.get("/api/get/allTeams", (req, res) => getAllTeams(req, res))
 // Update:
 app.post("/api/update/user/notification_thresholds", async (req, res) => setNotificationThresholds(req, res));
 app.post("/api/update/user/notification_preferences", async (req, res) => setNotificationPreferences(req, res));
@@ -90,17 +92,17 @@ app.post('/api/delete/subscriptions', (req, res) => deleteSubscription(req, res)
 let agenda = require("./agenda_singleton");
 let agenda_instance = agenda.getInstance();
 
-db.once("open", function () {console.log("wereConnected");});
+db.once("open", function () { console.log("wereConnected"); });
 
-app.post("/api/sendSimulationText", async (req, res) =>  {
+app.post("/api/sendSimulationText", async (req, res) => {
     console.log("in sendSimulationText");
     console.log(req.body);
     //console.log(req);
     console.log("--------------------scheduled_tim--------------------------------------------------");
-    let message_to_send = await req.body.message; 
-    let user_to_send = await req.body.phone; 
-    let scheduled_time = await req.body.scheduled_time; 
-    agenda_instance.sendText(user_to_send, message_to_send, scheduled_time); 
+    let message_to_send = await req.body.message;
+    let user_to_send = await req.body.phone;
+    let scheduled_time = await req.body.scheduled_time;
+    agenda_instance.sendText(user_to_send, message_to_send, scheduled_time);
     //require('./schedule_simulation_text')(this.agenda);
     //this.agenda.now('schedule_simulation_text', {phone: phone, message: message});
 })
@@ -110,16 +112,16 @@ app.post("/api/sendSimulationEmail", async (req, res) => {
     console.log(req.body);
     //console.log(req);
     console.log("--------------------scheduled_tim--------------------------------------------------");
-    let message_to_send = await req.body.message; 
-    let user_to_send = await req.body.email; 
-    let scheduled_time = await req.body.scheduled_time; 
-    agenda_instance.sendEmail(user_to_send, message_to_send, scheduled_time); 
+    let message_to_send = await req.body.message;
+    let user_to_send = await req.body.email;
+    let scheduled_time = await req.body.scheduled_time;
+    agenda_instance.sendEmail(user_to_send, message_to_send, scheduled_time);
     //require('./schedule_simulation_text')(this.agenda);
     //this.agenda.now('schedule_simulation_text', {phone: phone, message: message});
 })
 
-app.get(["/", "/*"], (req, res) => {console.log(path.join(__dirname, "../build/index.html"));res.sendFile(path.join(__dirname, "../build/index.html"));});
-app.listen(port, () => {console.log(`Example app listening at http://localhost:${port}`);});
+app.get(["/", "/*"], (req, res) => { console.log(path.join(__dirname, "../build/index.html")); res.sendFile(path.join(__dirname, "../build/index.html")); });
+app.listen(port, () => { console.log(`Example app listening at http://localhost:${port}`); });
 
 exports.app = app;
 exports.db = db;

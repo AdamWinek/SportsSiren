@@ -130,7 +130,7 @@ async function deleteFollowingGames(req, res) {
 }
 
 async function login(req, res) {
-  console.log(req.body.email); 
+  console.log(req.body.email);
   let currentUser = await User.findOne({ email: req.body.email }).exec();
   bcrypt.compare(req.body.password, currentUser.password, function (
     err,
@@ -633,42 +633,42 @@ async function updateSubscription(req, res) {
 async function deleteAccount(req, res) {
 
   console.log(req.body, "here")
-      try {
-          await User.deleteOne({ email: req.body.email }, function (err) {
-              if (err) { console.log(err.toString()) };
-          });
-          res.json({ message: "user deleted" });
+  try {
+    await User.deleteOne({ email: req.body.email }, function (err) {
+      if (err) { console.log(err.toString()) };
+    });
+    res.json({ message: "user deleted" });
 
 
-      } catch (err) {
-          res.json({ message: err.toString() })
-      }
+  } catch (err) {
+    res.json({ message: err.toString() })
+  }
 }
 
 async function updatePassword(req, res) {
 
   try {
     bcrypt.hash(req.body.oldPassword, 10, async function (err, hash) {
-        try {
-            const newHash = bcrypt.hashSync(req.body.newPassword, 10);
+      try {
+        const newHash = bcrypt.hashSync(req.body.newPassword, 10);
 
-            await User.updateOne({ email: req.body.email }, { $set: { password: newHash } }, (err) => {
-                if (err) {
-                    console.log(err)
+        await User.updateOne({ email: req.body.email }, { $set: { password: newHash } }, (err) => {
+          if (err) {
+            console.log(err)
 
-                }
-            }
-            );
-            res.json({ message: "password changed" });
-
-        } catch (err) {
-            res.json({ message: err.toString() })
-
+          }
         }
+        );
+        res.json({ message: "password changed" });
+
+      } catch (err) {
+        res.json({ message: err.toString() })
+
+      }
     })
   } catch (e) {
     res.json({
-        message: e.toString()
+      message: e.toString()
     })
 
   }
@@ -707,13 +707,65 @@ async function createNFLteams() {
 
 
   })
+}
+
+async function searchTeams(req, res) {
+
+  if (req.params.searchText == undefined) {
+    res.json({ message: "must pass in searchText" });
+
+  } else {
+    try {
+      if (req.params.searchText == "") {
+        res.json({ teams: [] })
+      }
 
 
+      let results = await NFLTeam.find({ name: { '$regex': `${req.params.searchText}`, '$options': 'i' } }, (err) => {
+        if (err) {
+          console.log(err)
+        }
+      }).exec()
+      res.json({ teams: results })
 
+
+    } catch (err) {
+      console.log(err)
+      res.json({ message: err.toString() })
+
+    }
+
+  }
+
+}
+
+
+async function getAllTeams(req, res) {
+
+  try {
+    if (req.params.searchText == "") {
+      res.json({ teams: [] })
+    }
+    let results = await NFLTeam.find({}, (err) => {
+      if (err) {
+        console.log(err)
+      }
+    }).exec()
+    res.json({ teams: results })
+
+
+  } catch (err) {
+    console.log(err)
+    res.json({ message: err.toString() })
+
+  }
 
 
 
 }
+
+
+
 
 
 module.exports.setNotificationThresholds = setNotificationThresholds;
@@ -733,5 +785,5 @@ module.exports.updateSubscription = updateSubscription;
 module.exports.deleteAccount = deleteAccount;
 module.exports.updatePassword = updatePassword;
 module.exports.updatePhone = updatePhone;
-
-
+module.exports.searchTeams = searchTeams
+module.exports.getAllTeams = getAllTeams
