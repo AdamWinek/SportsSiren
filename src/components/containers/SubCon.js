@@ -60,10 +60,10 @@ const SubCon = (props) => {
         let methodUrl = "https://sports-siren.herokuapp.com/api/"
         console.log(process.env.REACT_APP_DEV_ENV)
         if (process.env.REACT_APP_DEV_ENV == "development") {
-            methodUrl = "http://localhost:3000"
+            methodUrl = "http://localhost:3000/api/"
         }
 
-        let result = await axios.get(methodUrl + `/api/get/userSubscriptions/${userCon.user.email}`, {
+        let result = await axios.get(methodUrl + `get/userSubscriptions/${userCon.user.email}`, {
         })
 
         //appends subscription object to a array of sub cards
