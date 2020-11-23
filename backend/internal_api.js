@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const NBAGame = require("./models/NBAGame")
 const NBATeam = require("./models/NBATeam");
 const NFLGame = require('./models/NFLGame');
-const NFLTeam = require('./models/NFLGame')
+const NFLTeam = require('./models/NFLTeam')
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://AdamLeonHoulton:AdamLeonHoulton@sportssiren.rrbya.mongodb.net/SportsSiren?retryWrites=true&w=majority', { useNewUrlParser: true });
 const db = mongoose.connection;
@@ -666,7 +666,34 @@ async function updateSubscription(req, res) {
 
 
 
+//creates NFL table 
+// we do not want this to be 
+async function createNFLteams() {
+  let here = await NFLGame.find({}).exec()
+  console.log(here)
 
+  here.map(async (game) => {
+    try {
+
+      let team = new NFLTeam({
+        name: game.homeTeam
+      })
+      await team.save()
+
+    } catch (err) {
+
+      console.log(err)
+    }
+
+
+  })
+
+
+
+
+
+
+}
 
 
 module.exports.setNotificationThresholds = setNotificationThresholds;
