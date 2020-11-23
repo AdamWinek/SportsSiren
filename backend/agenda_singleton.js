@@ -18,10 +18,10 @@ class AgendaJob {
     this.agenda.on("ready", () => {
       console.log("agenda ready!");
       // Uncomment to run it live
-      this.agenda.every("5 minutes", "poll_external_live");
+      //this.agenda.every("5 minutes", "poll_external_live");
       this.agenda.start();
       //this.agenda.now('populate_simulation_db');
-      this.agenda.now('poll_external_live');
+      //this.agenda.now('poll_external_live');
     });
   }
 
