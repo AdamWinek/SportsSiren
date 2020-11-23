@@ -520,35 +520,112 @@ async function updateSubscription(req, res) {
   } else if (req.body.subs == undefined) {
     res.json({ message: "must pass in sub objects to be edited" })
 
+  } else if (req.body.user == undefined) {
+
+    res.json({ message: "must pass in user object" })
+
   } else {
+    //pass in a list of current subscription objects
+    //pass in a form object object
+
+    //sample new sub
+    //   const [data, setData] = useState({
+    //     sms: null,
+    //     email: null,
+    //     startofgame: null,
+    //     endofgame: null,
+    //     within: null,
+    //     time: null,
+    //     threshold: null,
+    // });
+
+    // adds start of game record
+    console.log(req.body)
+
+    try {
+      if (req.body.newSub.startofgame) {
+        await Subscription.findOneAndUpdate(
+          { _id: req.body.subs[0]._id },
+          {
+            $set: {
+              type: req.body.subs[0].type,
+              fname: req.body.user.fname,
+              lname: req.body.user.lname,
+              email: req.body.user.email,
+              phone: req.body.user.phone,
+              // league name or team name or gameId
+              identifier: req.body.subs[0].identifier,
+              notifiedGames: [],
+              viaEmail: req.body.newSub.email,
+              viaText: req.body.newSub.sms,
+              onStart: true,
 
 
+            }
+          })
 
-    // await Subscription.findOneAndUpdate(
-    //   { _id: id },
-    //   {
-    //     $set: {
-    //       homeAbbr: game_scores[game].home.abbr,
-    //       awayAbbr: game_scores[game].away.abbr,
-    //       homeTotalScore: game_scores[game].home.score.T,
-    //       homeFirstQuarterScore: game_scores[game].home.score[1],
-    //       homeSecondQuarterScore: game_scores[game].home.score[2],
-    //       homeThirdQuarterScore: game_scores[game].home.score[3],
-    //       homeFourthQuarterScore: game_scores[game].home.score[4],
-    //       awayTotalScore: game_scores[game].away.score.T,
-    //       awayFirstQuarterScore: game_scores[game].away.score[1],
-    //       awaySecondQuarterScore: game_scores[game].away.score[1],
-    //       awayThirdQuarter
-
-    //     }
-    //   })
+      }
 
 
+      // adds end of game notification if neccesary
+      if (req.body.newSub.endofgame) {
+        let tempId = 420
+        if (req.body.subs.length >= 1) {
+          tempId = req.body.subs[1]._id
+        }
+
+        await Subscription.findOneAndUpdate(
+          { _id: tempId },
+          {
+            $set: {
+              type: req.body.subs[0].type,
+              fname: req.body.user.fname,
+              lname: req.body.user.lname,
+              email: req.body.user.email,
+              phone: req.body.user.phone,
+              // league name or team name or gameId
+              identifier: req.body.subs[0].identifier,
+              notifiedGames: [],
+              viaEmail: req.body.newSub.email,
+              viaText: req.body.newSub.sms,
+              onEnd: true,
+            }
+          })
+
+      }
+
+      // adds end of game notification if neccesary
+      if (req.body.newSub.endofgame) {
+        let tempId = 420
+        if (req.body.subs.length >= 2) {
+          tempId = req.body.subs[2]._id
+        }
+
+        await Subscription.findOneAndUpdate(
+          { _id: tempId },
+          {
+            $set: {
+              type: req.body.subs[0].type,
+              fname: req.body.user.fname,
+              lname: req.body.user.lname,
+              email: req.body.user.email,
+              phone: req.body.user.phone,
+              // league name or team name or gameId
+              identifier: req.body.subs[0].identifier,
+              notifiedGames: [],
+              viaEmail: req.body.newSub.email,
+              viaText: req.body.newSub.sms,
+              scoreCriteria: req.body.newSub.threshold,
+              timeCriteria: req.body.newSub.time
+            }
+          })
+
+      }
+      res.json({ message: "subs updated" })
+    } catch (err) {
+      res.json({ message: err.toString() })
+    }
   }
-
-
-
-
 }
 
 
@@ -569,3 +646,4 @@ module.exports.createSubscription = createSubscription
 module.exports.getUserSubscriptions = getUserSubscriptions
 module.exports.getGameById = getGameById
 module.exports.deleteSubscription = deleteSubscription;
+module.exports.updateSubscription = updateSubscription;

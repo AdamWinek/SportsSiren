@@ -119,7 +119,7 @@ function SubscriptionCard(props) {
   }
   let editForm = null;
   if (editToggle) {
-    editForm = (<SubEditForm subArray={props.subArray} handleToggle={() => handleToggle()} />)
+    editForm = (<SubEditForm subArray={props.subArray} reloadCards={() => props.reloadCards()} handleToggle={() => handleToggle()} />)
 
   }
 

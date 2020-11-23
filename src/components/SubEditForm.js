@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import styles from "../css/sub_edit_form_styles.module.css";
+import axios from "axios"
+import userContext from "./userContext";
 
 function SubEditForm(props) {
-
+    let userCon = useContext(userContext)
 
     const [data, setData] = useState({
         sms: null,
@@ -20,6 +22,41 @@ function SubEditForm(props) {
     const onSlide = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
+
+
+    async function handleEditSubmit(){
+        
+    // update subscriptions
+    let methodUrl = "https://sports-siren.herokuapp.com/api/"
+    console.log(process.env.REACT_APP_DEV_ENV)
+    if (process.env.REACT_APP_DEV_ENV == "development") {
+    methodUrl = "http://localhost:3000/api/"
+    }
+
+    let result = await axios.put(methodUrl + `update/subscriptions`, {
+
+    subs: props.subArray,
+    newSub: data,
+    user: userCon.user
+
+    })
+    console.log(result)
+    props.reloadCards()
+
+
+
+    }
+
+
+
+
+
+
+
+
+    
+
+
 
     useEffect(() => {
         if (props.subArray != undefined && data.sms == null) {
@@ -181,8 +218,7 @@ function SubEditForm(props) {
                         <br></br>
                         <button
                             className={styles.btn}
-                            type="submit"
-
+                            onClick={() => handleEditSubmit()}
                         >
                             Submit
                             
