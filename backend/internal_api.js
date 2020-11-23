@@ -161,7 +161,7 @@ async function login(req, res) {
 
 
 async function sendNotification(req, res) {
-
+  console.log("twilio is sending");
   if (req.body.token == undefined) {
     res.json({
       message: "You need to login to use this route",
