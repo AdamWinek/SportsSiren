@@ -24,7 +24,6 @@ const SubCon = (props) => {
                 })
 
                 //appends subscription object to a array of sub cards
-                console.log(Object.values(result.data.subscriptions.league))
                 let temp = []
                 if (result.data.subscriptions.league != undefined) {
                     Object.values(result.data.subscriptions.league).forEach((subArray) => {
@@ -68,7 +67,6 @@ const SubCon = (props) => {
         })
 
         //appends subscription object to a array of sub cards
-        console.log(Object.values(result.data.subscriptions.league))
         let temp = []
         if (result.data.subscriptions.league != undefined) {
             Object.values(result.data.subscriptions.league).forEach((subArray) => {
@@ -91,9 +89,6 @@ const SubCon = (props) => {
 
     }
 
-
-
-    console.log(subscriptions)
 
 
     return (

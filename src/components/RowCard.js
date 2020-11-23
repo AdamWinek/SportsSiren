@@ -38,7 +38,6 @@ const RowCard = (props) => {
       subs: props.subArray
 
     })
-    console.log(result)
     props.reloadCards()
 
 

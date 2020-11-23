@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import RowCard from "../RowCard";
 import axios from "axios";
 import styles from "../../css/row_con.module.css";
@@ -8,10 +8,18 @@ const RowCon = (props) => {
   const [body, Setbody] = useState([]);
   let userCon = useContext(userContext)
 
+  useEffect(() => {
+    Setbody([])
+
+
+  }, [props.reloadCount])
+
 
   async function reloadCards() {
     Setbody([])
+
   }
+
 
 
 
@@ -59,7 +67,6 @@ const RowCon = (props) => {
           }
           let tempArr = [];
           let result = await axios.get(methodUrl + "get/allTeams", {});
-          console.log(result, "team")
 
 
           methodUrl = "https://sports-siren.herokuapp.com/api/"
@@ -73,11 +80,8 @@ const RowCon = (props) => {
           })
 
           //appends subscription object to a array of sub cards
-          console.log(subs)
-          console.log(Object.values(subs.data.subscriptions.team))
           let subArray = []
           if (subs.data.subscriptions.team != undefined) {
-            console.log(subs.data.subscriptions.team)
             Object.values(subs.data.subscriptions.team).forEach((teamsubs) => {
               subArray.push(teamsubs)
             })
@@ -92,7 +96,6 @@ const RowCon = (props) => {
             tempArr.push(<RowCard type="team" team={team.name} subArray={teamSubs} reloadCards={() => reloadCards()} hasSubbed={hasSubbed} />);
           });
           Setbody(tempArr);
-          console.log(body);
         } catch (err) {
           console.log(err.toString());
 
@@ -135,7 +138,6 @@ const RowCon = (props) => {
             tempArr.push(<RowCard type="game" game={game} subArray={teamSubs} reloadCards={() => reloadCards()} hasSubbed={hasSubbed} />);
           });
           Setbody(tempArr);
-          console.log(body);
         } catch (err) {
           console.log(err.toString());
         }

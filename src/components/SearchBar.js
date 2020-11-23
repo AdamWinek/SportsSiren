@@ -1,14 +1,16 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import styles from '../css/search_bar_styles.module.css'
 import bil from "./bill.gif"
 import axios from "axios"
 import SearchItem from "./SearchItem"
+import userContext from "./userContext";
 
 function SearchBar(props) {
 
 
     const [search, setSearch] = useState("")
     const [searchItems, setSearchItems] = useState(null)
+    let userCon = useContext(userContext)
 
 
 
@@ -29,35 +31,56 @@ function SearchBar(props) {
             timeoutId = setTimeout(makeRequest(), timeout - (now - execTime))
 
         }
+    }
 
-        async function makeRequest() {
-            execTime = Date.now()
+    async function makeRequest() {
+        execTime = Date.now()
+        let methodUrl = "https://sports-siren.herokuapp.com/api/"
+        if (process.env.REACT_APP_DEV_ENV == "development") {
+            methodUrl = "http://localhost:3000/api/"
+        }
+        let response = await axios({
+            method: "GET",
+            url: methodUrl + "get/searchTeams/" + search,
 
-            let methodUrl = "https://sports-siren.herokuapp.com/api/"
+        })
+        if (response.data.teams == undefined || response.data.teams.length == 0) {
+            setSearchItems(null)
+        } else {
+
+            methodUrl = "https://sports-siren.herokuapp.com/api/"
+            console.log(process.env.REACT_APP_DEV_ENV)
             if (process.env.REACT_APP_DEV_ENV == "development") {
                 methodUrl = "http://localhost:3000/api/"
             }
-            let response = await axios({
-                method: "GET",
-                url: methodUrl + "get/searchTeams/" + search,
 
+
+            let subs = await axios.get(methodUrl + `get/userSubscriptions/${userCon.user.email}`, {
             })
-            if (response.data.teams == undefined || response.data.teams.length == 0) {
-                setSearchItems(null)
-            } else {
-                let temp = response.data.teams.map((team) => {
-                    return (<SearchItem team={team} />)
-                })
-                setSearchItems(temp)
 
 
 
-            }
+            let temp = response.data.teams.map((team) => {
+                let hasSubbed = false;
+                let teamSubs = []
+                if (subs.data.subscriptions.team[team.name] != undefined) {
+                    hasSubbed = true
+                    teamSubs = subs.data.subscriptions.team[team.name]
+                }
+                return (<SearchItem team={team} hasSubbed={hasSubbed} subArray={teamSubs} reloadCards={() => reloadCards()} />)
+            })
+            setSearchItems(temp)
         }
-
-
     }
 
+
+
+
+
+    function reloadCards() {
+        makeRequest()
+        props.reloadPage()
+    }
 
     async function handleInputChange(e) {
 
@@ -65,8 +88,9 @@ function SearchBar(props) {
         setSearch(e.target.value)
 
 
-
-        getRelevantTeams(10000)
+        if (search != "") {
+            getRelevantTeams(10000)
+        }
 
     }
 
