@@ -1,5 +1,20 @@
-.container {    
+.container {
+    margin: 60px 0;
+}
+.cardContainer {    
     display: flex;
     align-items: center;    
     overflow-x: auto;
+
+}
+.title {
+    position: relative;
+    padding-bottom: 20px;
+    font-size: 2em;
+    letter-spacing: 1px;
+}
+.lineBreak {
+    width: 100%;
+    height: 5px;
+    background-color: black;
 }
