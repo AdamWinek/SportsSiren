@@ -7,6 +7,8 @@ const NFLTeam = require('./models/NFLGame')
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://AdamLeonHoulton:AdamLeonHoulton@sportssiren.rrbya.mongodb.net/SportsSiren?retryWrites=true&w=majority', { useNewUrlParser: true });
 const db = mongoose.connection;
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 
 // Get NFL Schedule 
@@ -295,11 +297,90 @@ async function getMostRecentGame(req, res) {
 
 
 }
+async function sendSimulationText(req, res) {
+    console.log("in sendSimulationText");
+    console.log(req.body);
+    //console.log(req);
+    console.log("--------------------scheduled_tim--------------------------------------------------");
+    let message_to_send = await req.body.message; 
+    let user_to_send = await req.body.phone; 
+    let scheduled_time = await req.body.scheduled_time; 
+    agenda_instance.sendText(user_to_send, message_to_send, scheduled_time); 
+    //require('./schedule_simulation_text')(this.agenda);
+    //this.agenda.now('schedule_simulation_text', {phone: phone, message: message});
+}
+
+async function sendSimulationEmail(req, res) {
+
+    console.log("in sendSimulationEmail");
+    console.log(req.body);
+    //console.log(req);
+    console.log("--------------------scheduled_tim--------------------------------------------------");
+    let message_to_send = await req.body.message; 
+    let user_to_send = await req.body.email; 
+    let scheduled_time = await req.body.scheduled_time; 
+    agenda_instance.sendEmail(user_to_send, message_to_send, scheduled_time); 
+    //require('./schedule_simulation_text')(this.agenda);
+    //this.agenda.now('schedule_simulation_text', {phone: phone, message: message});
+}
+async function sendNotification(req, res) {
+    try {
+        console.log("in twilio send"); 
+        //console.log(req.body);
+        //console.log(req);
+        console.log("sending to " + req.body.phone + " message " + req.body.message);
+        let msg = await twilioInstance.messages.create({
+            body: req.body.message,
+            to: req.body.phone,  // Text this number
+            from: '+18285200670' // The number we bought
+        })
+        //console.log(msg)
+
+        res.json({
+            error: msg.error_message,
+            status: msg.status
+        })
 
 
 
 
+    } catch (err) {
+        res.json({
+            message: err.toString()
+        })
+    }
+}
+async function sendEmail(req, res) {
 
+    try {
+        console.log("trying to send (in server.js/sendEmail)")
+        const sgMail = require('@sendgrid/mail');
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        console.log("sending to " + req.body.email);
+        const msg = {
+            to: req.body.email,
+            from: 'sportssiren@gmail.com', // Use the email address or domain you verified above
+            subject: 'SportsSiren Notification!',
+            text: req.body.message,
+        };
+        (async () => {
+            try {
+            await sgMail.send(msg);
+            } catch (error) {
+            console.error(error);
+        
+            if (error.response) {
+                console.error(error.response.body)
+            }
+            }
+        })();
+        console.log("sent er out")
+
+
+    } catch (err) {
+        console.log(err)
+    }
+}
 module.exports.dailyGamesNBA = dailyGamesNBA;
 module.exports.gameInDBNBA = gameInDBNBA
 module.exports.loadNFLSZN = loadNFLSZN;
@@ -313,3 +394,9 @@ module.exports.getNCAAFootballScores = getNCAAFootballScores;
 module.exports.getNBASimulation = getNBASimulation;
 module.exports.updateStandingsNFL = updateStandingsNFL
 module.exports.getMostRecentGame = getMostRecentGame
+module.exports.sendSimulationText = sendSimulationText
+module.exports.sendSimulationEmail = sendSimulationEmail
+module.exports.sendNotification = sendNotification
+module.exports.sendEmail = sendEmail
+
+

@@ -15,7 +15,6 @@ const Subscription = require('./models/Subscription');
 const { Enqueue } = require('twilio/lib/twiml/VoiceResponse');
 const twilio = require("twilio");
 const e = require('express');
-const { ObjectId } = require('mongodb');
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 let twilioInstance = new twilio(accountSid, authToken);
@@ -129,7 +128,9 @@ async function deleteFollowingGames(req, res) {
     }
   );
 }
+
 async function login(req, res) {
+  console.log(req.body.email); 
   let currentUser = await User.findOne({ email: req.body.email }).exec();
   bcrypt.compare(req.body.password, currentUser.password, function (
     err,
@@ -492,9 +493,11 @@ async function getGameById(req, res) {
 
 async function deleteSubscription(req, res) {
   if (req.body.subs == undefined) {
+    console.log(req.body)
     res.json({ message: "must pass in an array of subs" })
 
   } else {
+    console.log(req.body.subs)
     try {
       req.body.subs.forEach(async (sub) => {
         await Subscription.deleteOne({ _id: sub._id })
@@ -538,133 +541,150 @@ async function updateSubscription(req, res) {
     //     threshold: null,
     // });
 
-
-    let type = req.body.subs[0].type
-    let identifier = req.body.subs[0].identifier
-
+    // adds start of game record
+    console.log(req.body)
 
     try {
-      let status = ""
-      //add start record
       if (req.body.newSub.startofgame) {
-        let current = req.body.subs.pop()
-        if (current == undefined) {
-          current = ObjectId()
-        }
-
-
-        Subscription.findOneAndUpdate(
-          { _id: current._id },
+        await Subscription.findOneAndUpdate(
+          { _id: req.body.subs[0]._id },
           {
             $set: {
-              type: type,
+              type: req.body.subs[0].type,
               fname: req.body.user.fname,
               lname: req.body.user.lname,
               email: req.body.user.email,
               phone: req.body.user.phone,
               // league name or team name or gameId
-              identifier: identifier,
+              identifier: req.body.subs[0].identifier,
               notifiedGames: [],
               viaEmail: req.body.newSub.email,
               viaText: req.body.newSub.sms,
               onStart: true,
-              onEnd: false,
-              timeCriteria: null,
-              scoreCriteria: null
+
 
             }
-          }, { safe: true, upsert: true, new: true }, (err) => {
-            if (err) {
-              console.log(err.toString())
-            }
           })
+
       }
 
 
       // adds end of game notification if neccesary
       if (req.body.newSub.endofgame) {
-        let current = req.body.subs.pop()
-        if (current == undefined) {
-
-          current = ObjectId()
+        let tempId = 420
+        if (req.body.subs.length >= 1) {
+          tempId = req.body.subs[1]._id
         }
 
-        Subscription.findOneAndUpdate(
-          { _id: current._id },
+        await Subscription.findOneAndUpdate(
+          { _id: tempId },
           {
             $set: {
-              type: type,
+              type: req.body.subs[0].type,
               fname: req.body.user.fname,
               lname: req.body.user.lname,
               email: req.body.user.email,
               phone: req.body.user.phone,
               // league name or team name or gameId
-              identifier: identifier,
+              identifier: req.body.subs[0].identifier,
               notifiedGames: [],
               viaEmail: req.body.newSub.email,
               viaText: req.body.newSub.sms,
               onEnd: true,
-              onStart: false,
-              timeCriteria: null,
-              scoreCriteria: null
-            }
-          }, { safe: true, upsert: true, new: true }, (err) => {
-            if (err) {
-              console.log(err.toString())
             }
           })
+
       }
 
-      // adds score notification if neccesary
-      if (req.body.newSub.within) {
-        let current = req.body.subs.pop()
-        if (current == undefined) {
-          current = ObjectId()
+      // adds end of game notification if neccesary
+      if (req.body.newSub.endofgame) {
+        let tempId = 420
+        if (req.body.subs.length >= 2) {
+          tempId = req.body.subs[2]._id
         }
-        Subscription.findOneAndUpdate(
-          { _id: current._id },
+
+        await Subscription.findOneAndUpdate(
+          { _id: tempId },
           {
             $set: {
-              type: type,
+              type: req.body.subs[0].type,
               fname: req.body.user.fname,
               lname: req.body.user.lname,
               email: req.body.user.email,
               phone: req.body.user.phone,
               // league name or team name or gameId
-              identifier: identifier,
+              identifier: req.body.subs[0].identifier,
               notifiedGames: [],
               viaEmail: req.body.newSub.email,
               viaText: req.body.newSub.sms,
-              onEnd: false,
-              onStart: false,
               scoreCriteria: req.body.newSub.threshold,
               timeCriteria: req.body.newSub.time
             }
-          }, { safe: true, upsert: true, new: true }, (err) => {
-            if (err) {
-              console.log(err.toString())
-            }
           })
-        //console.log(status)
-      }
-
-      // get rid of extra subs if any
-      if (req.body.subs.length > 0) {
-        req.body.subs.forEach(async (sub) => {
-          await Subscription.deleteOne({ _id: sub._id })
-        })
 
       }
-
       res.json({ message: "subs updated" })
     } catch (err) {
-      console.log(err.toString())
       res.json({ message: err.toString() })
     }
   }
 }
 
+async function deleteAccount(req, res) {
 
+  console.log(req.body, "here")
+      try {
+          await User.deleteOne({ email: req.body.email }, function (err) {
+              if (err) { console.log(err.toString()) };
+          });
+          res.json({ message: "user deleted" });
+
+
+      } catch (err) {
+          res.json({ message: err.toString() })
+      }
+}
+
+async function updatePassword(req, res) {
+
+  try {
+    bcrypt.hash(req.body.oldPassword, 10, async function (err, hash) {
+        try {
+            const newHash = bcrypt.hashSync(req.body.newPassword, 10);
+
+            await User.updateOne({ email: req.body.email }, { $set: { password: newHash } }, (err) => {
+                if (err) {
+                    console.log(err)
+
+                }
+            }
+            );
+            res.json({ message: "password changed" });
+
+        } catch (err) {
+            res.json({ message: err.toString() })
+
+        }
+    })
+  } catch (e) {
+    res.json({
+        message: e.toString()
+    })
+
+  }
+}
+
+async function updatePhone(req, res) {
+
+  try {
+    await User.updateOne({ email: req.body.email }, { $set: { phone: req.body.phone } });
+    res.json({ message: "phone changed" });
+
+  } catch (err) {
+    res.json({ message: "There was an error with your phone" })
+
+  }
+}
 
 //creates NFL table 
 // we do not want this to be 
@@ -710,3 +730,8 @@ module.exports.getUserSubscriptions = getUserSubscriptions
 module.exports.getGameById = getGameById
 module.exports.deleteSubscription = deleteSubscription;
 module.exports.updateSubscription = updateSubscription;
+module.exports.deleteAccount = deleteAccount;
+module.exports.updatePassword = updatePassword;
+module.exports.updatePhone = updatePhone;
+
+
