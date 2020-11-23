@@ -8,8 +8,42 @@ const RowCon = (props) => {
   const [body, Setbody] = useState([]);
   let userCon = useContext(userContext)
 
+
+  async function reloadCards() {
+    Setbody([])
+  }
+
+
+
   if (props.type == "league") {
-    body.push(<RowCard type="league"></RowCard>);
+    if (body.length == 0) {
+
+
+
+      async function setLeagueCards() {
+        let methodUrl = "https://sports-siren.herokuapp.com/api/"
+        console.log(process.env.REACT_APP_DEV_ENV)
+        if (process.env.REACT_APP_DEV_ENV == "development") {
+          methodUrl = "http://localhost:3000/api/"
+        }
+        let subs = await axios.get(methodUrl + `get/userSubscriptions/${userCon.user.email}`, {
+        })
+
+        let hasSubbed = false;
+        let leagueSubs = []
+        console.log(subs, "league")
+        if (subs.data.subscriptions.league.NFL != undefined) {
+          hasSubbed = true
+          leagueSubs = subs.data.subscriptions.league.NFL
+        }
+        console.log(leagueSubs)
+        Setbody((<RowCard type="league" subArray={leagueSubs} reloadCards={() => reloadCards()} hasSubbed={hasSubbed}   ></RowCard>));
+      }
+      setLeagueCards()
+
+
+    }
+
   } else if (props.type == "team") {
     //request to team
     //map values in render
@@ -31,11 +65,11 @@ const RowCon = (props) => {
           methodUrl = "https://sports-siren.herokuapp.com/api/"
           console.log(process.env.REACT_APP_DEV_ENV)
           if (process.env.REACT_APP_DEV_ENV == "development") {
-            methodUrl = "http://localhost:3000"
+            methodUrl = "http://localhost:3000/api/"
           }
 
 
-          let subs = await axios.get(methodUrl + `/api/get/userSubscriptions/${userCon.user.email}`, {
+          let subs = await axios.get(methodUrl + `get/userSubscriptions/${userCon.user.email}`, {
           })
 
           //appends subscription object to a array of sub cards
@@ -49,8 +83,13 @@ const RowCon = (props) => {
             })
           }
           result.data.teams.map((team) => {
-
-            tempArr.push(<RowCard type="team" team={team.name} />);
+            let hasSubbed = false;
+            let teamSubs = []
+            if (subs.data.subscriptions.team[team.name] != undefined) {
+              hasSubbed = true
+              teamSubs = subs.data.subscriptions.team[team.name]
+            }
+            tempArr.push(<RowCard type="team" team={team.name} subArray={teamSubs} reloadCards={() => reloadCards()} hasSubbed={hasSubbed} />);
           });
           Setbody(tempArr);
           console.log(body);
@@ -72,10 +111,28 @@ const RowCon = (props) => {
           methodUrl = "http://localhost:3000/api/";
         }
         try {
+
+
+          methodUrl = "https://sports-siren.herokuapp.com/api/"
+          console.log(process.env.REACT_APP_DEV_ENV)
+          if (process.env.REACT_APP_DEV_ENV == "development") {
+            methodUrl = "http://localhost:3000/api/"
+          }
+
+
+          let subs = await axios.get(methodUrl + `get/userSubscriptions/${userCon.user.email}`, {
+          })
+
           let tempArr = [];
           let result = await axios.get(methodUrl + "getWeeklyNFLGames/11", {});
           result.data.games.map((game) => {
-            tempArr.push(<RowCard type="game" game={game} />);
+            let hasSubbed = false;
+            let teamSubs = []
+            if (subs.data.subscriptions.game[game.gameId] != undefined) {
+              hasSubbed = true
+              teamSubs = subs.data.subscriptions.game[game.gameId]
+            }
+            tempArr.push(<RowCard type="game" game={game} subArray={teamSubs} reloadCards={() => reloadCards()} hasSubbed={hasSubbed} />);
           });
           Setbody(tempArr);
           console.log(body);
@@ -94,9 +151,7 @@ const RowCon = (props) => {
       <h1 className={styles.title}>{props.type}</h1>
       <div className={styles.lineBreak}></div>
       <div className={styles.cardContainer}>
-        {body.map((x) => {
-          return x;
-        })}
+        {body}
       </div>
     </div>
   );

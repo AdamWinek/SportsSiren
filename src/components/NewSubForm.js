@@ -39,7 +39,7 @@ function NewSubForm(props) {
         })
         console.log(result)
         props.handleToggle()
-
+        props.reloadCards()
 
     }
 

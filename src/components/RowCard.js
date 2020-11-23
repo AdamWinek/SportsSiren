@@ -3,6 +3,7 @@ import NFLScorecard from "../components/NFLScorecard";
 import styles from "../css/row_card.module.css";
 import bill from "./bill.gif";
 import NewSubForm from "./NewSubForm";
+import axios from "axios"
 
 const RowCard = (props) => {
 
@@ -20,29 +21,57 @@ const RowCard = (props) => {
   function handleToggle() {
 
     SetForm(!displayForm)
-
-
   }
 
+
+  async function handleDelete() {
+
+    // delete results
+    let methodUrl = "https://sports-siren.herokuapp.com/api/"
+    console.log(process.env.REACT_APP_DEV_ENV)
+    if (process.env.REACT_APP_DEV_ENV == "development") {
+      methodUrl = "http://localhost:3000/api/"
+    }
+
+    let result = await axios.post(methodUrl + `delete/subscriptions`, {
+
+      subs: props.subArray
+
+    })
+    console.log(result)
+    props.reloadCards()
+
+
+
+  };
+
+
+
+
+
+
+
+
   if (props.type == "league") {
+    console.log(!props.hasSubbed)
     return (
       <div className={styles.container}>
         {!displayForm && (
           <div className={styles.card}>
             <h2>NFL</h2>
             <img src={"/LeagueLogos/NFL.gif"} className="" alt=""></img>
-            {Subscribed ? (
+            {!props.hasSubbed ? (
               <button className={styles.btn} onClick={(e) => onSubscribe(e)}>
                 Subscribe
               </button>
             ) : (
-                <button className={styles.btnun} onClick={(e) => onSubscribe(e)}>
+                <button className={styles.btnun} onClick={() => handleDelete()}>
                   Unsubscribe
                 </button>
               )}
           </div>
         )}
-        {displayForm && <NewSubForm type={props.type} identifier="NFL" handleToggle={() => handleToggle()} />}
+        {displayForm && <NewSubForm type={props.type} reloadCards={() => props.reloadCards()} identifier="NFL" handleToggle={() => handleToggle()} />}
       </div>
     );
   } else if (props.type == "team") {
@@ -56,33 +85,37 @@ const RowCard = (props) => {
               className=""
               alt=""
             ></img>
-            {Subscribed ? (
+            {!props.hasSubbed ? (
               <button className={styles.btn} onClick={(e) => onSubscribe(e)}>
                 Subscribe
               </button>
             ) : (
-                <button className={styles.btnun} onClick={(e) => onSubscribe(e)}>
+                <button className={styles.btnun} onClick={() => handleDelete()}>
                   Unsubscribe
                 </button>
               )}
           </div>
         )}
-        {displayForm && <NewSubForm type={props.type} identifier={props.team} handleToggle={() => handleToggle()} />}
+        {displayForm && <NewSubForm type={props.type} identifier={props.team} reloadCards={() => props.reloadCards()} handleToggle={() => handleToggle()} />}
       </div>
     );
   } else if (props.type == "game") {
     return (
       <div className={styles.container}>
-        <NFLScorecard game={props.game}></NFLScorecard>
-        {Subscribed ? (
-          <button className={styles.btn} onClick={(e) => onSubscribe(e)}>
-            Subscribe
-          </button>
-        ) : (
-            <button className={styles.btnun} onClick={(e) => onSubscribe(e)}>
-              Unsubscribe
-            </button>
-          )}
+        {!displayForm ? (
+          <>
+            <NFLScorecard game={props.game}></NFLScorecard>
+            {!props.hasSubbed ? (
+              <button className={styles.btn} onClick={(e) => onSubscribe(e)}>
+                Subscribe
+              </button>
+            ) : (
+                <button className={styles.btnun} onClick={() => handleDelete()}>
+                  Unsubscribe
+                </button>
+              )}
+          </>
+        ) : <NewSubForm type={props.type} identifier={props.game.gameId} reloadCards={() => props.reloadCards()} handleToggle={() => handleToggle()} />}
       </div>
     );
   }
