@@ -5,6 +5,7 @@ import bill from "./bill.gif";
 import NewSubForm from "./NewSubForm";
 
 const RowCard = (props) => {
+
   const [Subscribed, SetSubscribed] = useState(false);
   const [displayForm, SetForm] = useState(false);
 
