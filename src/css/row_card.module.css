@@ -5,7 +5,15 @@
     align-items: center;
     margin: 20px 30px;
 }
-.container > img {
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+
+}
+.card > img {
     margin: 20px 0;
 }
 .btn {

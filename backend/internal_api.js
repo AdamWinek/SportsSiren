@@ -666,6 +666,101 @@ async function updateSubscription(req, res) {
     }
   }
 }
+
+
+async function newSubscription(req, res) {
+  if (req.body.newSub == undefined) {
+    res.json({ message: "must pass in event form information" })
+
+  } else if (req.body.user == undefined) {
+
+    res.json({ message: "must pass in user object" })
+
+  } else {
+    //pass in a list of current subscription objects
+    //pass in a form object object
+
+    //sample new sub
+    //   const [data, setData] = useState({
+    //     sms: null,
+    //     email: null,
+    //     startofgame: null,
+    //     endofgame: null,
+    //     within: null,
+    //     time: null,
+    //     threshold: null,
+    // });
+
+    // adds start of game record
+    console.log(req.body)
+
+    try {
+      if (req.body.newSub.startofgame) {
+        let sub = new Subscription({
+          type: req.body.type,
+          fname: req.body.user.fname,
+          lname: req.body.user.lname,
+          email: req.body.user.email,
+          phone: req.body.phone,
+          // league name or team name or gameId
+          identifier: req.body.identifier,
+          notifiedGames: [],
+          viaEmail: req.body.newSub.email,
+          viaText: req.body.newSub.sms,
+          onStart: req.body.newSub.startofgame,
+
+        })
+        sub.save()
+
+      }
+
+
+      // adds end of game notification if neccesary
+      if (req.body.newSub.endofgame) {
+        let sub = new Subscription({
+          type: req.body.type,
+          fname: req.body.user.fname,
+          lname: req.body.user.lname,
+          email: req.body.user.email,
+          phone: req.body.phone,
+          // league name or team name or gameId
+          identifier: req.body.identifier,
+          notifiedGames: [],
+          viaEmail: req.body.newSub.email,
+          viaText: req.body.newSub.sms,
+          onEnd: req.body.newSub.endofgame,
+
+        })
+        sub.save()
+
+      }
+
+      // adds end of game notification if neccesary
+      if (req.body.newSub.within) {
+        let sub = new Subscription({
+          type: req.body.type,
+          fname: req.body.user.fname,
+          lname: req.body.user.lname,
+          email: req.body.user.email,
+          phone: req.body.phone,
+          // league name or team name or gameId
+          identifier: req.body.identifier,
+          notifiedGames: [],
+          viaEmail: req.body.newSub.email,
+          viaText: req.body.newSub.sms,
+          scoreCriteria: req.body.newSub.threshold,
+          timeCriteria: req.body.newSub.time
+
+        })
+        sub.save()
+      }
+      res.json({ message: "subs created" })
+    } catch (err) {
+      res.json({ message: err.toString() })
+    }
+  }
+}
+
 async function deleteAccount(req, res) {
 
   console.log(req.body, "here")
@@ -823,3 +918,4 @@ module.exports.updatePassword = updatePassword;
 module.exports.updatePhone = updatePhone;
 module.exports.searchTeams = searchTeams
 module.exports.getAllTeams = getAllTeams
+module.exports.newSubscription = newSubscription

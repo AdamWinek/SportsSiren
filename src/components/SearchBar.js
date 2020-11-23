@@ -13,23 +13,25 @@ function SearchBar(props) {
 
 
     let execTime = Date.now()
-    let timeout = ""
+    let timeoutId = ""
     // debouncing function
     async function getRelevantTeams(timeout) {
-        if (timeout != "") {
-            clearInterval(timeout)
+        if (timeoutId != "") {
+            clearInterval(timeoutId)
 
         }
-        console.log(Date.now.getTime() - execTime)
-        if (Date.now() - execTime > timeout) {
+        let now = Date.now()
+        console.log(now - execTime)
+        if (now - execTime > timeout) {
             makeRequest()
         } else {
-            timeout = setTimeout(makeRequest(), timeout - (Date.now().getTime() - execTime))
+            now = Date.now()
+            timeoutId = setTimeout(makeRequest(), timeout - (now - execTime))
 
         }
 
         async function makeRequest() {
-            execTime = Date.now().getTime
+            execTime = Date.now()
 
             let methodUrl = "https://sports-siren.herokuapp.com/api/"
             if (process.env.REACT_APP_DEV_ENV == "development") {
@@ -76,6 +78,7 @@ function SearchBar(props) {
                 type="text"
                 className={styles.input}
                 onChange={(e) => handleInputChange(e)}
+                placeholder="Search for Teams to Follow"
             >
 
             </input>

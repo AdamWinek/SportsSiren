@@ -32,7 +32,7 @@ const { sendEmail } = require("./external_api")
 const { sendNotification } = require("./external_api")
 
 // Internal 
-const { setNotificationThresholds, getAllTeams } = require("./internal_api.js");
+const { setNotificationThresholds, getAllTeams, newSubscription } = require("./internal_api.js");
 const { deleteSubscription } = require("./internal_api.js");
 const { setNotificationPreferences } = require("./internal_api.js");
 const { setFollowingTeams } = require("./internal_api.js");
@@ -64,6 +64,7 @@ app.post('/api/sendNotification', async (req, res) => sendNotification(req, res)
 app.post('/api/sendEmail', async (req, res) => sendEmail(req, res))
 app.get("/api/loadNFLSZN", (req, res) => loadNFLSZN(req, res));
 app.post("/api/post/createSubscription", (req, res) => createSubscription(req, res));
+app.post("/api/create/newSubscriptionForm", (req, res) => newSubscription(req, res))
 
 // Read: 
 app.get("/api/get/gameById/:gameId", (req, res) => getGameById(req, res))
