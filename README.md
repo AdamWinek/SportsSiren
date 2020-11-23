@@ -3,12 +3,21 @@
 # SportsSiren (COMP 426 Final Project)
 SportsSiren is a notification app that allows you to follow your favorite teams and games so you never miss a second of the action. Configure custom time and score thresholds to receive a notification so that you can tune in to the closest games you care about. Sign up today!
 
+SportsSiren continuously updates the scores of active NFL games and notifies the user based off of their preferences. The user can follow both teams and individual games and configure notification preferences for each. SportsSiren currently allows the user to be notified at the start of the game, end of the game, and with a certain time remaining if the score is within a user-defined threshold. 
+
+# Use Case
+
+You are John Smith. Avid football fan but always busy on Sundays. You want to be reminded when games that you care about start and want to be able to watch the most exciting game. SportsSiren lets you get the notifications that YOU care about. Want to watch the Patriots game if the score is within a touchdown? A field goal? Want to get alerts on your email and/or your phone? SportsSiren meets all of these needs, alerting you of the sports events you care about. 
+
+# Technical Details 
+
+Putting together SportsSiren was a lot of fun. Here are some of the details: 
 ## Technical Overview
 - **Front-end** ----> React
-- **Back-end** ----> Exprepss
+- **Back-end** ----> Express/Node
 - **Database** -----> MongoDB + Mongoose
-- **3rd Party API's** -----> [SportsRadar](https://developer.sportradar.com/docs/read/american_football/NFL_v5), the official [NFL live scores API](http://static.nfl.com/liveupdate/scores/scores.json), [Twilio's SMS API](https://www.twilio.com/docs/sms/api), and [SendGrid's email API](https://sendgrid.com/docs/API_Reference/Web_API_v3/Mail/index.html).
-* **Hosting** -----> Heroku
+- **3rd Party API's** -----> [SportsRadar's NFL API](https://developer.sportradar.com/docs/read/american_football/NFL_v5), the official [NFL live scores API](http://static.nfl.com/liveupdate/scores/scores.json), [Twilio's SMS API](https://www.twilio.com/docs/sms/api), and [SendGrid's email API](https://sendgrid.com/docs/API_Reference/Web_API_v3/Mail/index.html).
+- **Hosting** -----> Heroku
 ## API Documentation
 SportsSiren supports a CRUD API. This section serves as documentation for that: 
 
@@ -19,7 +28,7 @@ The API is split into two files; backend/internal_api.js and backend/external_ap
     - ####   /api/create 
         - #### /api/create/registerUser
             - Creates an user on inital registration.
-            - Parameters: Creates an user on inital registration.
+            - **Parameters:** 
         - #### /api/create/sendEmail
             - Creates and sends an email to user.
         - #### /api/create/createSubscription
@@ -55,10 +64,6 @@ The API is split into two files; backend/internal_api.js and backend/external_ap
         - ##### /api/deleteAccount
             - Deletes a game or team from the user's. 
 
-## Startup Guide
-1. `npm install` to install project dependencies
-2. `npm serve` to launch the development express server
-3. `npm start-dev` to launch the development react server
 
-## Mockup of Front End 
+# Original Mockup of Front End 
 ![Mock Front End](https://raw.githubusercontent.com/AdamWinek/SportsSiren/master/sports%20siren%20mockup.jpeg)
