@@ -24,24 +24,30 @@ const  SimulationForm = (props) => {
 
   
   let sendMessageHandle = async function(message, notify_number, time) { 
-    let methodUrl = "https://sports-siren.herokuapp.com/api/";
-    if (process.env.REACT_APP_DEV_ENV == "development") {
-        methodUrl = "http://localhost:3000/api/";
+    try { 
+      console.log("trying to send message")
+      let methodUrl = "https://sports-siren.herokuapp.com/api/";
+      if (process.env.REACT_APP_DEV_ENV == "development") {
+          methodUrl = "http://localhost:3000/api/";
+      }
+
+        
+      let response = await axios({
+          method: "POST",
+          url: methodUrl + "sendSimulationText",
+          data: {
+              phone: notify_number,
+              message: message,
+              scheduled_time: time,
+          },
+      });
+
+      //console.log(response); 
+      return response; 
     }
-
-      
-    let response = await axios({
-        method: "POST",
-        url: methodUrl + "sendSimulationText",
-        data: {
-            phone: notify_number,
-            message: message,
-            scheduled_time: time,
-        },
-    });
-
-    //console.log(response); 
-    return response; 
+    catch(err) { 
+      console.log(err); 
+    }
   }
   let sendEmailHandle = async function(message, notify_email, time) { 
     let methodUrl = "https://sports-siren.herokuapp.com/api/";
@@ -137,10 +143,13 @@ const  SimulationForm = (props) => {
     //console.log(userCon.user)
     let notify_number = userCon.user.phone;
     let notify_email = userCon.user.email;
-    if(data.text) {
+    console.log(notify_email)
+    console.log(notify_number)
+    console.log(data)
+    if(data.sms) {
       if (data.startofgame) {
         // fire notification now
-        //console.log("firing at start");
+        console.log("firing at start");
 
         let time = "now";
         let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game just started! Tune in!"; 
@@ -148,7 +157,7 @@ const  SimulationForm = (props) => {
       } 
       if (data.endofgame) {
         // fire notification in 60s
-        //console.log("firing at end");
+        console.log("firing at end");
         let time = "in 1 minute"
         let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game just ended! We hope you enjoyed! Check our site to see what game is up next."; 
         sendMessageHandle(notify_message, notify_number, time); 

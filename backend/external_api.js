@@ -9,6 +9,9 @@ mongoose.connect('mongodb+srv://AdamLeonHoulton:AdamLeonHoulton@sportssiren.rrby
 const db = mongoose.connection;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
+const bodyParser = require("body-parser");
+const twilio = require("twilio");
+let twilioInstance = new twilio(accountSid, authToken);
 
 
 // Get NFL Schedule 

@@ -29,9 +29,11 @@ module.exports = (agenda) => {
                         message: job.attrs.data.message,
                     },
                 });
+                console.log(response);
                 console.log("should be sent"); 
                 //console.log(response); 
             } catch (err) {
+                console.log(err); 
                 return err.toString();
             }
             
