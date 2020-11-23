@@ -17,11 +17,11 @@ Putting together SportsSiren was a lot of fun. Here are some of the details:
 - **Back-end** ----> Express/Node
 - **Database** -----> MongoDB + Mongoose
 - **3rd Party API's** -----> [SportsRadar's NFL API](https://developer.sportradar.com/docs/read/american_football/NFL_v5), the official [NFL live scores API](http://static.nfl.com/liveupdate/scores/scores.json), [Twilio's SMS API](https://www.twilio.com/docs/sms/api), and [SendGrid's email API](https://sendgrid.com/docs/API_Reference/Web_API_v3/Mail/index.html).
-- **Hosting** -----> Heroku
+- **Hosting + CI/CD** -----> Heroku
 ## API Documentation
 SportsSiren supports a CRUD API. This section serves as documentation for that: 
 
-The API is split into two files; backend/internal_api.js and backend/external_api.js. The external functions interface with one of our four 3rd party API's: [SportsRadar](https://developer.sportradar.com/docs/read/american_football/NFL_v5), the official [NFL live scores API](http://static.nfl.com/liveupdate/scores/scores.json), [Twilio's SMS API](https://www.twilio.com/docs/sms/api), and [SendGrid's email API](https://sendgrid.com/docs/API_Reference/Web_API_v3/Mail/index.html). The API 
+The API is split into two files; backend/internal_api.js and backend/external_api.js. The external functions interface with one of our four 3rd party API's: [SportsRadar](https://developer.sportradar.com/docs/read/american_football/NFL_v5), the official [NFL live scores API](http://static.nfl.com/liveupdate/scores/scores.json), [Twilio's SMS API](https://www.twilio.com/docs/sms/api), and [SendGrid's email API](https://sendgrid.com/docs/API_Reference/Web_API_v3/Mail/index.html). 
 
 
 ## API Overview

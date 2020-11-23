@@ -541,95 +541,131 @@ async function updateSubscription(req, res) {
     //     threshold: null,
     // });
 
-    // adds start of game record
-    console.log(req.body)
+
+    let type = req.body.subs[0].type
+    let identifier = req.body.subs[0].identifier
+
 
     try {
+      let status = ""
+      //add start record
       if (req.body.newSub.startofgame) {
-        await Subscription.findOneAndUpdate(
-          { _id: req.body.subs[0]._id },
+        let current = req.body.subs.pop()
+        if (current == undefined) {
+          current = ObjectId()
+        }
+
+
+        Subscription.findOneAndUpdate(
+          { _id: current._id },
           {
             $set: {
-              type: req.body.subs[0].type,
+              type: type,
               fname: req.body.user.fname,
               lname: req.body.user.lname,
               email: req.body.user.email,
               phone: req.body.user.phone,
               // league name or team name or gameId
-              identifier: req.body.subs[0].identifier,
+              identifier: identifier,
               notifiedGames: [],
               viaEmail: req.body.newSub.email,
               viaText: req.body.newSub.sms,
               onStart: true,
-
+              onEnd: false,
+              timeCriteria: null,
+              scoreCriteria: null
 
             }
+          }, { safe: true, upsert: true, new: true }, (err) => {
+            if (err) {
+              console.log(err.toString())
+            }
           })
-
       }
 
 
       // adds end of game notification if neccesary
       if (req.body.newSub.endofgame) {
-        let tempId = 420
-        if (req.body.subs.length >= 1) {
-          tempId = req.body.subs[1]._id
+        let current = req.body.subs.pop()
+        if (current == undefined) {
+
+          current = ObjectId()
         }
 
-        await Subscription.findOneAndUpdate(
-          { _id: tempId },
+        Subscription.findOneAndUpdate(
+          { _id: current._id },
           {
             $set: {
-              type: req.body.subs[0].type,
+              type: type,
               fname: req.body.user.fname,
               lname: req.body.user.lname,
               email: req.body.user.email,
               phone: req.body.user.phone,
               // league name or team name or gameId
-              identifier: req.body.subs[0].identifier,
+              identifier: identifier,
               notifiedGames: [],
               viaEmail: req.body.newSub.email,
               viaText: req.body.newSub.sms,
               onEnd: true,
+              onStart: false,
+              timeCriteria: null,
+              scoreCriteria: null
+            }
+          }, { safe: true, upsert: true, new: true }, (err) => {
+            if (err) {
+              console.log(err.toString())
             }
           })
-
       }
 
-      // adds end of game notification if neccesary
-      if (req.body.newSub.endofgame) {
-        let tempId = 420
-        if (req.body.subs.length >= 2) {
-          tempId = req.body.subs[2]._id
+      // adds score notification if neccesary
+      if (req.body.newSub.within) {
+        let current = req.body.subs.pop()
+        if (current == undefined) {
+          current = ObjectId()
         }
-
-        await Subscription.findOneAndUpdate(
-          { _id: tempId },
+        Subscription.findOneAndUpdate(
+          { _id: current._id },
           {
             $set: {
-              type: req.body.subs[0].type,
+              type: type,
               fname: req.body.user.fname,
               lname: req.body.user.lname,
               email: req.body.user.email,
               phone: req.body.user.phone,
               // league name or team name or gameId
-              identifier: req.body.subs[0].identifier,
+              identifier: identifier,
               notifiedGames: [],
               viaEmail: req.body.newSub.email,
               viaText: req.body.newSub.sms,
+              onEnd: false,
+              onStart: false,
               scoreCriteria: req.body.newSub.threshold,
               timeCriteria: req.body.newSub.time
             }
+          }, { safe: true, upsert: true, new: true }, (err) => {
+            if (err) {
+              console.log(err.toString())
+            }
           })
+        //console.log(status)
+      }
+
+      // get rid of extra subs if any
+      if (req.body.subs.length > 0) {
+        req.body.subs.forEach(async (sub) => {
+          await Subscription.deleteOne({ _id: sub._id })
+        })
 
       }
+
       res.json({ message: "subs updated" })
     } catch (err) {
+      console.log(err.toString())
       res.json({ message: err.toString() })
     }
   }
 }
-
 async function deleteAccount(req, res) {
 
   console.log(req.body, "here")
