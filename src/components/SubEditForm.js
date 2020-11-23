@@ -32,7 +32,6 @@ function SubEditForm(props) {
     if (process.env.REACT_APP_DEV_ENV == "development") {
     methodUrl = "http://localhost:3000/api/"
     }
-
     let result = await axios.put(methodUrl + `update/subscriptions`, {
 
     subs: props.subArray,
@@ -42,6 +41,7 @@ function SubEditForm(props) {
     })
     console.log(result)
     props.reloadCards()
+    props.handleToggle()
 
 
 
