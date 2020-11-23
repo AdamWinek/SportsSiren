@@ -171,7 +171,7 @@ const  SimulationForm = (props) => {
         // fire notification in 60- data.time seconds
       }
     }
-    else if(data.email) { 
+    if(data.email) { 
       if (data.startofgame) {
         console.log("sending email for start of game")
         console.log("notify email is " + notify_email)
