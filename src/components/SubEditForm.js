@@ -108,7 +108,7 @@ function SubEditForm(props) {
     return (
         <div>
             <div className={styles.bodyContent}>
-                <form className={styles.form}>
+                <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
                     <div>
                         <h2 className={styles.questionTitle}>Notify me via:</h2>
                         <input
@@ -185,7 +185,14 @@ function SubEditForm(props) {
 
                         >
                             Submit
+                            
               </button>
+              <button
+                            className={styles.cancelBtn}
+                            onClick={() => props.handleToggle()}
+                        >
+                            Cancel
+                        </button>
                     </div>
                 </form>
             </div>

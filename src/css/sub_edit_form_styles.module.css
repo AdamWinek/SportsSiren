@@ -14,6 +14,20 @@
 
 	border-radius: 7px;
 	font-weight: 900;
+	margin-top: 5px;
+}
+
+.cancelBtn {
+	border: none;
+	color: white;
+	background-color: #ff5555;
+	display: flex;
+	padding: 10px 40px;
+	justify-content: center;
+	margin-top: 5px;
+
+	border-radius: 7px;
+	font-weight: 900;
 }
 
 .bodyContent {

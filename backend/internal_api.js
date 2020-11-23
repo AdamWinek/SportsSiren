@@ -510,8 +510,41 @@ async function deleteSubscription(req, res) {
     }
   }
 
+}
 
 
+async function updateSubscription(req, res) {
+  if (req.body.newSub == undefined) {
+    res.json({ message: "must pass in event form information" })
+
+  } else if (req.body.subs == undefined) {
+    res.json({ message: "must pass in sub objects to be edited" })
+
+  } else {
+
+
+
+    // await Subscription.findOneAndUpdate(
+    //   { _id: id },
+    //   {
+    //     $set: {
+    //       homeAbbr: game_scores[game].home.abbr,
+    //       awayAbbr: game_scores[game].away.abbr,
+    //       homeTotalScore: game_scores[game].home.score.T,
+    //       homeFirstQuarterScore: game_scores[game].home.score[1],
+    //       homeSecondQuarterScore: game_scores[game].home.score[2],
+    //       homeThirdQuarterScore: game_scores[game].home.score[3],
+    //       homeFourthQuarterScore: game_scores[game].home.score[4],
+    //       awayTotalScore: game_scores[game].away.score.T,
+    //       awayFirstQuarterScore: game_scores[game].away.score[1],
+    //       awaySecondQuarterScore: game_scores[game].away.score[1],
+    //       awayThirdQuarter
+
+    //     }
+    //   })
+
+
+  }
 
 
 

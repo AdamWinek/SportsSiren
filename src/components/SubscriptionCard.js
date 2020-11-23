@@ -36,6 +36,15 @@ function SubscriptionCard(props) {
   }, [props.subArray])
 
 
+  function handleToggle() {
+
+    setEditToggle(!editToggle)
+
+
+  }
+
+
+
 
   async function handleDelete() {
 
@@ -110,7 +119,7 @@ function SubscriptionCard(props) {
   }
   let editForm = null;
   if (editToggle) {
-    editForm = (<SubEditForm subArray={props.subArray} />)
+    editForm = (<SubEditForm subArray={props.subArray} handleToggle={() => handleToggle()} />)
 
   }
 
