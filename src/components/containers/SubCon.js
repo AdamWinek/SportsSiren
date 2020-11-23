@@ -28,17 +28,17 @@ const SubCon = (props) => {
                 let temp = []
                 if (result.data.subscriptions.league != undefined) {
                     Object.values(result.data.subscriptions.league).forEach((subArray) => {
-                        temp.push((<li><SubscriptionCard subArray={subArray} /></li>))
+                        temp.push((<li><SubscriptionCard reloadCards={() => reloadCards()} subArray={subArray} /></li>))
                     })
                 }
                 if (result.data.subscriptions.game != undefined) {
                     Object.values(result.data.subscriptions.game).forEach((subArray) => {
-                        temp.push((<li><SubscriptionCard subArray={subArray} /></li>))
+                        temp.push((<li><SubscriptionCard reloadCards={() => reloadCards()} subArray={subArray} /></li>))
                     })
                 }
                 if (result.data.subscriptions.team != undefined) {
                     Object.values(result.data.subscriptions.team).forEach((subArray) => {
-                        temp.push((<li><SubscriptionCard subArray={subArray} /></li>))
+                        temp.push((<li><SubscriptionCard subArray={subArray} reloadCards={() => reloadCards()} /></li>))
                     })
                 }
                 setSubscriptions(temp)
@@ -54,6 +54,44 @@ const SubCon = (props) => {
             getSubscriptionsApi()
         }
     }, [])
+
+
+    async function reloadCards() {
+
+        let methodUrl = "https://sports-siren.herokuapp.com/api/"
+        console.log(process.env.REACT_APP_DEV_ENV)
+        if (process.env.REACT_APP_DEV_ENV == "development") {
+            methodUrl = "http://localhost:3000"
+        }
+
+        let result = await axios.get(methodUrl + `/api/get/userSubscriptions/${userCon.user.email}`, {
+        })
+
+        //appends subscription object to a array of sub cards
+        console.log(Object.values(result.data.subscriptions.league))
+        let temp = []
+        if (result.data.subscriptions.league != undefined) {
+            Object.values(result.data.subscriptions.league).forEach((subArray) => {
+                temp.push((<li><SubscriptionCard reloadCards={() => reloadCards()} subArray={subArray} /></li>))
+            })
+        }
+        if (result.data.subscriptions.game != undefined) {
+            Object.values(result.data.subscriptions.game).forEach((subArray) => {
+                temp.push((<li><SubscriptionCard reloadCards={() => reloadCards()} subArray={subArray} /></li>))
+            })
+        }
+        if (result.data.subscriptions.team != undefined) {
+            Object.values(result.data.subscriptions.team).forEach((subArray) => {
+                temp.push((<li><SubscriptionCard subArray={subArray} reloadCards={() => reloadCards()} /></li>))
+            })
+        }
+        setSubscriptions(temp)
+
+
+
+    }
+
+
 
     console.log(subscriptions)
 

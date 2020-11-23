@@ -487,6 +487,39 @@ async function getGameById(req, res) {
 
 
 
+// api/delete/subscriptions
+
+async function deleteSubscription(req, res) {
+  if (req.body.subs == undefined) {
+    console.log(req.body)
+    res.json({ message: "must pass in an array of subs" })
+
+  } else {
+    console.log(req.body.subs)
+    try {
+      req.body.subs.forEach(async (sub) => {
+        await Subscription.deleteOne({ _id: sub._id })
+      })
+      res.json({ message: "Subscriptions Deleted" })
+
+
+
+    } catch (err) {
+      res.json({ message: err.toString() })
+
+    }
+  }
+
+
+
+
+
+
+
+}
+
+
+
 
 
 
@@ -502,3 +535,4 @@ module.exports.registerUser = registerUser;
 module.exports.createSubscription = createSubscription
 module.exports.getUserSubscriptions = getUserSubscriptions
 module.exports.getGameById = getGameById
+module.exports.deleteSubscription = deleteSubscription;

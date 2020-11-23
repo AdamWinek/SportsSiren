@@ -24,7 +24,7 @@ const { dailyGamesNBA } = require("./external_api.js");
 const { gameInDBNBA } = require("./external_api.js");
 const { loadNFLSZN } = require("./external_api.js");
 const { getWeeklyNFLGames } = require("./external_api.js");
-const { setNotificationThresholds } = require("./internal_api.js");
+const { setNotificationThresholds, deleteSubscription } = require("./internal_api.js");
 const { setNotificationPreferences } = require("./internal_api.js");
 const { setFollowingTeams } = require("./internal_api.js");
 const { deleteFollowingTeams } = require("./internal_api.js");
@@ -231,6 +231,9 @@ app.get('/api/sendNotification', async (req, res) => {
         })
     }
 })
+
+
+app.post('/api/delete/subscriptions', (req, res) => deleteSubscription(req, res))
 
 
 app.get('/api/get/nextUpcomingGame', (req, res) => getMostRecentGame(req, res))
