@@ -40,13 +40,13 @@ The API is split into two files; backend/internal_api.js and backend/external_ap
         /userSubscriptions/:email
         /getWeeklyNFLGames/:week
     /update 
-        /NFLStandings
+        /updateStandingsNFL
         /user/updatePassword
         /user/updatePhone
         /user/subscriptions
     /delete 
         /deleteAccount
-        /deleteAccount
+        /subscriptions
 ```
 ### Create
 ```
@@ -63,7 +63,7 @@ The API is split into two files; backend/internal_api.js and backend/external_ap
     /sendEmail
         Parameters: 
                 message: "This is a test message" (String), 
-                to: "test@unc.edu" (String),
+                to: "test@unc.edu" (String)
         Effect: 
                 Registers user in database. 
     /createSubscription
@@ -80,16 +80,109 @@ The API is split into two files; backend/internal_api.js and backend/external_ap
                 onStart: true, (Boolean), 
                 onEnd: false, (Boolean), 
                 scoreCriteria: 10, (Number), 
-                timeCriteria: 15, (Number), 
+                timeCriteria: 15, (Number) 
         Effect: 
-                Registers user in database. 
+                Adds subscription object to database. 
     /loadNFLSZN
         Parameters: 
+                None
+        Effect: 
+                Populates NFL_season collection in MongoDB backend.
     /sendSimulationText
         Parameters: 
+                phone: "123-456-7890", (String),
+                message: "This is a test message" (String)
+        Effect: 
+                Sends a text to user for testing.
     /sendSimulationEmail
         Parameters: 
+                email: "johnsmith@unc.edu", (String), 
+                message: "This is a test message" (String)
+        Effect: 
+                Sends an  email to user for testing.
 ```
+
+### Read
+```
+/api/read
+    /gameById/:gameId
+        Parameters: 
+            gameId: "NE-BAL", (String)
+        Effect: 
+            Returns an NFL_Game object. 
+    /nextUpcomingGame
+        Parameters: 
+            None
+        Effect: 
+            Returns the next upcoming NFL_Game object. 
+    /userSubscriptions/:email
+        Parameters: 
+            None
+        Effect: 
+            Returns the subcription object(s) associated with that email. 
+    /getWeeklyNFLGames/:week
+        Parameters: 
+            week: 10, (Number)
+        Effect: 
+            Returns an array of NFL_Game's for thaht week. 
+```
+### Update
+```
+/api/update
+    /updateStandingsNFL
+        Parameters: 
+            None
+        Effect: 
+            Updates NFL standings from SportsRadar API. 
+    /user/updatePassword
+        Parameters: 
+            old_password: "$2b$10$//DXiVVE59p7G5k/4Klx/ezF7BI42QZKmoOD0NDvUuqxRE5bFFBLy" (bcryptHash),
+            new_password: "$2b$10$//DXiVVE59p7G5k/4Klx/ezF7BI42QZKmoOD0NDvUuqxRE5bFFBLy" (bcryptHash)
+            email: "johnsmith@unc.edu", (String) 
+        Effect: 
+            Updates the password associated with that user. Fails if old password is different than current password. 
+    /user/updatePhone
+        Parameters: 
+            phone: "123-456-7890", (String),
+            email: "johnsmith@unc.edu", (String) 
+        Effect: 
+            Updates the phone associated with that user. 
+    /user/subscriptions
+        Parameters: 
+                type: "game", (String),
+                fname: "John", (String), 
+                lname: "Smith", (String),
+                email: "johnsmith@unc.edu", (String), 
+                phone: "123-456-7890", (String),
+                identifier: "565ff61b-eeb1-4caa-b1cd-b29ce3a59737" (GameIdentifier),
+                notifiedGames: ["NE-LA", "CAR-NYJ"] (Array of Games), 
+                viaEmail: true, (Boolean), 
+                viaText: false, (Boolean), 
+                onStart: true, (Boolean), 
+                onEnd: false, (Boolean), 
+                scoreCriteria: 10, (Number), 
+                timeCriteria: 15, (Number) 
+        Effect: 
+                Updates subscription object in database. 
+
+```
+### Delete
+```
+/api/delete
+    /deleteAccount
+        Parameters: 
+            email: "johnsmith@unc.edu", (String)
+        Effect: 
+            Deletes user from database. Cannot be undone. 
+    /subscriptions
+        Parameters: 
+            subscriptions: [Array_of_subscriptions_objects], (Array of Subscriptions)
+        Effect: 
+            Deletes those subscriptions. 
+
+
+```
+
 
 - #### /api 
     - ####   /api/create 
@@ -128,8 +221,8 @@ The API is split into two files; backend/internal_api.js and backend/external_ap
     - ####   /api/delete 
         - ##### /api/deleteAccount
             - Deletes the user's account. 
-        - ##### /api/deleteAccount
-            - Deletes a game or team from the user's. 
+        - ##### /api/subscriptions
+            - Deletes a game or team from the user's subscriptions. 
 
 
 # Original Mockup of Front End 
