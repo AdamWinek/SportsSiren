@@ -45,6 +45,16 @@ class AgendaJob {
     }
 
   }
+  sendEmail(email, message, time_to_schedule) { 
+    console.log("in agenda send email"); 
+    require('./jobs/schedule_simulate_email')(this.agenda);
+    if(time_to_schedule == "Now") { 
+      this.agenda.now('schedule_simulate_email', {email: email, message: message});
+    }
+    else { 
+      this.agenda.schedule(time_to_schedule, 'schedule_simulate_email', {email: email, message: message});
+    }
+  }
 
 }
 

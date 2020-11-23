@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@sendgrid/mail": "^7.4.0",
 		"@testing-library/jest-dom": "^4.2.4",
 		"@testing-library/react": "^9.5.0",
 		"@testing-library/user-event": "^7.2.1",
@@ -24,6 +25,7 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "3.4.3",
 		"react-spring": "^8.0.27",
+		"sendgrid": "^5.2.3",
 		"twilio": "^3.51.0"
 	},
 	"scripts": {
