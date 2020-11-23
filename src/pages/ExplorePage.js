@@ -8,7 +8,7 @@ const ExplorePage = (props) => {
     <>
       <HomeNav active={"Explore"} />
       <div className={styles.body}>
-        <h1>Explore </h1>
+        <h1 className={styles.title}>Explore </h1>
         <RowCon></RowCon>
       </div>
     </>
