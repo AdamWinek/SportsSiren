@@ -212,6 +212,18 @@ app.post("/api/sendSimulationText", async (req, res) => {
 
     
 })
+app.post("/api/sendSimulationEmail", async (req, res) => { 
+    console.log("in sendSimulationEmail");
+    console.log(req.body);
+    //console.log(req);
+    console.log("--------------------scheduled_tim--------------------------------------------------");
+    let message_to_send = await req.body.message; 
+    let user_to_send = await req.body.email; 
+    let scheduled_time = await req.body.scheduled_time; 
+    agenda_instance.sendEmail(user_to_send, message_to_send, scheduled_time); 
+    //require('./schedule_simulation_text')(this.agenda);
+    //this.agenda.now('schedule_simulation_text', {phone: phone, message: message});
+})
 
 
 
@@ -243,6 +255,38 @@ app.post('/api/sendNotification', async (req, res) => {
         res.json({
             message: err.toString()
         })
+    }
+})
+
+app.post('/api/sendEmail', async (req, res) => {
+
+    try {
+        console.log("trying to send (in server.js/sendEmail)")
+        const sgMail = require('@sendgrid/mail');
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        console.log("sending to " + req.body.email);
+        const msg = {
+            to: req.body.email,
+            from: 'sportssiren@gmail.com', // Use the email address or domain you verified above
+            subject: 'SportsSiren Notification!',
+            text: req.body.message,
+          };
+          (async () => {
+            try {
+              await sgMail.send(msg);
+            } catch (error) {
+              console.error(error);
+          
+              if (error.response) {
+                console.error(error.response.body)
+              }
+            }
+          })();
+          console.log("sent er out")
+
+
+    } catch (err) {
+        console.log(err)
     }
 })
 
