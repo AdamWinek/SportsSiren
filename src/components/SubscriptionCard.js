@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styles from "../css/subscription_card.module.css";
 import email from "../email.svg"
 import sms from "../sms.svg"
 import bill from "../components/bill.gif"
 import axios from "axios"
+import userContext from "./userContext"
+
+import SubEditForm from "./SubEditForm";
 
 function SubscriptionCard(props) {
 
   const [game, setGame] = useState(null)
+  const [editToggle, setEditToggle] = useState(false)
+  let userCon = useContext(userContext)
 
   useEffect(() => {
 
@@ -28,9 +33,39 @@ function SubscriptionCard(props) {
       getGameObj()
 
     }
+  }, [props.subArray])
 
 
-  }, [])
+  function handleToggle() {
+
+    setEditToggle(!editToggle)
+
+
+  }
+
+
+
+
+  async function handleDelete() {
+
+    // delete results
+    let methodUrl = "https://sports-siren.herokuapp.com/api/"
+    console.log(process.env.REACT_APP_DEV_ENV)
+    if (process.env.REACT_APP_DEV_ENV == "development") {
+      methodUrl = "http://localhost:3000/api/"
+    }
+
+    let result = await axios.post(methodUrl + `delete/subscriptions`, {
+
+      subs: props.subArray
+
+    })
+    props.reloadCards()
+
+
+
+  };
+
 
 
   function handleSubscriptionWhen(sub) {
@@ -82,27 +117,37 @@ function SubscriptionCard(props) {
 
     }
   }
+  let editForm = null;
+  if (editToggle) {
+    editForm = (<SubEditForm subArray={props.subArray} reloadCards={() => props.reloadCards()} handleToggle={() => handleToggle()} />)
+
+  }
+
+
+
 
   return (
-    <div className={styles.container}>
+    <>
 
-      {logo}
-
-      <div className={styles.notification}>
-        <img src={email} alt="sms logo" className={props.subArray[0].viaEmail ? styles.greyIcon : styles.none}></img>
-        <img src={sms} alt="email logo" className={props.subArray[0].viaText ? styles.greyIcon : styles.none}></img>
-      </div>
-      <div className={styles.text}>
-        <h3>Notify me when</h3>
-        <ul className={styles.when}>
-          {when}
-        </ul>
-        <div className={styles.buttons}>
-          <button className={styles.button}>Edit</button>
-          <button className={styles.button}>Delete</button>
+      <div className={styles.container}>
+        {logo}
+        <div className={styles.notification}>
+          <img src={email} alt="sms logo" className={props.subArray[0].viaEmail ? styles.none : styles.greyIcon}></img>
+          <img src={sms} alt="email logo" className={props.subArray[0].viaText ? styles.none : styles.greyIcon}></img>
+        </div>
+        <div className={styles.text}>
+          <h3>Notify me when</h3>
+          <ul className={styles.when}>
+            {when}
+          </ul>
+          <div className={styles.buttons}>
+            <button className={styles.button} onClick={() => setEditToggle(!editToggle)}>Edit</button>
+            <button className={styles.button} onClick={() => handleDelete()}>Delete</button>
+          </div>
         </div>
       </div>
-    </div>
+      {editForm}
+    </>
   )
 
 } export default SubscriptionCard

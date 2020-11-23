@@ -24,7 +24,7 @@ const { dailyGamesNBA } = require("./external_api.js");
 const { gameInDBNBA } = require("./external_api.js");
 const { loadNFLSZN } = require("./external_api.js");
 const { getWeeklyNFLGames } = require("./external_api.js");
-const { setNotificationThresholds } = require("./internal_api.js");
+const { setNotificationThresholds, deleteSubscription } = require("./internal_api.js");
 const { setNotificationPreferences } = require("./internal_api.js");
 const { setFollowingTeams } = require("./internal_api.js");
 const { deleteFollowingTeams } = require("./internal_api.js");
@@ -38,6 +38,8 @@ const { getMostRecentGame } = require("./external_api")
 const { createSubscription } = require("./internal_api")
 const { getUserSubscriptions } = require("./internal_api")
 const { getGameById } = require("./internal_api")
+const { updateSubscription } = require("./internal_api")
+
 let agenda = require("./agenda_singleton");
 let agenda_instance = agenda.getInstance();
 
@@ -289,6 +291,9 @@ app.post('/api/sendEmail', async (req, res) => {
 })
 
 
+app.post('/api/delete/subscriptions', (req, res) => deleteSubscription(req, res))
+
+
 app.get('/api/get/nextUpcomingGame', (req, res) => getMostRecentGame(req, res))
 
 app.get('/api/get/userSubscriptions/:email', (req, res) => getUserSubscriptions(req, res))
@@ -321,7 +326,7 @@ app.get("/api/get/gameById/:gameId", (req, res) => getGameById(req, res))
 
 app.post("/api/post/createSubscription", (req, res) => createSubscription(req, res));
 
-
+app.put("/api/update/subscriptions", (req, res) => updateSubscription(req, res))
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
