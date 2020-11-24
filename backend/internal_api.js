@@ -862,7 +862,8 @@ async function deleteAccount(req, res) {
 
   try {
     await User.deleteOne({ email: req.body.email }, function (err) {
-      if (err) {//console.log(err.toString()) };
+      if (err) {//console.log(err.toString())
+       };
     });
     res.json({ message: "user deleted" });
 
