@@ -127,7 +127,7 @@ const RowCon = (props) => {
           })
 
           let tempArr = [];
-          let result = await axios.get(methodUrl + "getWeeklyNFLGames/11", {});
+          let result = await axios.get(methodUrl + "get/getWeeklyNFLGames/11", {});
           result.data.games.map((game) => {
             let hasSubbed = false;
             let teamSubs = []

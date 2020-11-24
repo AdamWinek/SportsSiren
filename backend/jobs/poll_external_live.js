@@ -19,13 +19,13 @@ module.exports = (agenda) => {
             try {
                 if (typeof game !== null) {
                     //console.log("game " + game_scores[game].home.score.T);
-                    if(game_scores[game].away.abbr == "NE") { 
+                    if (game_scores[game].away.abbr == "NE") {
                         //console.log(game_scores[game])
                         //console.log(game_scores[game].clock)
                         //console.log(game_scores[game].qtr)
                     }
                     let id_to_user = game_scores[game].home.abbr + "-" + game_scores[game].away.abbr;
-                    await NFLGame.findOneAndUpdate(
+                    let updated_obj = await NFLGame.findOneAndUpdate(
                         { abbrKey: id_to_user },
                         {
                             $set: {
@@ -50,6 +50,23 @@ module.exports = (agenda) => {
                             //console.log(err);
                         }
                     );
+                    // post obj to update/handleNotifications
+
+                    let methodUrl = "https://sports-siren.herokuapp.com/api/";
+                    if (process.env.REACT_APP_DEV_ENV == "development") {
+                        methodUrl = "http://localhost:3000/api/";
+                    }
+                    //methodUrl = "http://localhost:3000/api/";
+                    let notification_response = await axios({
+                        method: "PUT",
+                        url: methodUrl + "update/handleNotifications",
+                        data: {
+                            game: updated_obj
+                        },
+                    });
+
+
+
                 }
             } catch (err) {
                 console.log(err.toString());

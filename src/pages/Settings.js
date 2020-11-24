@@ -29,7 +29,7 @@ function Settings(props) {
                 }
                 let response = await axios({
                     method: "DElETE",
-                    url: methodUrl + "deleteAccount",
+                    url: methodUrl + "delete/deleteAccount",
                     data: {
                         email: userCon.user.email,
                     },
@@ -66,7 +66,7 @@ function Settings(props) {
                 }
                 let response = await axios({
                     method: "PUT",
-                    url: methodUrl + "updatePassword",
+                    url: methodUrl + "update/updatePassword",
                     data: {
                         email: userCon.user.email,
                         oldPassword: passwords.old,
@@ -90,7 +90,7 @@ function Settings(props) {
                 }
                 let response = await axios({
                     method: "PUT",
-                    url: methodUrl + "updatePhone",
+                    url: methodUrl + "update/updatePhone",
                     data: {
                         email: userCon.user.email,
                         phone: phone

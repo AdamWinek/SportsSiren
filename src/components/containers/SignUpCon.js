@@ -34,7 +34,7 @@ const SignUpCon = (props) => {
 
             let response = await axios({
                 method: "POST",
-                url: methodUrl + "registerUser",
+                url: methodUrl + "create/registerUser",
                 data: {
                     fname: fname,
                     lname: lname,

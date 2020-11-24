@@ -12,6 +12,20 @@
 	display: flex;
 	padding: 10px 40px;
 	justify-content: center;
+	transition-delay: all .5s ease-out; 
+
+	border-radius: 7px;
+	font-weight: 900;
+	margin-top: 5px;
+}
+.btn:hover {
+	border: none;
+	color: white;
+	background-color: grey;
+	display: flex;
+	padding: 10px 40px;
+	justify-content: center;
+	transition-delay: all .5s ease-out; 
 
 	border-radius: 7px;
 	font-weight: 900;
@@ -26,7 +40,21 @@
 	padding: 10px 40px;
 	justify-content: center;
 	margin-top: 5px;
+	transition-delay: all .5s ease-out; 
 
+	border-radius: 7px;
+	font-weight: 900;
+}
+
+.cancelBtn:hover {
+	border: none;
+	color: white;
+	background-color: darkred;
+	display: flex;
+	padding: 10px 40px;
+	justify-content: center;
+	margin-top: 5px;
+	transition-delay: all .5s ease-out; 
 	border-radius: 7px;
 	font-weight: 900;
 }

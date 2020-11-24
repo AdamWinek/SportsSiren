@@ -21,7 +21,7 @@ function NFLScoreboard(props) {
             }
             if (games == null) {
                 try {
-                    let result = await axios.get(methodUrl + 'getWeeklyNFLGames/11', {
+                    let result = await axios.get(methodUrl + 'get/getWeeklyNFLGames/11', {
                     })
                     let gamesArr = result.data.games.map((game) => {
                         let gameDate = new Date(game.scheduled)

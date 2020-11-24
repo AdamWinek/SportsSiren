@@ -49,6 +49,7 @@ const { deleteAccount } = require("./internal_api")
 const { updatePassword } = require("./internal_api")
 const { updatePhone } = require("./internal_api")
 const { searchTeams } = require("./internal_api")
+const { handleNotifications } = require("./internal_api")
 
 // parse application/json
 app.use(bodyParser.json());
@@ -59,20 +60,20 @@ app.post("/api/login", async (req, res) => login(req, res))
 
 
 // Create: 
-app.post("/api/registerUser", async (req, res) => registerUser(req, res));
-app.post('/api/sendNotification', async (req, res) => sendNotification(req, res))
-app.post('/api/sendEmail', async (req, res) => sendEmail(req, res))
-app.get("/api/loadNFLSZN", (req, res) => loadNFLSZN(req, res));
-app.post("/api/post/createSubscription", (req, res) => createSubscription(req, res));
+app.post("/api/create/registerUser", async (req, res) => registerUser(req, res));
+app.post('/api/create/sendNotification', async (req, res) => sendNotification(req, res))
+app.post('/api/create/sendEmail', async (req, res) => sendEmail(req, res))
+app.get("/api/create/loadNFLSZN", (req, res) => loadNFLSZN(req, res));
+app.post("/api/create/createSubscription", (req, res) => createSubscription(req, res));
 app.post("/api/create/newSubscriptionForm", (req, res) => newSubscription(req, res))
 
 // Read: 
 app.get("/api/get/gameById/:gameId", (req, res) => getGameById(req, res))
 app.get('/api/get/nextUpcomingGame', (req, res) => getMostRecentGame(req, res))
 app.get('/api/get/userSubscriptions/:email', (req, res) => getUserSubscriptions(req, res))
-app.get("/api/dailyGamesNBA", (req, res) => dailyGames(req, res));
-app.get("/api/gameInDBNBA/:gameId", (req, res) => gameInDBNBA(req, res));
-app.get("/api/getWeeklyNFLGames/:week", (req, res) => getWeeklyNFLGames(req, res));
+app.get("/api/get/dailyGamesNBA", (req, res) => dailyGames(req, res));
+app.get("/api/get/gameInDBNBA/:gameId", (req, res) => gameInDBNBA(req, res));
+app.get("/api/get/getWeeklyNFLGames/:week", (req, res) => getWeeklyNFLGames(req, res));
 app.get("/api/get/searchTeams/:searchText", (req, res) => searchTeams(req, res))
 app.get("/api/get/allTeams", (req, res) => getAllTeams(req, res))
 // Update:
@@ -81,14 +82,15 @@ app.post("/api/update/user/notification_preferences", async (req, res) => setNot
 app.post("/api/update/user/following_teams", async (req, res) => setFollowingTeams(req, res));
 app.post("/api/update/user/following_games", async (req, res) => updateFollowingGames(req, res));
 app.put('/api/update/NFLStandings', async (req, res) => updateStandingsNFL(req, res))
-app.put('/api/updatePassword', async (req, res) => updatePassword(req, res))
-app.put('/api/updatePhone', async (req, res) => updatePhone(req, res))
+app.put('/api/update/updatePassword', async (req, res) => updatePassword(req, res))
+app.put('/api/update/updatePhone', async (req, res) => updatePhone(req, res))
 app.put("/api/update/subscriptions", (req, res) => updateSubscription(req, res))
+app.put("/api/update/handleNotifications", (req, res) => handleNotifications(req, res))
 
 // Delete:
 app.post("/api/delete/user/following_teams", async (req, res) => deleteFollowingTeams(req, res));
 app.post("/api/delete/user/following_games", async (req, res) => deleteFollowingGames(req, res))
-app.delete('/api/deleteAccount', async (req, res) => deleteAccount(req, res))
+app.delete('/api/delete/deleteAccount', async (req, res) => deleteAccount(req, res))
 app.post('/api/delete/subscriptions', (req, res) => deleteSubscription(req, res))
 
 let agenda = require("./agenda_singleton");
@@ -96,7 +98,7 @@ let agenda_instance = agenda.getInstance();
 
 db.once("open", function () { console.log("wereConnected"); });
 
-app.post("/api/sendSimulationText", async (req, res) => {
+app.post("/api/create/sendSimulationText", async (req, res) => {
     console.log("in sendSimulationText");
     console.log(req.body);
     //console.log(req);
@@ -109,7 +111,7 @@ app.post("/api/sendSimulationText", async (req, res) => {
     //this.agenda.now('schedule_simulation_text', {phone: phone, message: message});
 })
 
-app.post("/api/sendSimulationEmail", async (req, res) => {
+app.post("/api/create/sendSimulationEmail", async (req, res) => {
     console.log("in sendSimulationEmail");
     console.log(req.body);
     //console.log(req);
