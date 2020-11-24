@@ -10,7 +10,6 @@ function NFLScoreboard(props) {
     const [games, setGames] = useState(null)
     const [currentlyShown, setCurrentlyShown] = useState([]);
     const [index, setIndex] = useState({ num: 2, from: "none" })
-    console.log(games)
 
     useEffect(() => {
         let getGame = async function () {

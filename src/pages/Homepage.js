@@ -15,10 +15,11 @@ function Homepage(props) {
 
     useEffect(() => {
         if (reRenderCount == 0 && intervalId == null) {
+            console.log("added interval")
             let temp
             temp = setInterval(() => {
                 setReRenderCount(reRenderCount + 1);
-            }, 1000 * 10)
+            }, 1000 * 60)
             setIntervalId(temp)
         }
         return () => clearInterval(intervalId)
@@ -34,11 +35,9 @@ function Homepage(props) {
                 <Countdown />
                 <h1 className={styles.sectionHeader}>Pinned</h1>
                 <div className={styles.sectionBreak}></div>
-                <NFLScoreboard />
-                <h1 className={styles.sectionHeader}>Current</h1>
+                <NFLScoreboard reRenderCount={reRenderCount} />
+                <h1 className={styles.sectionHeader}>Simulation</h1>
                 <div className={styles.sectionBreak}></div>
-                <div className={styles.sectionBreak}>
-                </div>
                 <SimulationFrom></SimulationFrom>
 
 

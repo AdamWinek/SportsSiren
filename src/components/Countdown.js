@@ -5,7 +5,7 @@ import axios from "axios"
 function Countdown(props) {
   const [timeUntil, setTimeUntil] = useState(null);
   const [game, setGame] = useState(null)
-  let intervalId
+  const [interval, setInt] = useState(null)
 
   useEffect(() => {
 
@@ -21,26 +21,28 @@ function Countdown(props) {
       })
       setGame(result.data.game[0])
     }
-    getGame()
-    intervalId = setInterval(() => updateTimeRemaining(), 1000)
+    if (game == null) {
+      getGame()
+    }
+
+
+  }, [game, timeUntil]);
+
+  useEffect(() => {
+    if (game != null && timeUntil == null) {
+      setInt(setInterval(() => updateTimeRemaining(), 1000))
+    }
     return (() => {
-      if (intervalId != undefined) {
-        clearInterval(intervalId)
+      if (interval != null) {
+        clearInterval(interval)
 
       }
 
-
-
     })
 
-  }, []);
-
+  }, [game])
 
   function updateTimeRemaining() {
-    if (game == null) {
-      return
-    }
-
     let scheduledTime = new Date(game.scheduled);
     let current = Date.now();
     let elapsed = scheduledTime.getTime() - current;
