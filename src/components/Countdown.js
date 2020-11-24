@@ -20,22 +20,22 @@ function Countdown(props) {
       let result = await axios.get(methodUrl + 'get/nextUpcomingGame', {
       })
       setGame(result.data.game[0])
-
-      return (() => {
-        if (intervalId != undefined) {
-          clearInterval(intervalId)
-
-        }
-
-
-
-      })
-
-
     }
     getGame()
+    intervalId = setInterval(() => updateTimeRemaining(), 1000)
+    return (() => {
+      if (intervalId != undefined) {
+        clearInterval(intervalId)
+
+      }
+
+
+
+    })
+
   }, []);
-  intervalId = setInterval(() => updateTimeRemaining(), 1000)
+
+
   function updateTimeRemaining() {
     if (game == null) {
       return
