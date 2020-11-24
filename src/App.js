@@ -93,7 +93,7 @@ function App() {
             {loggedIn ? <Settings logout={() => logout()} /> : <Redirect to="/" />}
           </Route>
           <Route path="/games/:gameId">
-            {loggedIn ? <GamePage /> : <GamePage />}
+            {loggedIn ? <GamePage /> : <Redirect to="/" />}
           </Route>
         </Switch>
       </Router>

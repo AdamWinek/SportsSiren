@@ -6,9 +6,11 @@ import axios from 'axios'
 function CountDowncard(props) {
   const [timeUntil, setTimeUntil] = useState(null);
   const [game, setGame] = useState(null)
+  const [interval, setInt] = useState(null)
+
   let { gameId } = useParams();
-  console.log(gameId)
-  let intervalId
+
+
 
   useEffect(() => {
 
@@ -20,23 +22,32 @@ function CountDowncard(props) {
         methodUrl = "http://localhost:3000/api/"
       }
 
-      let result = await axios.get(methodUrl + "get/gameById/" + `${gameId}`, {
+      let result = await axios.get(methodUrl + "get/gameById/" + gameId, {
       })
+      console.log(result)
       setGame(result.data.game)
-
-
-
-
     }
-    getGame()
-    intervalId = setInterval(() => updateTimeRemaining(), 1000)
+    if (game == null) {
+      getGame()
+    }
+
+
+  }, [game, timeUntil]);
+
+  useEffect(() => {
+    if (game != null && timeUntil == null) {
+      setInt(setInterval(() => updateTimeRemaining(), 1000))
+    }
     return (() => {
-      if (intervalId != undefined) {
-        clearInterval(intervalId)
+      if (interval != null) {
+        clearInterval(interval)
 
       }
+
     })
-  }, []);
+
+  }, [game])
+
   function updateTimeRemaining() {
     if (game == null) {
       return
