@@ -30,8 +30,7 @@ function Homepage(props) {
                 <h1 className={styles.sectionHeader}>Pinned</h1>
                 <div className={styles.sectionBreak}></div>
                 <NFLScoreboard />
-                <h1 className={styles.sectionHeader}>Current</h1>
-                <div className={styles.sectionBreak}></div>
+                <h1 className={styles.sectionHeader}>Simulation</h1>
                 <div className={styles.sectionBreak}></div>
                 <SimulationFrom></SimulationFrom>
             </div>
