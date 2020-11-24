@@ -8,6 +8,7 @@ function CountDowncard(props) {
     const [game, setGame] = useState(null)
     let { gameId } = useParams();
     console.log(gameId)
+    let tempid = "ad737947-20e3-439a-908a-a0b65eefbc2e"
     let intervalId
   
     useEffect(() => {
@@ -20,7 +21,7 @@ function CountDowncard(props) {
           methodUrl = "http://localhost:3000/api/"
         }
   
-        let result = await axios.get(methodUrl + "get/gameById/" + `${gameId}` , {
+        let result = await axios.get(methodUrl + "get/gameById/" + gameId , {
         })
         setGame(result.data.game)
   
@@ -63,7 +64,7 @@ function CountDowncard(props) {
       );
     }
   
-    if (game == null || timeUntil == null) {
+    if (game == null || timeUntil == null || timeUntil.seconds < 0 ) {
       return null;
     } else {
       return (
