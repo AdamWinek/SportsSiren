@@ -1,58 +1,64 @@
 .container {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 30px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 30px;
 }
 .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-   
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .card > img {
-    margin: 20px 0;
+  margin: 20px 0;
+}
+.card > h2 {
+  text-align: center;
 }
 .btn {
-    width: 100%;
-    padding: 5px 30px;
-    border: none;
-    background-color: black;
-    color: white;
-    border-radius: 7px;
-    transition-delay: all .5s ease-out; 
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px 30px;
+  border: none;
+  background-color: black;
+  color: white;
+  border-radius: 7px;
+  max-width: 600px;
+  transition-delay: all 0.5s ease-out;
 }
 
 .btn:hover {
-    width: 100%;
-    padding: 5px 30px;
-    border: none;
-    background-color: grey;
-    color: white;
-    border-radius: 7px;
-    transition-delay: all .5s ease-out; 
+  width: 100%;
+  padding: 10px 30px;
+  border: none;
+  background-color: grey;
+  color: white;
+  border-radius: 7px;
+  transition-delay: all 0.5s ease-out;
 }
 
 .btnun {
-    width: 100%;
-    padding: 5px 30px;
-    border: none;
-    background-color: darkred;
-    color: white;
-    border-radius: 7px;
-    transition-delay: all .5s ease-out; 
+  margin-top: 20px;
+  width: 100%;
+  padding: 5px 30px;
+  border: none;
+  background-color: darkred;
+  color: white;
+  border-radius: 7px;
+
+  max-width: 600px;
+
+  transition-delay: all 0.5s ease-out;
 }
 
 .btnun:hover {
-    width: 100%;
-    padding: 5px 30px;
-    border: none;
-    background-color: #FF5555;
-    color: white;
-    border-radius: 7px;
-    transition-delay: all .5s ease-out; 
+  width: 100%;
+  padding: 5px 30px;
+  border: none;
+  background-color: #ff5555;
+  color: white;
+  border-radius: 7px;
+  transition-delay: all 0.5s ease-out;
 }
-
