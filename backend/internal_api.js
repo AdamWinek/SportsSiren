@@ -278,7 +278,7 @@ async function createSubscription(req, res) {
 
 
 
-async function handleNotification(req, res) {
+async function handleNotifications(req, res) {
   let methodUrl = "https://sports-siren.herokuapp.com/api/";
   if (process.env.REACT_APP_DEV_ENV == "development") {
     methodUrl = "http://localhost:3000/api/";
@@ -331,127 +331,145 @@ async function handleNotification(req, res) {
   toNotify = toNotify.concat(await Subscription.find({
     type: "game", identifier: game.gameId
   }).exec())
+  try {
+    toNotify.forEach(async (subscription) => {
+      if (subscription.onStart != undefined && subscription.onStart) {
+        // has notification been sent
+        if (!subscription.notifiedGames.contains(identifier) && timeUntilEnd > 0) {
 
-  toNotify.forEach(async (subscription) => {
-    if (subscription.onStart != undefined && subscription.onStart) {
-      // has notification been sent
-      if (!subscription.notifiedGames.contains(identifier) && timeUntilEnd > 0) {
+          if (subscription.viaText) {
+            let notify_message = `Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has started. Tune into the game now`
 
-        if (subscription.viaText) {
-          let notify_message = `Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has started. Tune into the game now`
+            let response = await axios({
+              method: "POST",
+              url: methodUrl + "create/sendText",
+              data: {
+                phone: subscription.phone,
+                message: notify_message,
+              },
+            });
+            console.log(response, 1)
+            //sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has started. Tune into the game now!`, subscription.phone)
+          }
+          if (subscription.viaEmail) {
+            let notify_message = `Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has started. Tune into the game now`
 
-          let response = await axios({
-            method: "POST",
-            url: methodUrl + "create/sendText",
-            data: {
-              phone: subscription.phone,
-              message: notify_message,
-            },
-          });
-          //sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has started. Tune into the game now!`, subscription.phone)
-        }
-        if (subscription.viaEmail) {
-          let notify_message = `Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has started. Tune into the game now`
+            let response = await axios({
+              method: "POST",
+              url: methodUrl + "create/sendEmail",
+              data: {
+                email: subscription.email,
+                message: notify_message,
+              },
+            });
+            console.log(response, 2)
 
-          let response = await axios({
-            method: "POST",
-            url: methodUrl + "create/sendEmail",
-            data: {
-              email: subscription.email,
-              message: notify_message,
-            },
-          });
-          //sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has started. Tune into the game now!`, subscription.phone)
-        }
+            //sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has started. Tune into the game now!`, subscription.phone)
+          }
 
-      }
-
-      //send notification
-
-      subscription.notifiedGames.push({ gameId: game.gameId }).save()
-
-
-
-    } else if (subscription.onEnd != undefined && subscription.onEnd) {
-      // notification hasnt been sent
-      if (!subscription.notifiedGames.contains(identifier) && timeUntilEnd == 0) {
-        if (subscription.viaText) {
-          let notify_message = `Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has ended. Final score ${game.homeAbbr}:${game.homeTotalScore} to ${game.awayAbbr}:${game.awayTotalScore}`
-
-          let response = await axios({
-            method: "POST",
-            url: methodUrl + "create/sendText",
-            data: {
-              phone: subscription.phone,
-              message: notify_message,
-            },
-          });
-
-          //sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has ended. Final score ${game.homeAbbr}:${game.homeTotalScore} to ${game.awayAbbr}:${game.awayTotalScore}`, subscription.phone)
-        }
-        if (subscription.viaEmail) {
-          let notify_message = `Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has ended. Final score ${game.homeAbbr}:${game.homeTotalScore} to ${game.awayAbbr}:${game.awayTotalScore}`
-
-          let response = await axios({
-            method: "POST",
-            url: methodUrl + "create/sendEmail",
-            data: {
-              email: subscription.email,
-              message: notify_message,
-            },
-          });
-
-          //sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has ended. Final score ${game.homeAbbr}:${game.homeTotalScore} to ${game.awayAbbr}:${game.awayTotalScore}`, subscription.phone)
         }
 
-      }
+        //send notification
 
-      subscription.notifiedGames.push({ gameId: game.gameId }).save()
-
-    } else {
-      let toNotify = false;
-
-      if (subscription.scoreCriteria != undefined) {
-        toNotify = scoreDelta >= subscription.scoreCriteria
-      }
-
-      if (subscription.timeCriteria != undefined) {
-        toNotify = timeUntilEnd < subscription.timeCriteria
-      }
-
-      if (toNotify && !subscription.notifiedGames.contains(identifier)) {
-        if (subscription.viaText) {
-          let notify_message = `Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr}. The game has ${subscription.timeUntilEnd} minutes left.Current score ${game.homeAbbr}: ${game.homeTotalScore} to ${game.awayAbbr}: ${game.awayTotalScore}`
-
-
-          let response = await axios({
-            method: "POST",
-            url: methodUrl + "create/sendText",
-            data: {
-              phone: subscription.phone,
-              message: notify_message,
-            },
-          })
-        }
-        if (subscription.viaEmail) {
-          let notify_message = `Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr}. The game has ${subscription.timeUntilEnd} minutes left.Current score ${game.homeAbbr}: ${game.homeTotalScore} to ${game.awayAbbr}: ${game.awayTotalScore}`
-
-
-          let response = await axios({
-            method: "POST",
-            url: methodUrl + "create/sendEmail",
-            data: {
-              email: subscription.email,
-              message: notify_message,
-            },
-          });
-        }
         subscription.notifiedGames.push({ gameId: game.gameId }).save()
 
-      }
 
-    }
-  })
+
+      } else if (subscription.onEnd != undefined && subscription.onEnd) {
+        // notification hasnt been sent
+        if (!subscription.notifiedGames.contains(identifier) && timeUntilEnd == 0) {
+          if (subscription.viaText) {
+            let notify_message = `Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has ended. Final score ${game.homeAbbr}:${game.homeTotalScore} to ${game.awayAbbr}:${game.awayTotalScore}`
+
+            let response = await axios({
+              method: "POST",
+              url: methodUrl + "create/sendText",
+              data: {
+                phone: subscription.phone,
+                message: notify_message,
+              },
+            });
+            console.log(response, 3)
+
+
+            //sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has ended. Final score ${game.homeAbbr}:${game.homeTotalScore} to ${game.awayAbbr}:${game.awayTotalScore}`, subscription.phone)
+          }
+          if (subscription.viaEmail) {
+            let notify_message = `Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has ended. Final score ${game.homeAbbr}:${game.homeTotalScore} to ${game.awayAbbr}:${game.awayTotalScore}`
+
+            let response = await axios({
+              method: "POST",
+              url: methodUrl + "create/sendEmail",
+              data: {
+                email: subscription.email,
+                message: notify_message,
+              },
+            });
+            console.log(response, 4)
+
+
+            //sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has ended. Final score ${game.homeAbbr}:${game.homeTotalScore} to ${game.awayAbbr}:${game.awayTotalScore}`, subscription.phone)
+          }
+
+        }
+
+        subscription.notifiedGames.push({ gameId: game.gameId }).save()
+
+      } else {
+        let toNotify = false;
+
+        if (subscription.scoreCriteria != undefined) {
+          toNotify = scoreDelta >= subscription.scoreCriteria
+        }
+
+        if (subscription.timeCriteria != undefined) {
+          toNotify = timeUntilEnd < subscription.timeCriteria
+        }
+
+        if (toNotify && !subscription.notifiedGames.contains(identifier)) {
+          if (subscription.viaText) {
+            let notify_message = `Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr}. The game has ${subscription.timeUntilEnd} minutes left.Current score ${game.homeAbbr}: ${game.homeTotalScore} to ${game.awayAbbr}: ${game.awayTotalScore}`
+
+
+            let response = await axios({
+              method: "POST",
+              url: methodUrl + "create/sendText",
+              data: {
+                phone: subscription.phone,
+                message: notify_message,
+              },
+            })
+            console.log(response, 1)
+
+          }
+          if (subscription.viaEmail) {
+            let notify_message = `Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr}. The game has ${subscription.timeUntilEnd} minutes left.Current score ${game.homeAbbr}: ${game.homeTotalScore} to ${game.awayAbbr}: ${game.awayTotalScore}`
+
+
+            let response = await axios({
+              method: "POST",
+              url: methodUrl + "create/sendEmail",
+              data: {
+                email: subscription.email,
+                message: notify_message,
+              },
+            });
+          }
+          subscription.notifiedGames.push({ gameId: game.gameId }).save()
+
+        }
+
+      }
+    })
+
+
+
+  } catch (err) {
+    console.log(err.toString())
+    console.log(err.stack)
+
+  }
+
 }
 
 async function sendTextMessage(message, phone) {
@@ -842,7 +860,6 @@ async function newSubscription(req, res) {
 
 async function deleteAccount(req, res) {
 
-  console.log(req.body, "here")
   try {
     await User.deleteOne({ email: req.body.email }, function (err) {
       if (err) { console.log(err.toString()) };
@@ -900,7 +917,6 @@ async function updatePhone(req, res) {
 // we do not want this to be 
 async function createNFLteams() {
   let here = await NFLGame.find({}).exec()
-  console.log(here)
 
   here.map(async (game) => {
     try {
@@ -979,7 +995,7 @@ async function getAllTeams(req, res) {
 
 
 module.exports.setNotificationThresholds = setNotificationThresholds;
-module.exports.handleNotification = handleNotification;
+module.exports.handleNotifications = handleNotifications;
 module.exports.setNotificationPreferences = setNotificationPreferences;
 module.exports.setFollowingTeams = setFollowingTeams;
 module.exports.deleteFollowingTeams = deleteFollowingTeams;

@@ -56,15 +56,15 @@ module.exports = (agenda) => {
                     if (process.env.REACT_APP_DEV_ENV == "development") {
                         methodUrl = "http://localhost:3000/api/";
                     }
-
-
+                    //methodUrl = "http://localhost:3000/api/";
                     let notification_response = await axios({
-                        method: "POST",
+                        method: "PUT",
                         url: methodUrl + "update/handleNotifications",
                         data: {
                             game: updated_obj
                         },
                     });
+
 
 
                 }
