@@ -31,7 +31,7 @@ const InfoPage = () => {
           <div className={styles.infocards}>
             <p>Follow teams and games you're interested in.</p>
             <p>Receive notifications on your phone or email.</p>
-            <p>View a overview of currently happening games along with a custom excitement-index score.</p>
+            <p>View a overview of currently happening games along with live score-updates.</p>
           </div>
         </div>
       </div>
