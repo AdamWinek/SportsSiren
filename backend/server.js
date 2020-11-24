@@ -49,6 +49,7 @@ const { deleteAccount } = require("./internal_api")
 const { updatePassword } = require("./internal_api")
 const { updatePhone } = require("./internal_api")
 const { searchTeams } = require("./internal_api")
+const { handleNotifications } = require("./internal_api")
 
 // parse application/json
 app.use(bodyParser.json());
@@ -84,6 +85,7 @@ app.put('/api/update/NFLStandings', async (req, res) => updateStandingsNFL(req, 
 app.put('/api/update/updatePassword', async (req, res) => updatePassword(req, res))
 app.put('/api/update/updatePhone', async (req, res) => updatePhone(req, res))
 app.put("/api/update/subscriptions", (req, res) => updateSubscription(req, res))
+app.put("/api/update/handleNotifications", (req, res) => handleNotifications(req, res))
 
 // Delete:
 app.post("/api/delete/user/following_teams", async (req, res) => deleteFollowingTeams(req, res));

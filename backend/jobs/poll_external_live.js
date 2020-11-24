@@ -25,7 +25,7 @@ module.exports = (agenda) => {
                         //console.log(game_scores[game].qtr)
                     }
                     let id_to_user = game_scores[game].home.abbr + "-" + game_scores[game].away.abbr;
-                    await NFLGame.findOneAndUpdate(
+                    let updated_obj = await NFLGame.findOneAndUpdate(
                         { abbrKey: id_to_user },
                         {
                             $set: {
@@ -50,6 +50,16 @@ module.exports = (agenda) => {
                             //console.log(err);
                         }
                     );
+                    // post obj to update/handleNotifications
+                    let notification_response = await axios({
+                        method: "POST",
+                        url: methodUrl + "update/handleNotifications",
+                        data: {
+                            game: updated_obj
+                        },
+                    });
+    
+                    
                 }
             } catch (err) {
                 console.log(err.toString());
