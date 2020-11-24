@@ -27,9 +27,12 @@ function Homepage(props) {
             <HomeNav active={"Home"} />
             <div className={styles.body}>
                 <Countdown />
-                <h1 className={styles.sectionHeader}>Pinned</h1>
+                <h1 className={styles.sectionHeader}>Current Week</h1>
                 <div className={styles.sectionBreak}></div>
-                <NFLScoreboard />
+                <NFLScoreboard week={11} />
+                <h1 className={styles.sectionHeader}>Upcoming Week</h1>
+                <div className={styles.sectionBreak}></div>
+                <NFLScoreboard week={12} />
                 <h1 className={styles.sectionHeader}>Simulation</h1>
                 <div className={styles.sectionBreak}></div>
                 <SimulationFrom></SimulationFrom>
