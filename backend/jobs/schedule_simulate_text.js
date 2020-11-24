@@ -23,7 +23,7 @@ module.exports = (agenda) => {
                 //console.log(body_obj); 
                 let response = await axios({
                     method: "POST",
-                    url: methodUrl + "sendNotification",
+                    url: methodUrl + "create/sendNotification",
                     data: {
                         phone: job.attrs.data.phone,
                         message: job.attrs.data.message,
