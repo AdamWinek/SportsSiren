@@ -85,7 +85,7 @@ app.put('/api/update/NFLStandings', async (req, res) => updateStandingsNFL(req, 
 app.put('/api/update/updatePassword', async (req, res) => updatePassword(req, res))
 app.put('/api/update/updatePhone', async (req, res) => updatePhone(req, res))
 app.put("/api/update/subscriptions", (req, res) => updateSubscription(req, res))
-app.put("/api/update/handleNotifications", (req, res) => handleNotifications(req, res))
+app.post("/api/update/handleNotifications", (req, res) => handleNotifications(req, res))
 
 // Delete:
 app.post("/api/delete/user/following_teams", async (req, res) => deleteFollowingTeams(req, res));
