@@ -42,8 +42,20 @@
 	padding: 10px 40px;
 	border: none;
 	background-color: black;
+	transition-delay: all .5s ease-out; 
+
 	border-radius: 7px;
 }
+.button:hover {
+	color: white;
+	transition-delay: all .5s ease-out; 
+
+	padding: 10px 40px;
+	border: none;
+	background-color: grey;
+	border-radius: 7px;
+}
+
 .button:nth-child(1) {
 	margin-right: 10px;
 }
