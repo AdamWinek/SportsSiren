@@ -15,7 +15,7 @@ function Scoreboard(props) {
 
       try {
         let result = await axios.get(
-          methodUrl + "gameInDBNBA/b4afe94b-65de-4826-ba4c-8a112b1367f1",
+          methodUrl + "get/gameInDBNBA/b4afe94b-65de-4826-ba4c-8a112b1367f1",
           {}
         );
         console.log(result);

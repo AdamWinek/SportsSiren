@@ -34,7 +34,7 @@ const  SimulationForm = (props) => {
         
       let response = await axios({
           method: "POST",
-          url: methodUrl + "sendSimulationText",
+          url: methodUrl + "create/sendSimulationText",
           data: {
               phone: notify_number,
               message: message,
@@ -58,7 +58,7 @@ const  SimulationForm = (props) => {
       
     let response = await axios({
         method: "POST",
-        url: methodUrl + "sendSimulationEmail",
+        url: methodUrl + "create/sendSimulationEmail",
         data: {
             email: notify_email,
             message: message,
@@ -171,7 +171,7 @@ const  SimulationForm = (props) => {
         // if theshold AND time
         if (scoreDiff[60 - data.time] <= data.threshold) {
           // fire notification
-          let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game is at the __ mark and the score is __ " + " " + ". Within your threshold of " + data.threshold + " points. Tune in now!" ; 
+          let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game is at the"  + (60-Number.parseInt(data.time)) + "minute mark and within your threshold of " + data.threshold + " points. Tune in now!" ; 
           sendMessageHandle(notify_message, notify_number, time); 
     
         } else {
@@ -200,7 +200,7 @@ const  SimulationForm = (props) => {
         if (scoreDiff[60 - data.time] <= data.threshold) {
           console.log("sending email for time theshold")
           let time = "in " + (60-Number.parseInt(data.time)) + " seconds";
-          let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game is at the __ mark and the score is __ " + " " + ". Within your threshold of " + data.threshold + " points. Tune in now!" ; 
+          let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game is at the"  + (60-Number.parseInt(data.time)) + "minute mark and within your threshold of " + data.threshold + " points. Tune in now!" ; 
           sendEmailHandle(notify_message, notify_email, time); 
         }
       }
