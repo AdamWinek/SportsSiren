@@ -32,7 +32,7 @@ const getLiveNFLScores = async function () {
         url: url,
     });
     // Gonna need to parse the XML 
-    console.log(result.data);
+   //console.log(result.data);
     return result.data;
 
 }
@@ -44,7 +44,7 @@ const getBetterLiveNFLScores = async function () {
         method: "get",
         url: url,
     });
-    console.log(result.data);
+   //console.log(result.data);
     return result.data;
 
 }
@@ -92,8 +92,8 @@ let test = async function (game) {
 
     let awayLogo = await NBATeam.findOne({ name: game.away.name }).exec()
     let homeLogo = await NBATeam.findOne({ name: game.away.name }).exec()
-    console.log(awayLogo)
-    console.log(homeLogo)
+   //console.log(awayLogo)
+   //console.log(homeLogo)
 }
 
 //api/dailyGames
@@ -106,12 +106,12 @@ let dailyGamesNBA = async function (req, res) {
         let apiKey = '3ay8mfgvvthzhdcdb6tc3y54';
         let url = `http://api.sportradar.us/nba/trial/v7/en/games/${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}/schedule.json?api_key=${apiKey}`
 
-        console.log(url)
+       //console.log(url)
         let games = await axios.get(url, {
 
         }
         )
-        console.log(games.data)
+       //console.log(games.data)
         games.data.games.forEach(element => {
             addGameToDB(element)
         });
@@ -129,10 +129,10 @@ let dailyGamesNBA = async function (req, res) {
 
 // /api/gameInDBNBA/:gameId
 let gameInDBNBA = async function (req, res) {
-    console.log(req.params.gameId)
+   //console.log(req.params.gameId)
 
     let game = await NBAGame.findOne({ gameId: req.params.gameId }).exec()
-    console.log(game)
+   //console.log(game)
     res.json(game)
 
 
@@ -163,7 +163,7 @@ let addGameToDBNBA = async function (game) {
     try {
         await gameToAdd.save()
     } catch (err) {
-        console.log(err.toString())
+       //console.log(err.toString())
     }
 
 }
@@ -211,7 +211,7 @@ const updateStandingsNFL = async function updateStandingsNFL(req, res) {
         let currentStandings = await axios.get('http://api.sportradar.us/nfl/official/trial/v6/en/seasons/2020/standings.json?api_key=7kks4khpf5zepeq5gzh7wgxv', {})
 
         let teamArr = []
-        console.log(currentStandings)
+       //console.log(currentStandings)
         //load standings into array
         currentStandings.data.conferences.forEach((conference) => {
             conference.divisions.forEach((division) => {
@@ -230,19 +230,19 @@ const updateStandingsNFL = async function updateStandingsNFL(req, res) {
                 //update records in which team in array was the home team
                 NFLGame.updateMany({ homeTeam: `${team.market} ${team.name}` }, { $set: { homeWins: team.wins, homeLosses: team.losses, homeTies: team.ties } }, (err) => {
                     if (err) {
-                        console.log(err.toString())
+                       //console.log(err.toString())
                     }
                 })
                 //update records in which team in array was the away team
                 NFLGame.updateMany({ awayTeam: `${team.market} ${team.name}` }, { $set: { awayWins: team.wins, awayLosses: team.losses, awayTies: team.ties } },
                     (err) => {
                         if (err) {
-                            console.log(err.toString())
+                           //console.log(err.toString())
                         }
                     })
 
             } catch (err) {
-                console.log(err.toString())
+               //console.log(err.toString())
             }
 
 
@@ -285,7 +285,7 @@ async function getMostRecentGame(req, res) {
     try {
         let game = await NFLGame.find({ "scheduled": {"$gte": new Date()}, status: "scheduled"}  ).sort({ date: -1 }).limit(4).exec()
         
-        console.log("most recent"); 
+       //console.log("most recent"); 
         //console.log(game)
         res.json({
             game: game
@@ -301,10 +301,10 @@ async function getMostRecentGame(req, res) {
 
 }
 async function sendSimulationText(req, res) {
-    console.log("in sendSimulationText");
-    console.log(req.body);
+   //console.log("in sendSimulationText");
+   //console.log(req.body);
     //console.log(req);
-    console.log("--------------------scheduled_tim--------------------------------------------------");
+   //console.log("--------------------scheduled_tim--------------------------------------------------");
     let message_to_send = await req.body.message; 
     let user_to_send = await req.body.phone; 
     let scheduled_time = await req.body.scheduled_time; 
@@ -315,10 +315,10 @@ async function sendSimulationText(req, res) {
 
 async function sendSimulationEmail(req, res) {
 
-    console.log("in sendSimulationEmail");
-    console.log(req.body);
+   //console.log("in sendSimulationEmail");
+   //console.log(req.body);
     //console.log(req);
-    console.log("--------------------scheduled_tim--------------------------------------------------");
+   //console.log("--------------------scheduled_tim--------------------------------------------------");
     let message_to_send = await req.body.message; 
     let user_to_send = await req.body.email; 
     let scheduled_time = await req.body.scheduled_time; 
@@ -328,10 +328,10 @@ async function sendSimulationEmail(req, res) {
 }
 async function sendNotification(req, res) {
     try {
-        console.log("in twilio send"); 
+       //console.log("in twilio send"); 
         //console.log(req.body);
         //console.log(req);
-        console.log("sending to " + req.body.phone + " message " + req.body.message);
+       //console.log("sending to " + req.body.phone + " message " + req.body.message);
         let msg = await twilioInstance.messages.create({
             body: req.body.message,
             to: req.body.phone,  // Text this number
@@ -356,10 +356,10 @@ async function sendNotification(req, res) {
 async function sendEmail(req, res) {
 
     try {
-        console.log("trying to send (in server.js/sendEmail)")
+       //console.log("trying to send (in server.js/sendEmail)")
         const sgMail = require('@sendgrid/mail');
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        console.log("sending to " + req.body.email);
+       //console.log("sending to " + req.body.email);
         const msg = {
             to: req.body.email,
             from: 'sportssiren@gmail.com', // Use the email address or domain you verified above
@@ -370,18 +370,18 @@ async function sendEmail(req, res) {
             try {
             await sgMail.send(msg);
             } catch (error) {
-            console.error(error);
+           //console.error(error);
         
             if (error.response) {
-                console.error(error.response.body)
+               //console.error(error.response.body)
             }
             }
         })();
-        console.log("sent er out")
+       //console.log("sent er out")
 
 
     } catch (err) {
-        console.log(err)
+       //console.log(err)
     }
 }
 module.exports.dailyGamesNBA = dailyGamesNBA;

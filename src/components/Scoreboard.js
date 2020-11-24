@@ -6,9 +6,9 @@ function Scoreboard(props) {
 
   useEffect(() => {
     let getGame = async function () {
-      console.log("here");
+     //console.log("here");
       let methodUrl = "https://sports-siren.herokuapp.com/api/";
-      console.log(process.env.REACT_APP_DEV_ENV);
+     //console.log(process.env.REACT_APP_DEV_ENV);
       if (process.env.REACT_APP_DEV_ENV == "development") {
         methodUrl = "http://localhost:3000/api/";
       }
@@ -18,10 +18,10 @@ function Scoreboard(props) {
           methodUrl + "get/gameInDBNBA/b4afe94b-65de-4826-ba4c-8a112b1367f1",
           {}
         );
-        console.log(result);
+       //console.log(result);
         setGame(result.data);
       } catch (err) {
-        console.log(err.toString());
+       //console.log(err.toString());
       }
     };
     getGame();

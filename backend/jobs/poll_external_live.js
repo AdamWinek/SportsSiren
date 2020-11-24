@@ -69,7 +69,7 @@ module.exports = (agenda) => {
 
                 }
             } catch (err) {
-                console.log(err.toString());
+               //console.log(err.toString());
                 res.json({
                     message: err.toString()
                 })

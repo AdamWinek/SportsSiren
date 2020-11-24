@@ -8,7 +8,7 @@ import userContext from "../userContext";
 
 function GameCon(props) {
   let { gameId } = useParams();
-  console.log(gameId);
+ //console.log(gameId);
   const [game, SetGame] = useState(null);
 
   let userCon = useContext(userContext)
@@ -16,7 +16,7 @@ function GameCon(props) {
 
   let exampleId = "ad737947-20e3-439a-908a-a0b65eefbc2e";
   let methodUrl = "https://sports-siren.herokuapp.com/api/"
-  console.log(process.env.REACT_APP_DEV_ENV)
+ //console.log(process.env.REACT_APP_DEV_ENV)
   if (process.env.REACT_APP_DEV_ENV == "development") {
     methodUrl = "http://localhost:3000/api/"
   }
@@ -24,9 +24,9 @@ function GameCon(props) {
 
   // request Scorecard
   let getGame = async () => {
-    console.log("here");
+   //console.log("here");
     methodUrl = "https://sports-siren.herokuapp.com/api/";
-    console.log(process.env.REACT_APP_DEV_ENV);
+   //console.log(process.env.REACT_APP_DEV_ENV);
     if (process.env.REACT_APP_DEV_ENV == "development") {
       methodUrl = "http://localhost:3000/api/";
     }
@@ -36,7 +36,7 @@ function GameCon(props) {
       const gameObj = result.data.game;
       SetGame(gameObj);
     } catch (err) {
-      console.log(err.toString());
+     //console.log(err.toString());
     }
   };
   if (game == null) {
@@ -51,24 +51,24 @@ function GameCon(props) {
   async function loadSubs() {
     let subs = await axios.get(methodUrl + `get/userSubscriptions/${userCon.user.email}`, {
     })
-    console.log(subs)
+   //console.log(subs)
     if (subs.data.subscriptions.game[gameId] != undefined) {
       hasSubbed = true
       teamSubs = subs.data.subscriptions.game[gameId]
     }
-    console.log("here at the row card")
-    console.log(game)
-    console.log(teamSubs)
-    console.log(hasSubbed)
+   //console.log("here at the row card")
+   //console.log(game)
+   //console.log(teamSubs)
+   //console.log(hasSubbed)
     setRC(<RowCard type="game" game={game} subArray={teamSubs} reloadCards={() => reloadCards()} hasSubbed={hasSubbed}></RowCard>)
   }
   if (RC == null && game != null) {
     loadSubs()
 
   }
-  console.log(game)
+ //console.log(game)
 
-  console.log(RC)
+ //console.log(RC)
 
   function reloadCards() {
     setRC(null)

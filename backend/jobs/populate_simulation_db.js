@@ -10,13 +10,13 @@ module.exports = (agenda) => {
     agenda.define("populate_simulation_db", async (job, done) => {
         let game_scores = data;
         //console.log(game_scores)
-        console.log(data.length);
+       //console.log(data.length);
         let i = 0;
         //console.log(game_scores); 
         let outer_count = 0;
         for (game in game_scores) {
             let inner_count = 0;
-            console.log(outer_count);
+           //console.log(outer_count);
             for (unique in game_scores[game]) {
                 //console.log("length is " + game_scores[game].length)
                 //console.log(i);
@@ -54,7 +54,7 @@ module.exports = (agenda) => {
                         //console.log(game_scores[game][unique].home.score);
                         //console.log(game_scores[game][unique].home.score['2']);
                         //console.log(game_obj);
-                        console.log(id_to_user)
+                       //console.log(id_to_user)
                         simulation_game.findOneAndUpdate(
                             { abbrKey: id_to_user },
                             {
@@ -79,10 +79,10 @@ module.exports = (agenda) => {
                             function (err, model) {
                                 //console.log(err);
                             })
-                        console.log(game_scores[game][unique].home.score);
-                        console.log(game_scores[game][unique].home.score['2']);
-                        console.log(game_obj);
-                        console.log(id_to_user)
+                       //console.log(game_scores[game][unique].home.score);
+                       //console.log(game_scores[game][unique].home.score['2']);
+                       //console.log(game_obj);
+                       //console.log(id_to_user)
                         await simulation_game.findOneAndUpdate(
                             { abbrKey: id_to_user },
                             {
@@ -110,7 +110,7 @@ module.exports = (agenda) => {
                         );
                     }
                 } catch (err) {
-                    console.log(err.toString());
+                   //console.log(err.toString());
                     res.json({
                         message: err.toString()
                     })
@@ -120,7 +120,7 @@ module.exports = (agenda) => {
             inner_count += 1;
             break;
         }
-        console.log("DASDSD")
+       //console.log("DASDSD")
         done();
 
     })

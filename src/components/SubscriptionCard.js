@@ -19,7 +19,7 @@ function SubscriptionCard(props) {
     async function getGameObj() {
 
       let methodUrl = "https://sports-siren.herokuapp.com/api/"
-      console.log(process.env.REACT_APP_DEV_ENV)
+     //console.log(process.env.REACT_APP_DEV_ENV)
       if (process.env.REACT_APP_DEV_ENV == "development") {
         methodUrl = "http://localhost:3000/api/"
       }
@@ -50,7 +50,7 @@ function SubscriptionCard(props) {
 
     // delete results
     let methodUrl = "https://sports-siren.herokuapp.com/api/"
-    console.log(process.env.REACT_APP_DEV_ENV)
+   //console.log(process.env.REACT_APP_DEV_ENV)
     if (process.env.REACT_APP_DEV_ENV == "development") {
       methodUrl = "http://localhost:3000/api/"
     }
@@ -79,7 +79,7 @@ function SubscriptionCard(props) {
   }
   let when = null;
   if (props.subArray != undefined) {
-    console.log(props.subArray)
+   //console.log(props.subArray)
     when = props.subArray.map((sub) => {
       return (<li>{handleSubscriptionWhen(sub)}</li>)
     })
@@ -108,7 +108,7 @@ function SubscriptionCard(props) {
 
     } else if (props.subArray[0].type == "game" && game != null) {
       //get game by id
-      console.log(game)
+     //console.log(game)
       logo = (<div>
         <h1 className={styles.gameTitle}>{game.homeTeam}</h1>
         <h4 className={styles.vs}>vs.</h4>

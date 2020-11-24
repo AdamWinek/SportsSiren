@@ -9,13 +9,13 @@ module.exports = (agenda) => {
 
         try {
             try {
-                console.log("TRYING TO SEND TEXT"); 
+               //console.log("TRYING TO SEND TEXT"); 
                 let methodUrl = "https://sports-siren.herokuapp.com/api/";
                 if (process.env.REACT_APP_DEV_ENV == "development") {
                     methodUrl = "http://localhost:3000/api/";
                 }
-                console.log(job.attrs.data.phone);
-                console.log(job.attrs.data.message);
+               //console.log(job.attrs.data.phone);
+               //console.log(job.attrs.data.message);
                 let body_obj = { 
                     phone: job.attrs.data.phone,
                     message: job.attrs.data.message,
@@ -29,17 +29,17 @@ module.exports = (agenda) => {
                         message: job.attrs.data.message,
                     },
                 });
-                console.log(response);
-                console.log("should be sent"); 
+               //console.log(response);
+               //console.log("should be sent"); 
                 //console.log(response); 
             } catch (err) {
-                console.log(err); 
+               //console.log(err); 
                 return err.toString();
             }
             
 
         } catch (err) {
-            console.log(err.toString());
+           //console.log(err.toString());
         }
 
 

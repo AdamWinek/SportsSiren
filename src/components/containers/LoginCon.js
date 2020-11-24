@@ -12,7 +12,7 @@ const LoginCon = (props) => {
 
     let handleSubmit = function (e) {
         e.preventDefault()
-        console.log(email, password)
+       //console.log(email, password)
         props.login(email, password)
     }
 

@@ -26,7 +26,7 @@ function SubEditForm(props) {
     async function handleEditSubmit() {
         // update subscriptions
         let methodUrl = "https://sports-siren.herokuapp.com/api/";
-        console.log(process.env.REACT_APP_DEV_ENV);
+       //console.log(process.env.REACT_APP_DEV_ENV);
         if (process.env.REACT_APP_DEV_ENV == "development") {
             methodUrl = "http://localhost:3000/api/";
         }
@@ -37,7 +37,7 @@ function SubEditForm(props) {
             user: userCon.user
 
         })
-        console.log(result)
+       //console.log(result)
         props.reloadCards()
         props.handleToggle()
 
@@ -80,7 +80,7 @@ function SubEditForm(props) {
                 }
 
             });
-            console.log("here")
+           //console.log("here")
             setData({
                 sms: smsBool,
                 email: emailBool,

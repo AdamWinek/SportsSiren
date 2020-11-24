@@ -15,16 +15,16 @@ function CountDowncard(props) {
   useEffect(() => {
 
     let getGame = async function () {
-      console.log('here')
+     //console.log('here')
       let methodUrl = "https://sports-siren.herokuapp.com/api/"
-      console.log(process.env.REACT_APP_DEV_ENV)
+     //console.log(process.env.REACT_APP_DEV_ENV)
       if (process.env.REACT_APP_DEV_ENV == "development") {
         methodUrl = "http://localhost:3000/api/"
       }
 
       let result = await axios.get(methodUrl + "get/gameById/" + gameId, {
       })
-      console.log(result)
+     //console.log(result)
       setGame(result.data.game)
     }
     if (game == null) {

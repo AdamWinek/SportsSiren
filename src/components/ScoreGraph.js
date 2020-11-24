@@ -36,7 +36,7 @@ class ScoreGraph extends Component {
   Will want to calculate excitement index and graph that along with scores. 
   */
 	render() {
-    console.log("setting score_graph")
+   //console.log("setting score_graph")
     let home_scores = [ 
       {y: 0, label: "0:00"},
       {y: 3, label:"5:53"},

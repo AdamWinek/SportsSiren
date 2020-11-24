@@ -16,7 +16,7 @@ class AgendaJob {
     require('./jobs/poll_external_live')(this.agenda);
     require('./jobs/populate_simulation_db')(this.agenda);
     this.agenda.on("ready", () => {
-      console.log("agenda ready!");
+     //console.log("agenda ready!");
       // Uncomment to run it live
       this.agenda.every("5 minutes", "poll_external_live");
       this.agenda.start();
@@ -26,12 +26,12 @@ class AgendaJob {
   }
 
   getInstance() {
-    console.log("triaaaaaaaaaaany asd asd asd");
+   //console.log("triaaaaaaaaaaany asd asd asd");
 
     if (AgendaJob.singleton == null) {
       AgendaJob.singleton = new AgendaJob();
     }
-    console.log("triny asd asd asd");
+   //console.log("triny asd asd asd");
     return AgendaJob.singleton;
   }
   sendText(phone, message, time_to_schedule) { 
@@ -46,7 +46,7 @@ class AgendaJob {
 
   }
   sendEmail(email, message, time_to_schedule) { 
-    console.log("in agenda send email"); 
+   //console.log("in agenda send email"); 
     require('./jobs/schedule_simulate_email')(this.agenda);
     if(time_to_schedule == "Now") { 
       this.agenda.now('schedule_simulate_email', {email: email, message: message});

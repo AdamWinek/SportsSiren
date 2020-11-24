@@ -27,7 +27,7 @@ let updateFollowingTeams = async function (new_teams) {
     { $push: { "following": tttt } },
     { safe: true, upsert: true, new: true },
     function (err, model) {
-      console.log(err);
+     //console.log(err);
     }
   );
 }
@@ -43,7 +43,7 @@ async function setNotificationThresholds(req, res) {
     },
     { safe: true, upsert: true, new: true },
     function (err, model) {
-      console.log(err);
+     //console.log(err);
     }
   );
 
@@ -65,7 +65,7 @@ async function setNotificationPreferences(req, res) {
     },
     { safe: true, upsert: true, new: true },
     function (err, model) {
-      console.log(err);
+     //console.log(err);
     }
   );
 
@@ -81,7 +81,7 @@ async function setFollowingTeams(req, res) {
     { $addToSet: { following_teams: { $each: newFollowingArray } } },
     { safe: true, upsert: true, new: true },
     function (err, model) {
-      console.log(err);
+     //console.log(err);
     }
   );
 
@@ -94,7 +94,7 @@ async function deleteFollowingTeams(req, res) {
     { $pullAll: { following_teams: toRemove } },
     { safe: true, upsert: true, new: true },
     function (err, model) {
-      console.log(err);
+     //console.log(err);
     }
   );
 
@@ -110,7 +110,7 @@ async function updateFollowingGames(req, res) {
     { $addToSet: { following_games: { $each: newFollowingArray } } },
     { safe: true, upsert: true, new: true },
     function (err, model) {
-      console.log(err);
+     //console.log(err);
     }
   );
 }
@@ -124,13 +124,13 @@ async function deleteFollowingGames(req, res) {
     { $pullAll: { following_games: toRemove } },
     { safe: true, upsert: true, new: true },
     function (err, model) {
-      console.log(err);
+     //console.log(err);
     }
   );
 }
 
 async function login(req, res) {
-  console.log(req.body.email);
+ //console.log(req.body.email);
   let currentUser = await User.findOne({ email: req.body.email }).exec();
   bcrypt.compare(req.body.password, currentUser.password, function (
     err,
@@ -163,7 +163,7 @@ async function login(req, res) {
 
 
 async function sendNotification(req, res) {
-  console.log("twilio is sending");
+ //console.log("twilio is sending");
   if (req.body.token == undefined) {
     res.json({
       message: "You need to login to use this route",
@@ -177,8 +177,8 @@ async function sendNotification(req, res) {
       to: req.body.phone, // Text this number
       from: "+18285200670", // The number we bought
     });
-    console.log(msg);
-    console.log(decoded);
+   //console.log(msg);
+   //console.log(decoded);
 
     res.json({
       error: msg.error_message,
@@ -195,7 +195,7 @@ async function registerUser(req, res) {
   try {
     let formatted_phone = "";
     if (req.body.telephone.includes("-")) {
-      console.log("1" + req.body.telephone.replace(/-/g, ""));
+     //console.log("1" + req.body.telephone.replace(/-/g, ""));
       formatted_phone = "+1" + req.body.telephone.replace(/-/g, "");
     }
     else {
@@ -216,7 +216,7 @@ async function registerUser(req, res) {
           message: "User Added",
         });
       } catch (e) {
-        console.log(e);
+       //console.log(e);
         res.json({
           message: e.toString(),
         });
@@ -348,7 +348,7 @@ async function handleNotifications(req, res) {
                 message: notify_message,
               },
             });
-            console.log(response, 1)
+           //console.log(response, 1)
             //sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has started. Tune into the game now!`, subscription.phone)
           }
           if (subscription.viaEmail) {
@@ -362,7 +362,7 @@ async function handleNotifications(req, res) {
                 message: notify_message,
               },
             });
-            console.log(response, 2)
+           //console.log(response, 2)
 
             //sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has started. Tune into the game now!`, subscription.phone)
           }
@@ -389,7 +389,7 @@ async function handleNotifications(req, res) {
                 message: notify_message,
               },
             });
-            console.log(response, 3)
+           //console.log(response, 3)
 
 
             //sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has ended. Final score ${game.homeAbbr}:${game.homeTotalScore} to ${game.awayAbbr}:${game.awayTotalScore}`, subscription.phone)
@@ -405,7 +405,7 @@ async function handleNotifications(req, res) {
                 message: notify_message,
               },
             });
-            console.log(response, 4)
+           //console.log(response, 4)
 
 
             //sendTextMessage(`Sports Siren Alert!! ${game.homeAbbr} vs. ${game.awayAbbr} has ended. Final score ${game.homeAbbr}:${game.homeTotalScore} to ${game.awayAbbr}:${game.awayTotalScore}`, subscription.phone)
@@ -439,7 +439,7 @@ async function handleNotifications(req, res) {
                 message: notify_message,
               },
             })
-            console.log(response, 1)
+           //console.log(response, 1)
 
           }
           if (subscription.viaEmail) {
@@ -465,8 +465,8 @@ async function handleNotifications(req, res) {
 
 
   } catch (err) {
-    console.log(err.toString())
-    console.log(err.stack)
+   //console.log(err.toString())
+   //console.log(err.stack)
 
   }
 
@@ -590,11 +590,11 @@ async function getGameById(req, res) {
 
 async function deleteSubscription(req, res) {
   if (req.body.subs == undefined) {
-    console.log(req.body)
+   //console.log(req.body)
     res.json({ message: "must pass in an array of subs" })
 
   } else {
-    console.log(req.body.subs)
+   //console.log(req.body.subs)
     try {
       req.body.subs.forEach(async (sub) => {
         await Subscription.deleteOne({ _id: sub._id })
@@ -675,7 +675,7 @@ async function updateSubscription(req, res) {
             }
           }, { safe: true, upsert: true, new: true }, (err) => {
             if (err) {
-              console.log(err.toString())
+             //console.log(err.toString())
             }
           })
       }
@@ -710,7 +710,7 @@ async function updateSubscription(req, res) {
             }
           }, { safe: true, upsert: true, new: true }, (err) => {
             if (err) {
-              console.log(err.toString())
+             //console.log(err.toString())
             }
           })
       }
@@ -742,7 +742,7 @@ async function updateSubscription(req, res) {
             }
           }, { safe: true, upsert: true, new: true }, (err) => {
             if (err) {
-              console.log(err.toString())
+             //console.log(err.toString())
             }
           })
         //console.log(status)
@@ -758,7 +758,7 @@ async function updateSubscription(req, res) {
 
       res.json({ message: "subs updated" })
     } catch (err) {
-      console.log(err.toString())
+     //console.log(err.toString())
       res.json({ message: err.toString() })
     }
   }
@@ -789,7 +789,7 @@ async function newSubscription(req, res) {
     // });
 
     // adds start of game record
-    console.log(req.body)
+   //console.log(req.body)
 
     try {
       if (req.body.newSub.startofgame) {
@@ -862,7 +862,7 @@ async function deleteAccount(req, res) {
 
   try {
     await User.deleteOne({ email: req.body.email }, function (err) {
-      if (err) { console.log(err.toString()) };
+      if (err) {//console.log(err.toString()) };
     });
     res.json({ message: "user deleted" });
 
@@ -881,7 +881,7 @@ async function updatePassword(req, res) {
 
         await User.updateOne({ email: req.body.email }, { $set: { password: newHash } }, (err) => {
           if (err) {
-            console.log(err)
+           //console.log(err)
 
           }
         }
@@ -928,7 +928,7 @@ async function createNFLteams() {
 
     } catch (err) {
 
-      console.log(err)
+     //console.log(err)
     }
 
 
@@ -949,14 +949,14 @@ async function searchTeams(req, res) {
 
       let results = await NFLTeam.find({ name: { '$regex': `${req.params.searchText}`, '$options': 'i' } }, (err) => {
         if (err) {
-          console.log(err)
+         //console.log(err)
         }
       }).exec()
       res.json({ teams: results })
 
 
     } catch (err) {
-      console.log(err)
+     //console.log(err)
       res.json({ message: err.toString() })
 
     }
@@ -974,14 +974,14 @@ async function getAllTeams(req, res) {
     }
     let results = await NFLTeam.find({}, (err) => {
       if (err) {
-        console.log(err)
+       //console.log(err)
       }
     }).exec()
     res.json({ teams: results })
 
 
   } catch (err) {
-    console.log(err)
+   //console.log(err)
     res.json({ message: err.toString() })
 
   }

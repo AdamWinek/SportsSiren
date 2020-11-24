@@ -30,7 +30,7 @@ const RowCon = (props) => {
 
       async function setLeagueCards() {
         let methodUrl = "https://sports-siren.herokuapp.com/api/"
-        console.log(process.env.REACT_APP_DEV_ENV)
+       //console.log(process.env.REACT_APP_DEV_ENV)
         if (process.env.REACT_APP_DEV_ENV == "development") {
           methodUrl = "http://localhost:3000/api/"
         }
@@ -39,12 +39,12 @@ const RowCon = (props) => {
 
         let hasSubbed = false;
         let leagueSubs = []
-        console.log(subs, "league")
+       //console.log(subs, "league")
         if (subs.data.subscriptions.league.NFL != undefined) {
           hasSubbed = true
           leagueSubs = subs.data.subscriptions.league.NFL
         }
-        console.log(leagueSubs)
+       //console.log(leagueSubs)
         Setbody((<RowCard type="league" subArray={leagueSubs} reloadCards={() => reloadCards()} hasSubbed={hasSubbed}   ></RowCard>));
       }
       setLeagueCards()
@@ -61,7 +61,7 @@ const RowCon = (props) => {
         try {
 
           let methodUrl = "https://sports-siren.herokuapp.com/api/";
-          console.log(process.env.REACT_APP_DEV_ENV);
+         //console.log(process.env.REACT_APP_DEV_ENV);
           if (process.env.REACT_APP_DEV_ENV == "development") {
             methodUrl = "http://localhost:3000/api/";
           }
@@ -70,7 +70,7 @@ const RowCon = (props) => {
 
 
           methodUrl = "https://sports-siren.herokuapp.com/api/"
-          console.log(process.env.REACT_APP_DEV_ENV)
+         //console.log(process.env.REACT_APP_DEV_ENV)
           if (process.env.REACT_APP_DEV_ENV == "development") {
             methodUrl = "http://localhost:3000/api/"
           }
@@ -97,7 +97,7 @@ const RowCon = (props) => {
           });
           Setbody(tempArr);
         } catch (err) {
-          console.log(err.toString());
+         //console.log(err.toString());
 
         };
       }
@@ -109,7 +109,7 @@ const RowCon = (props) => {
     if (body.length == 0) {
       const gameRequest = async () => {
         let methodUrl = "https://sports-siren.herokuapp.com/api/";
-        console.log(process.env.REACT_APP_DEV_ENV);
+       //console.log(process.env.REACT_APP_DEV_ENV);
         if (process.env.REACT_APP_DEV_ENV == "development") {
           methodUrl = "http://localhost:3000/api/";
         }
@@ -117,7 +117,7 @@ const RowCon = (props) => {
 
 
           methodUrl = "https://sports-siren.herokuapp.com/api/"
-          console.log(process.env.REACT_APP_DEV_ENV)
+         //console.log(process.env.REACT_APP_DEV_ENV)
           if (process.env.REACT_APP_DEV_ENV == "development") {
             methodUrl = "http://localhost:3000/api/"
           }
@@ -139,7 +139,7 @@ const RowCon = (props) => {
           });
           Setbody(tempArr);
         } catch (err) {
-          console.log(err.toString());
+         //console.log(err.toString());
         }
       };
       gameRequest();

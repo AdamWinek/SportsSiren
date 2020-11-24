@@ -25,7 +25,7 @@ const  SimulationForm = (props) => {
   
   let sendMessageHandle = async function(message, notify_number, time) { 
     try { 
-      console.log("trying to send message")
+     //console.log("trying to send message")
       let methodUrl = "https://sports-siren.herokuapp.com/api/";
       if (process.env.REACT_APP_DEV_ENV == "development") {
           methodUrl = "http://localhost:3000/api/";
@@ -46,7 +46,7 @@ const  SimulationForm = (props) => {
       return response; 
     }
     catch(err) { 
-      console.log(err); 
+     //console.log(err); 
     }
   }
   let sendEmailHandle = async function(message, notify_email, time) { 
@@ -72,7 +72,7 @@ const  SimulationForm = (props) => {
 
   const handleSubmit = async (e) => {
     try { 
-    console.log("simulation_submit");
+   //console.log("simulation_submit");
     let scoreDiff = {
       59: 0,
       58: 0,
@@ -143,13 +143,13 @@ const  SimulationForm = (props) => {
     //console.log(userCon.user)
     let notify_number = userCon.user.phone;
     let notify_email = userCon.user.email;
-    console.log(notify_email)
-    console.log(notify_number)
-    console.log(data)
+   //console.log(notify_email)
+   //console.log(notify_number)
+   //console.log(data)
     if(data.sms) {
       if (data.startofgame) {
         // fire notification now
-        console.log("firing at start");
+       //console.log("firing at start");
 
         let time = "now";
         let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game just started! Tune in!"; 
@@ -157,11 +157,11 @@ const  SimulationForm = (props) => {
       } 
       if (data.endofgame) {
         // fire notification in 60s
-        console.log("firing at end");
+       //console.log("firing at end");
         let time = "in 1 minute"
         let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game just ended! We hope you enjoyed! Check our site to see what game is up next."; 
         sendMessageHandle(notify_message, notify_number, time); 
-        console.log("text sent")
+       //console.log("text sent")
 
       } 
       if (data.time) {
@@ -182,23 +182,23 @@ const  SimulationForm = (props) => {
     }
     if(data.email) { 
       if (data.startofgame) {
-        console.log("sending email for start of game")
-        console.log("notify email is " + notify_email)
+       //console.log("sending email for start of game")
+       //console.log("notify email is " + notify_email)
         let time = "now";
         let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game just started! Tune in!"; 
         sendEmailHandle(notify_message, notify_email, time); 
       }
       if (data.endofgame) {
-        console.log("sending email for end of game")
+       //console.log("sending email for end of game")
 
         let time = "in 1 minute"
         let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game just ended! We hope you enjoyed! Check our site to see what game is up next."; 
         sendEmailHandle(notify_message, notify_email, time); 
-        console.log("text sent")
+       //console.log("text sent")
       }
       if (data.time) {
         if (scoreDiff[60 - data.time] <= data.threshold) {
-          console.log("sending email for time theshold")
+         //console.log("sending email for time theshold")
           let time = "in " + (60-Number.parseInt(data.time)) + " seconds";
           let notify_message = "Hi! This is SportsSiren! This is what our notifications look like. You're simulating the New England Patriots versus the Baltimore Ravens. The game is at the"  + (60-Number.parseInt(data.time)) + "minute mark and within your threshold of " + data.threshold + " points. Tune in now!" ; 
           sendEmailHandle(notify_message, notify_email, time); 
@@ -208,7 +208,7 @@ const  SimulationForm = (props) => {
     // start rendering simulation
   }
   catch(err) { 
-    console.log(err); 
+   //console.log(err); 
   }
   };
 

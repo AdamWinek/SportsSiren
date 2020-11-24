@@ -14,7 +14,7 @@ function NFLScoreboard(props) {
     useEffect(() => {
         let getGame = async function () {
             let methodUrl = "https://sports-siren.herokuapp.com/api/"
-            console.log(process.env.REACT_APP_DEV_ENV)
+           //console.log(process.env.REACT_APP_DEV_ENV)
             if (process.env.REACT_APP_DEV_ENV == "development") {
                 methodUrl = "http://localhost:3000/api/"
             }
@@ -34,7 +34,7 @@ function NFLScoreboard(props) {
                     setCurrentlyShown([gamesArr[index.num - 1 % gamesArr.length], gamesArr[index.num % gamesArr.length], gamesArr[index.num + 1 % gamesArr.length]])
 
                 } catch (err) {
-                    console.log(err.toString())
+                   //console.log(err.toString())
                 }
             } else {
 

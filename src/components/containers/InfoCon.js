@@ -7,7 +7,7 @@ import userContext from "../userContext"
 
 const InfoPage = () => {
   const { user } = useContext(userContext)
-  console.log(user)
+ //console.log(user)
 
 
 

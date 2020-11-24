@@ -10,9 +10,9 @@ function setUpSimulation() {
             .reply(200, {
                 data: data[i]
         })
-        console.log("success" + i); 
+       //console.log("success" + i); 
         } catch(err) { 
-            console.log(err); 
+           //console.log(err); 
         }
     }
 }
@@ -21,7 +21,7 @@ async function testNook() {
     //console.log(nock.activeMocks());
 
     for(let i=0; i<data.length; i+=1) { 
-        console.log("grabbingnook"+i); 
+       //console.log("grabbingnook"+i); 
 
         let url = 'http://static.nfl.com/liveupdate/scores/scores.json'
         const result = await axios({
@@ -39,7 +39,7 @@ async function testNook() {
 // Uncomment to test 
 // testNook()
 //console.log("checking for active")
-// console.log(nock.isActive());
+////console.log(nock.isActive());
 
 module.exports.testNook = testNook;
 module.exports.setUpSimulation = setUpSimulation;

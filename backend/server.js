@@ -99,10 +99,10 @@ let agenda_instance = agenda.getInstance();
 db.once("open", function () { console.log("wereConnected"); });
 
 app.post("/api/create/sendSimulationText", async (req, res) => {
-    console.log("in sendSimulationText");
-    console.log(req.body);
+   //console.log("in sendSimulationText");
+   //console.log(req.body);
     //console.log(req);
-    console.log("--------------------scheduled_tim--------------------------------------------------");
+   //console.log("--------------------scheduled_tim--------------------------------------------------");
     let message_to_send = await req.body.message;
     let user_to_send = await req.body.phone;
     let scheduled_time = await req.body.scheduled_time;
@@ -112,10 +112,10 @@ app.post("/api/create/sendSimulationText", async (req, res) => {
 })
 
 app.post("/api/create/sendSimulationEmail", async (req, res) => {
-    console.log("in sendSimulationEmail");
-    console.log(req.body);
+   //console.log("in sendSimulationEmail");
+   //console.log(req.body);
     //console.log(req);
-    console.log("--------------------scheduled_tim--------------------------------------------------");
+   //console.log("--------------------scheduled_tim--------------------------------------------------");
     let message_to_send = await req.body.message;
     let user_to_send = await req.body.email;
     let scheduled_time = await req.body.scheduled_time;

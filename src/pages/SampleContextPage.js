@@ -3,7 +3,7 @@ import userContext from "../components/userContext"
 
 function SampleContextPage(props) {
 
-    console.log(userContext)
+   //console.log(userContext)
     return (
         <p>{userContext.authToken}</p>
 

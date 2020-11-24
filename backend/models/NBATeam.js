@@ -19,7 +19,7 @@ module.exports = NBATeam
 
 async function loadTeams() {
     let teams = TeamsJson.teams;
-    console.log('running')
+   //console.log('running')
     teams.forEach(async (team) => {
         let currentTeam = new NBATeam({
             name: `${team.region} ${team.name}`,
@@ -28,7 +28,7 @@ async function loadTeams() {
         try {
             await currentTeam.save()
         } catch (err) {
-            console.log(err.toString())
+           //console.log(err.toString())
         }
 
 
