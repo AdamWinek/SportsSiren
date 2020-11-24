@@ -14,7 +14,6 @@ function NFLScoreboard(props) {
 
     useEffect(() => {
         let getGame = async function () {
-            console.log('here')
             let methodUrl = "https://sports-siren.herokuapp.com/api/"
             console.log(process.env.REACT_APP_DEV_ENV)
             if (process.env.REACT_APP_DEV_ENV == "development") {

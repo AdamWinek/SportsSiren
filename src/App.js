@@ -8,6 +8,7 @@ import Scoreboard from './components/Scoreboard';
 import NFLScoreboard from './components/NFLScoreboard';
 import SubscribePage from './pages/SubscribePage'
 import ExplorePage from './pages/ExplorePage'
+import GamePage from './pages/GamePage'
 import {
   BrowserRouter as Router,
   Switch,
@@ -90,6 +91,9 @@ function App() {
           </Route>
           <Route path="/settings">
             {loggedIn ? <Settings logout={() => logout()} /> : <Redirect to="/" />}
+          </Route>
+          <Route path="/games/:gameId">
+            {loggedIn ? <GamePage /> : <GamePage />}
           </Route>
         </Switch>
       </Router>
