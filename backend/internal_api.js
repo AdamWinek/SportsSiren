@@ -279,6 +279,11 @@ async function createSubscription(req, res) {
 
 
 async function handleNotification(req, res) {
+  let methodUrl = "https://sports-siren.herokuapp.com/api/";
+  if (process.env.REACT_APP_DEV_ENV == "development") {
+    methodUrl = "http://localhost:3000/api/";
+  }
+
   let game = req.body.game;
   let quarter = 0
   if (game.qtr != undefined) {
